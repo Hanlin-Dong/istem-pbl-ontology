@@ -1,0 +1,13 @@
+@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<ie-pbl> a owl:Ontology ;
+    rdfs:label "IE-PBL Ontology"@en ;
+    rdfs:comment "Interdisciplinary Engineering Project-Based Learning Ontology. Multi-purpose semantic digital twin."@en ;
+    owl:imports <module-anchor.ttl>,
+        <module-core.ttl>,
+        <module-knowledge.ttl>,
+        <module-process.ttl>,
+        <module-team.ttl> .
+

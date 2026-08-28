@@ -1,0 +1,40 @@
+# S2D Cognitive Pathway Query (Informed Design)
+# Traces a student's cognitive trajectory from HypothesisProposing through
+# EvidenceAnalyzing to PrincipleFormulating, then via informsDesign to the
+# engineering activity that the science informed.
+# Uses transitive isFollowedByAction to chain discourse events.
+
+PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#>
+PREFIX anch: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX know: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#>
+
+SELECT ?hypothesis ?evidence ?principle ?designActivity ?conceptTitle
+WHERE {
+    # Step 1: Find a HypothesisProposing discourse action
+    ?da_hyp a proc:HypothesisProposing ;
+            proc:timestamp ?t_hyp ;
+            proc:utteranceText ?hypothesis .
+
+    # Step 2: Follow transitive discourse chain to EvidenceAnalyzing
+    ?da_hyp proc:isFollowedByAction* ?da_evid .
+    ?da_evid a proc:EvidenceAnalyzing ;
+             proc:utteranceText ?evidence .
+
+    # Step 3: Follow transitive discourse chain to PrincipleFormulating
+    ?da_evid proc:isFollowedByAction* ?da_princ .
+    ?da_princ a proc:PrincipleFormulating ;
+              proc:utteranceText ?principle .
+
+    # Step 4: S2D Bridge — the principle informs a design/making activity
+    ?da_princ proc:informsDesign ?activity .
+    ?activity core:hasTitle ?designActivity .
+
+    # Optional: the principle references a scientific concept
+    OPTIONAL {
+        ?da_princ proc:referencesConcept ?concept .
+        ?concept core:hasTitle ?conceptTitle
+    }
+}
+ORDER BY ?t_hyp

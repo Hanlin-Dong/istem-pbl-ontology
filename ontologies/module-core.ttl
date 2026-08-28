@@ -1,0 +1,484 @@
+@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<module-core.ttl> a owl:Ontology .
+
+<module-core.ttl#CDIO_Conceive> a owl:Class ;
+    rdfs:comment "[CDIO] Define customer needs, consider technology, regulations, and strategy.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ProblemScoping> .
+
+<module-core.ttl#CDIO_Design> a owl:Class ;
+    rdfs:comment "[CDIO] Create detailed plans, drawings, specifications, and models.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#SolutionIdeation> .
+
+<module-core.ttl#CDIO_Implement> a owl:Class ;
+    rdfs:comment "[CDIO] Manufacture, build, code, integrate, and validate the design.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Implementation> .
+
+<module-core.ttl#CDIO_Operate> a owl:Class ;
+    rdfs:comment "[CDIO] Deploy, maintain, evolve, and retire the system; assess performance.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Evaluation> .
+
+<module-core.ttl#EiE_Ask> a owl:Class ;
+    rdfs:comment "[EiE] Define the problem, its constraints, and success criteria.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ProblemScoping> .
+
+<module-core.ttl#EiE_Create> a owl:Class ;
+    rdfs:comment "[EiE] Build and test a prototype.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Implementation> .
+
+<module-core.ttl#EiE_Imagine> a owl:Class ;
+    rdfs:comment "[EiE] Brainstorm multiple possible solutions.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#SolutionIdeation> ;
+    owl:disjointWith <module-core.ttl#EiE_Plan> .
+
+<module-core.ttl#EiE_Improve> a owl:Class ;
+    rdfs:comment "[EiE] Iterate and optimize based on feedback and testing.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Evaluation> .
+
+<module-core.ttl#EntryEvent> a owl:Class ;
+    rdfs:comment "The initial hook activity that introduces the project and sparks curiosity.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Activity> .
+
+<module-core.ttl#FinalPresentation> a owl:Class ;
+    rdfs:comment "Final project presentation, report submission, and reflection.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#CommunicationAndClosure> .
+
+<module-core.ttl#concurrentWith> a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:label "concurrent with@en"^^xsd:string ;
+    rdfs:comment "Two phases that occur simultaneously. Symmetric. Models real classrooms where Create and Improve often happen concurrently.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Phase> .
+
+<module-core.ttl#deliverableType> a owl:DatatypeProperty ;
+    rdfs:label "deliverableType@en"^^xsd:string ;
+    rdfs:comment "Type of deliverable: 'prototype', 'report', 'presentation', 'code', 'model', 'artifact', 'poster', 'video'. Enables filtering before quality assessment plugin is loaded.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Deliverable> ;
+    rdfs:range xsd:string .
+
+<module-core.ttl#endTime> a owl:DatatypeProperty ;
+    rdfs:label "endTime@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Project> <module-core.ttl#Phase> ) ] ;
+    rdfs:range xsd:dateTime .
+
+<module-core.ttl#hasCognitiveMode> a owl:DatatypeProperty ;
+    rdfs:label "hasCognitiveMode@en"^^xsd:string ;
+    rdfs:comment "Cognitive mode of a SolutionIdeation phase: 'divergent' (brainstorming, generating alternatives) or 'convergent' (selecting, refining, planning). Distinguishes EiE_Imagine from EiE_Plan.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#SolutionIdeation> ;
+    rdfs:range xsd:string .
+
+<module-core.ttl#hasDescription> a owl:DatatypeProperty ;
+    rdfs:label "hasDescription@en"^^xsd:string ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:string .
+
+<module-core.ttl#hasEvaluationCriterion> a owl:DatatypeProperty ;
+    rdfs:label "hasEvaluationCriterion@en"^^xsd:string ;
+    rdfs:comment "External rubric item reference (ID or URL). Decoupled hook for future quality assessment plugin. Example: 'rubric.creativity', 'ngss.hs-ets1-2'.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Deliverable> ;
+    rdfs:range xsd:string .
+
+<module-core.ttl#hasModality> a owl:DatatypeProperty ;
+    rdfs:label "hasModality@en"^^xsd:string ;
+    rdfs:comment "Communication modality of a learning event: 'verbal', 'gestural', 'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#LearningEvent> ;
+    rdfs:range xsd:string .
+
+<module-core.ttl#hasTitle> a owl:DatatypeProperty ;
+    rdfs:label "hasTitle@en"^^xsd:string ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:string .
+
+<module-core.ttl#questionText> a owl:DatatypeProperty ;
+    rdfs:label "questionText@en"^^xsd:string ;
+    rdfs:comment "The text of a driving question.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#DrivingQuestion> ;
+    rdfs:range xsd:string .
+
+<module-core.ttl#startTime> a owl:DatatypeProperty ;
+    rdfs:label "startTime@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Project> <module-core.ttl#Phase> ) ] ;
+    rdfs:range xsd:dateTime .
+
+<module-knowledge.ttl#appliesConcept> rdfs:domain <module-core.ttl#Activity> .
+
+<module-knowledge.ttl#generatedInActivity> rdfs:range <module-core.ttl#Activity> .
+
+<module-knowledge.ttl#generatesBridge> rdfs:domain <module-core.ttl#Activity> .
+
+<module-knowledge.ttl#isAppliedInActivity> rdfs:range <module-core.ttl#Activity> .
+
+<module-process.ttl#NonverbalAction> rdfs:subClassOf <module-core.ttl#LearningEvent> .
+
+<module-process.ttl#containsDiscourse> rdfs:domain <module-core.ttl#Phase> .
+
+<module-process.ttl#estimatedDuration> rdfs:domain <module-core.ttl#Activity> .
+
+<module-process.ttl#occursInPhase> rdfs:range <module-core.ttl#Phase> .
+
+<module-team.ttl#InstructorIntervention> rdfs:subClassOf <module-core.ttl#LearningEvent> .
+
+<module-team.ttl#hasTeam> rdfs:domain <module-core.ttl#Project> .
+
+<module-team.ttl#isTeamOf> rdfs:range <module-core.ttl#Project> .
+
+<module-team.ttl#learnerCurrentPhase> rdfs:range <module-core.ttl#Phase> .
+
+<module-core.ttl#BackgroundResearchPhase> a owl:Class ;
+    rdfs:comment "Literature review and background reading to establish scientific foundations.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+
+<module-core.ttl#EiE_Plan> a owl:Class ;
+    rdfs:comment "[EiE] Select and design a solution approach.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#SolutionIdeation> .
+
+<module-core.ttl#FiveE_Elaborate> a owl:Class ;
+    rdfs:comment "[5E] Elaborate: apply and extend scientific principles to new contexts.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+
+<module-core.ttl#FiveE_Engage> a owl:Class ;
+    rdfs:comment "[5E] Engage: spark curiosity, connect to prior knowledge, present the driving question.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+
+<module-core.ttl#FiveE_Evaluate> a owl:Class ;
+    rdfs:comment "[5E] Evaluate: formative and summative assessment of scientific understanding.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+
+<module-core.ttl#FiveE_Explain> a owl:Class ;
+    rdfs:comment "[5E] Students articulate scientific principles discovered during exploration.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+
+<module-core.ttl#FiveE_Explore> a owl:Class ;
+    rdfs:comment "[5E] Hands-on exploration: students conduct experiments to discover scientific phenomena.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+
+<module-core.ttl#backtracksTo> a owl:ObjectProperty ;
+    rdfs:label "backtracksTo@en"^^xsd:string ;
+    rdfs:comment "Indicates a recursive backtrack from one phase to a prior phase. Non-transitive — models real design process recursion.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#isBacktrackedFrom> .
+
+<module-core.ttl#belongsToPhase> a owl:ObjectProperty ;
+    rdfs:label "belongsToPhase@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Activity> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#hasActivity> .
+
+<module-core.ttl#constraintViolationTriggers> a owl:ObjectProperty ;
+    rdfs:label "constraintViolationTriggers@en"^^xsd:string ;
+    rdfs:comment "A constraint violation triggers backtracking to a prior phase. Captures the dynamic 'constraint conflict → redesign' pattern in real PBL.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Constraint> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#isTriggeredByConstraint> .
+
+<module-core.ttl#dependsOn> a owl:ObjectProperty ;
+    rdfs:label "dependsOn@en"^^xsd:string ;
+    rdfs:comment "Prerequisite dependency between activities.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Activity> ;
+    rdfs:range <module-core.ttl#Activity> ;
+    owl:inverseOf <module-core.ttl#isPrerequisiteFor> .
+
+<module-core.ttl#hasActivity> a owl:ObjectProperty ;
+    rdfs:label "hasActivity@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Activity> ;
+    owl:inverseOf <module-core.ttl#belongsToPhase> .
+
+<module-core.ttl#hasConstraint> a owl:ObjectProperty ;
+    rdfs:label "hasConstraint@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Project> ;
+    rdfs:range <module-core.ttl#Constraint> ;
+    owl:inverseOf <module-core.ttl#isConstraintOf> .
+
+<module-core.ttl#hasDeliverable> a owl:ObjectProperty ;
+    rdfs:label "hasDeliverable@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Activity> ;
+    rdfs:range <module-core.ttl#Deliverable> ;
+    owl:inverseOf <module-core.ttl#isDeliverableOf> .
+
+<module-core.ttl#hasDrivingQuestion> a owl:ObjectProperty ;
+    rdfs:label "hasDrivingQuestion@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Project> ;
+    rdfs:range <module-core.ttl#DrivingQuestion> ;
+    owl:inverseOf <module-core.ttl#isDrivingQuestionOf> .
+
+<module-core.ttl#hasPhase> a owl:ObjectProperty ;
+    rdfs:label "hasPhase@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Project> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#isPhaseOf> .
+
+<module-core.ttl#hasSubPhase> a owl:ObjectProperty ;
+    rdfs:label "hasSubPhase@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#SubPhase> ;
+    owl:inverseOf <module-core.ttl#isSubPhaseOf> .
+
+<module-core.ttl#isBacktrackedFrom> a owl:ObjectProperty ;
+    rdfs:label "isBacktrackedFrom@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#backtracksTo> .
+
+<module-core.ttl#isConstraintOf> a owl:ObjectProperty ;
+    rdfs:label "isConstraintOf@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Constraint> ;
+    rdfs:range <module-core.ttl#Project> ;
+    owl:inverseOf <module-core.ttl#hasConstraint> .
+
+<module-core.ttl#isDeliverableOf> a owl:ObjectProperty ;
+    rdfs:label "isDeliverableOf@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Deliverable> ;
+    rdfs:range <module-core.ttl#Activity> ;
+    owl:inverseOf <module-core.ttl#hasDeliverable> .
+
+<module-core.ttl#isDrivingQuestionOf> a owl:ObjectProperty ;
+    rdfs:label "isDrivingQuestionOf@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#DrivingQuestion> ;
+    rdfs:range <module-core.ttl#Project> ;
+    owl:inverseOf <module-core.ttl#hasDrivingQuestion> .
+
+<module-core.ttl#isPhaseOf> a owl:ObjectProperty ;
+    rdfs:label "isPhaseOf@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Project> ;
+    owl:inverseOf <module-core.ttl#hasPhase> .
+
+<module-core.ttl#isPrerequisiteFor> a owl:ObjectProperty ;
+    rdfs:label "isPrerequisiteFor@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Activity> ;
+    rdfs:range <module-core.ttl#Activity> ;
+    owl:inverseOf <module-core.ttl#dependsOn> .
+
+<module-core.ttl#isProducedBy> a owl:ObjectProperty ;
+    rdfs:label "isProducedBy@en"^^xsd:string ;
+    rdfs:comment "The learner who produced this deliverable. Links artifact to creator for per-student quality assessment.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Deliverable> ;
+    rdfs:range <module-team.ttl#Learner> ;
+    owl:inverseOf <module-core.ttl#producesDeliverable> .
+
+<module-core.ttl#isSubPhaseOf> a owl:ObjectProperty ;
+    rdfs:label "isSubPhaseOf@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#SubPhase> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#hasSubPhase> .
+
+<module-core.ttl#isTriggeredByConstraint> a owl:ObjectProperty ;
+    rdfs:label "isTriggeredByConstraint@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Constraint> ;
+    owl:inverseOf <module-core.ttl#constraintViolationTriggers> .
+
+<module-core.ttl#precedes> a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:label "precedes@en"^^xsd:string ;
+    rdfs:comment "Temporal ordering between phases. Transitive.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#succeeds> .
+
+<module-core.ttl#producesDeliverable> a owl:ObjectProperty ;
+    rdfs:label "producesDeliverable@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range <module-core.ttl#Deliverable> ;
+    owl:inverseOf <module-core.ttl#isProducedBy> .
+
+<module-core.ttl#succeeds> a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:label "succeeds@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-core.ttl#precedes> .
+
+<module-core.ttl#SubPhase> a owl:Class ;
+    rdfs:comment "A finer-grained sub-stage within a Phase. Allows grade-band-specific decomposition without modifying the abstract Phase taxonomy. Example: ProblemScoping may decompose into NeedsFinding, StakeholderAnalysis, ConstraintIdentification for high school, but remain undivided for K-2.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-core.ttl#CommunicationAndClosure> a owl:Class ;
+    rdfs:comment "Presenting outcomes, documenting processes, reflecting, closing the project.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#DesignActivity> a owl:Class ;
+    rdfs:comment "Cognitive design work: sketching, CAD modeling, calculating, planning.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Activity> .
+
+<module-core.ttl#InquiryActivity> a owl:Class ;
+    rdfs:comment "Scientific investigation: conducting experiments, collecting data, reviewing literature.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Activity> .
+
+<module-core.ttl#MakingActivity> a owl:Class ;
+    rdfs:comment "Physical fabrication: 3D printing, assembling, cutting, soldering.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Activity> .
+
+<module-core.ttl#DrivingQuestion> a owl:Class ;
+    rdfs:comment "The central, open-ended question that drives the PBL project inquiry.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-core.ttl#Evaluation> a owl:Class ;
+    rdfs:comment "Testing, measuring, analyzing results against criteria, iterating.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#Implementation> a owl:Class ;
+    rdfs:comment "Building, coding, prototyping — translating design into artifact.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#LearningEvent> a owl:Class ;
+    rdfs:comment "Abstract parent for all observable learning behaviors (verbal and nonverbal).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-core.ttl#ProblemScoping> a owl:Class ;
+    rdfs:comment "Defining the problem space, identifying constraints, establishing success criteria.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#Constraint> a owl:Class ;
+    rdfs:comment "A boundary condition on a project (time, resource, scope, etc.).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-process.ttl#DiscourseAction> rdfs:subClassOf <module-core.ttl#LearningEvent> .
+
+<module-core.ttl#SolutionIdeation> a owl:Class ;
+    rdfs:comment "Generating, brainstorming, and selecting among possible solutions.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#Deliverable> a owl:Class ;
+    rdfs:comment "A tangible output artifact produced by an activity.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-core.ttl#ScientificInvestigation> a owl:Class ;
+    rdfs:comment "Formal scientific inquiry: experiments, data analysis, and discovery of laws that inform engineering design. Key to Integrated STEM 'Informed Design' (Burghardt & Hacker, 2004).@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#Project> a owl:Class ;
+    rdfs:comment "A PBL unit consisting of phases, activities, constraints, and deliverables.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-core.ttl#Activity> a owl:Class ;
+    rdfs:comment "An atomic learning task within a phase.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-core.ttl#Phase> a owl:Class ;
+    rdfs:comment "A temporal segment of a project (e.g. Ask, Imagine, Plan, Create, Improve).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#ProblemScoping> <module-core.ttl#SolutionIdeation> <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) ] .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-core.ttl#ProblemScoping> <module-core.ttl#SolutionIdeation> <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] rdf:first <module-process.ttl#DesignReasoningAction> ;
+    rdf:rest ( <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
+
+[] rdf:first <module-process.ttl#EvidenceAnalyzing> ;
+    rdf:rest ( <module-process.ttl#PrincipleFormulating> ) .
+
+[] rdf:first <module-process.ttl#PlanningUtterance> ;
+    rdf:rest ( <module-process.ttl#DesignJustification> <module-process.ttl#ConstraintReasoningAction> ) .
+
+[] rdf:first <module-process.ttl#PeerTutoring> ;
+    rdf:rest ( <module-process.ttl#PeerAssessment> <module-process.ttl#TaskCoordination> <module-process.ttl#KnowledgeSharing> <module-process.ttl#CognitiveConflict> ) .
+
+[] rdf:first <module-process.ttl#ProcessConfusion> ;
+    rdf:rest ( <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-core.ttl#BackgroundResearchPhase> <module-core.ttl#FiveE_Engage> <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
+
+[] rdf:first <module-process.ttl#Agreement> ;
+    rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
+
+[] rdf:first <module-process.ttl#TaskManagement> ;
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+
+[] rdf:first <module-process.ttl#Iteration> ;
+    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> ) .
+
+[] rdf:first <module-core.ttl#Activity> ;
+    rdf:rest ( <module-process.ttl#DiscourseAction> ) .
+
+[] rdf:first <module-core.ttl#Activity> ;
+    rdf:rest ( <module-process.ttl#DiscourseAction> ) .
+
+[] rdf:first <module-core.ttl#DesignActivity> ;
+    rdf:rest ( <module-core.ttl#MakingActivity> ) .
+
+[] rdf:first <module-core.ttl#DesignActivity> ;
+    rdf:rest ( <module-core.ttl#MakingActivity> ) .
+
+[] rdf:first <module-core.ttl#InquiryActivity> ;
+    rdf:rest () .
+
+[] rdf:first <module-core.ttl#InquiryActivity> ;
+    rdf:rest () .
+
+[] rdf:first <module-process.ttl#ToolSharing> ;
+    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-core.ttl#DesignActivity> <module-core.ttl#MakingActivity> <module-core.ttl#InquiryActivity> ) .
+
+[] rdf:first <module-team.ttl#ConceptualExpert> ;
+    rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
+
+[] rdf:first <module-team.ttl#Builder> ;
+    rdf:rest ( <module-team.ttl#ProjectManager> <module-team.ttl#Researcher> <module-team.ttl#Designer> <module-team.ttl#Presenter> <module-team.ttl#MaterialManager> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-core.ttl#Project> <module-core.ttl#Phase> <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
+
+[] rdf:first <module-team.ttl#Actor> ;
+    rdf:rest ( <module-team.ttl#HumanRole> ) .
+
+[] rdf:first <module-team.ttl#DirectionalGuidance> ;
+    rdf:rest ( <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
+
+[] rdf:first <module-anchor.ttl#AnalogicalTransfer> ;
+    rdf:rest ( <module-anchor.ttl#IntegratedExplanation> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
+    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
+
+[] rdf:first <module-anchor.ttl#PerformanceTrace> ;
+    rdf:rest ( <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-anchor.ttl#CompetencyDimension> ;
+    rdf:rest ( <module-anchor.ttl#PerformanceTrace> <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-core.ttl#Activity> ;
+    rdf:rest ( <module-process.ttl#DiscourseAction> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> ) .
+
+[] rdf:first <module-core.ttl#Activity> ;
+    rdf:rest ( <module-process.ttl#DiscourseAction> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborationIndicator> ;
+    rdf:rest ( <module-anchor.ttl#OutcomeIndicator> ) .
+
+[] rdf:first <module-knowledge.ttl#MappingBridge> ;
+    rdf:rest ( <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
+
+[] rdf:first <module-knowledge.ttl#Skill> ;
+    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+
+[] rdf:first <module-process.ttl#Understanding> ;
+    rdf:rest ( <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
+
+[] rdf:first <module-process.ttl#PartialSuccess> ;
+    rdf:rest ( <module-process.ttl#Failure> ) .
+

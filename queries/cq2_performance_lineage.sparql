@@ -1,0 +1,21 @@
+# CQ2: Complete Performance Lineage for a Learner
+# Show all traces with competency, score, and originating event for learner "Alice".
+
+PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#>
+PREFIX anch: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+
+SELECT ?competency ?score ?timestamp ?utterance
+WHERE {
+    ?learner team:hasName "Alice" .
+    ?trace anch:isGeneratedByLearner ?learner ;
+           anch:tracesCompetency ?comp ;
+           anch:competencyScore ?score ;
+           anch:recordedAt ?timestamp ;
+           anch:derivedFromEvent ?event .
+    ?comp a ?compClass .
+    OPTIONAL { ?event proc:utteranceText ?utterance }
+    BIND(REPLACE(STR(?compClass), ".*#", "") AS ?competency)
+}
+ORDER BY ?timestamp

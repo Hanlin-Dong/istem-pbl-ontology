@@ -1,0 +1,445 @@
+@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<module-anchor.ttl#hasCompetencyProfile> rdfs:domain <module-team.ttl#Learner> .
+
+<module-anchor.ttl#hasPerformanceTrace> rdfs:domain <module-team.ttl#Learner> .
+
+<module-anchor.ttl#hasTeamState> rdfs:domain <module-team.ttl#Team> .
+
+<module-anchor.ttl#isGeneratedByLearner> rdfs:range <module-team.ttl#Learner> .
+
+<module-anchor.ttl#isProfileOf> rdfs:range <module-team.ttl#Learner> .
+
+<module-anchor.ttl#isStateOfTeam> rdfs:range <module-team.ttl#Team> .
+
+<module-anchor.ttl#isTriggeredByDiscourse> rdfs:domain <module-team.ttl#VirtualAgent> .
+
+<module-anchor.ttl#triggersAgent> rdfs:range <module-team.ttl#VirtualAgent> .
+
+<module-core.ttl#isProducedBy> rdfs:range <module-team.ttl#Learner> .
+
+<module-core.ttl#producesDeliverable> rdfs:domain <module-team.ttl#Learner> .
+
+<module-process.ttl#directedToTeam> rdfs:range <module-team.ttl#Team> .
+
+<module-process.ttl#isReferencedByTeam> rdfs:domain <module-team.ttl#Team> .
+
+<module-process.ttl#isTargetedByAction> rdfs:domain <module-team.ttl#Team> .
+
+<module-process.ttl#performsAction> rdfs:domain <module-team.ttl#Actor> .
+
+<module-process.ttl#referencesTeamWork> rdfs:range <module-team.ttl#Team> .
+
+<module-team.ttl> a owl:Ontology ;
+    owl:imports <module-core.ttl>,
+        <module-knowledge.ttl>,
+        <module-process.ttl> .
+
+<module-team.ttl#hasCompetency> a owl:ObjectProperty ;
+    rdfs:label "has competency@en"^^xsd:string ;
+    rdfs:comment "Forward reference to Module 5. A Learner possesses a measurable CompetencyDimension.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range <module-anchor.ttl#CompetencyDimension> .
+
+<module-team.ttl#hasName> a owl:DatatypeProperty ;
+    rdfs:label "hasName@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#HumanActor> ;
+    rdfs:range xsd:string .
+
+<module-team.ttl#hasZPDCurrentLevel> a owl:DatatypeProperty ;
+    rdfs:label "hasZPDCurrentLevel@en"^^xsd:string ;
+    rdfs:comment "The learner's current independent performance level (ZPD actual development level). Value references a CompetencyDimension name or proficiency label.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range xsd:string .
+
+<module-team.ttl#hasZPDPotentialLevel> a owl:DatatypeProperty ;
+    rdfs:label "hasZPDPotentialLevel@en"^^xsd:string ;
+    rdfs:comment "The learner's potential performance level with scaffolding (ZPD proximal development). The gap between current and potential defines the ZPD.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range xsd:string .
+
+<module-team.ttl#interactsWith> a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:label "interacts with@en"^^xsd:string ;
+    rdfs:comment "Symmetric interaction relation between Actors.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-team.ttl#Actor> .
+
+<module-team.ttl#interventionThreshold> a owl:DatatypeProperty ;
+    rdfs:label "interventionThreshold@en"^^xsd:string ;
+    rdfs:comment "Confidence/urgency threshold (0-1) for the agent to intervene. Higher = less intrusive.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range xsd:decimal .
+
+<module-team.ttl#learnerCurrentPhase> a owl:ObjectProperty ;
+    rdfs:label "learner current phase@en"^^xsd:string ;
+    rdfs:comment "The phase a specific learner is currently engaged in. Enables per-learner phase tracking for multi-agent orchestration and individualized assessment. Distinct from Project.hasPhase which defines the official timeline.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range <module-core.ttl#Phase> .
+
+<module-team.ttl#personaPrompt> a owl:DatatypeProperty ;
+    rdfs:label "personaPrompt@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range xsd:string .
+
+<module-team.ttl#responseFormat> a owl:DatatypeProperty ;
+    rdfs:label "responseFormat@en"^^xsd:string ;
+    rdfs:comment "Expected response format for the agent: 'text', 'json', 'markdown', 'socratic'.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range xsd:string .
+
+<module-team.ttl#responseTemplate> a owl:DatatypeProperty ;
+    rdfs:label "responseTemplate@en"^^xsd:string ;
+    rdfs:comment "Structured response format template for LLM output (e.g. '{\"message\": ..., \"scaffold_level\": ...}').@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range xsd:string .
+
+<module-team.ttl#scaffoldingFadeRate> a owl:DatatypeProperty ;
+    rdfs:label "scaffoldingFadeRate@en"^^xsd:string ;
+    rdfs:comment "Rate (0-1) at which scaffolding is withdrawn as learner competence increases (Hannafin: fading).@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range xsd:decimal .
+
+<module-process.ttl#isAttributedTo> rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#hasDiscourseAction> .
+
+<module-team.ttl#Builder> a owl:Class ;
+    rdfs:subClassOf <module-team.ttl#HumanRole> .
+
+<module-team.ttl#Designer> a owl:Class ;
+    rdfs:comment "Student responsible for sketching, CAD, and design visualization.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#HumanRole> .
+
+<module-team.ttl#MaterialManager> a owl:Class ;
+    rdfs:comment "Student responsible for managing materials, tools, and workspace organization.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#HumanRole> .
+
+<module-team.ttl#Presenter> a owl:Class ;
+    rdfs:comment "Student responsible for final presentations and public communication.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#HumanRole> .
+
+<module-team.ttl#Programmer> a owl:Class ;
+    rdfs:subClassOf <module-team.ttl#HumanRole> .
+
+<module-team.ttl#ProjectManager> a owl:Class ;
+    rdfs:subClassOf <module-team.ttl#HumanRole> .
+
+<module-team.ttl#Researcher> a owl:Class ;
+    rdfs:comment "Student responsible for research, data collection, and evidence gathering.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#HumanRole> .
+
+<module-team.ttl#hasDiscourseAction> a owl:ObjectProperty ;
+    rdfs:label "has discourse action@en"^^xsd:string ;
+    rdfs:comment "An Actor produces a DiscourseAction. Completes the M3:M4 bridge.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#isAttributedTo> .
+
+<module-team.ttl#hasTeam> a owl:ObjectProperty ;
+    rdfs:label "hasTeam@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Project> ;
+    rdfs:range <module-team.ttl#Team> ;
+    owl:inverseOf <module-team.ttl#isTeamOf> .
+
+<module-team.ttl#hasTeamMember> a owl:ObjectProperty ;
+    rdfs:label "hasTeamMember@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Team> ;
+    rdfs:range <module-team.ttl#HumanActor> ;
+    owl:inverseOf <module-team.ttl#isMemberOf> .
+
+<module-team.ttl#instructsTeam> a owl:ObjectProperty ;
+    rdfs:label "instructsTeam@en"^^xsd:string ;
+    rdfs:comment "An instructor provides guidance to a team. Distinguished from isMemberOf because instructors are not 'team members' but cross-team facilitators.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Instructor> ;
+    rdfs:range <module-team.ttl#Team> ;
+    owl:inverseOf <module-team.ttl#isInstructedBy> .
+
+<module-team.ttl#isDomainOfAgent> a owl:ObjectProperty ;
+    rdfs:label "isDomainOfAgent@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#DomainBoundary> ;
+    rdfs:range <module-team.ttl#VirtualAgent> ;
+    owl:inverseOf <module-team.ttl#hasDomainBoundary> .
+
+<module-team.ttl#isInstructedBy> a owl:ObjectProperty ;
+    rdfs:label "isInstructedBy@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Team> ;
+    rdfs:range <module-team.ttl#Instructor> ;
+    owl:inverseOf <module-team.ttl#instructsTeam> .
+
+<module-team.ttl#isMemberOf> a owl:ObjectProperty ;
+    rdfs:label "isMemberOf@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#HumanActor> ;
+    rdfs:range <module-team.ttl#Team> ;
+    owl:inverseOf <module-team.ttl#hasTeamMember> .
+
+<module-team.ttl#isMonitoredByAgent> a owl:ObjectProperty ;
+    rdfs:label "isMonitoredByAgent@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Team> ;
+    rdfs:range <module-team.ttl#VirtualAgent> ;
+    owl:inverseOf <module-team.ttl#monitorsTeam> .
+
+<module-team.ttl#isOverriddenByInstructor> a owl:ObjectProperty ;
+    rdfs:label "isOverriddenByInstructor@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range <module-team.ttl#InstructorIntervention> ;
+    owl:inverseOf <module-team.ttl#overridesAgent> .
+
+<module-team.ttl#isPlayedBy> a owl:ObjectProperty ;
+    rdfs:label "isPlayedBy@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#HumanRole> ;
+    rdfs:range <module-team.ttl#Learner> ;
+    owl:inverseOf <module-team.ttl#playsRole> .
+
+<module-team.ttl#isRespondedToBy> a owl:ObjectProperty ;
+    rdfs:label "isRespondedToBy@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#respondsTo> .
+
+<module-team.ttl#isSharedWithBy> a owl:ObjectProperty ;
+    rdfs:label "isSharedWithBy@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#sharesWith> .
+
+<module-team.ttl#isSpokenToBy> a owl:ObjectProperty ;
+    rdfs:label "isSpokenToBy@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#speaksTo> .
+
+<module-team.ttl#isTeamOf> a owl:ObjectProperty ;
+    rdfs:label "isTeamOf@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Team> ;
+    rdfs:range <module-core.ttl#Project> ;
+    owl:inverseOf <module-team.ttl#hasTeam> .
+
+<module-team.ttl#monitorsTeam> a owl:ObjectProperty ;
+    rdfs:label "monitorsTeam@en"^^xsd:string ;
+    rdfs:comment "A VirtualAgent monitors the group discourse of a Team. Agents operate at the group level, not individual.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range <module-team.ttl#Team> ;
+    owl:inverseOf <module-team.ttl#isMonitoredByAgent> .
+
+<module-team.ttl#overridesAgent> a owl:ObjectProperty ;
+    rdfs:label "overridesAgent@en"^^xsd:string ;
+    rdfs:comment "An instructor can override or supplement a VirtualAgent's recommendation.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#InstructorIntervention> ;
+    rdfs:range <module-team.ttl#VirtualAgent> ;
+    owl:inverseOf <module-team.ttl#isOverriddenByInstructor> .
+
+<module-team.ttl#playsRole> a owl:ObjectProperty ;
+    rdfs:label "playsRole@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range <module-team.ttl#HumanRole> ;
+    owl:inverseOf <module-team.ttl#isPlayedBy> .
+
+<module-team.ttl#respondsTo> a owl:ObjectProperty ;
+    rdfs:label "respondsTo@en"^^xsd:string ;
+    rdfs:comment "Directional response: one actor replies to another.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#isRespondedToBy> .
+
+<module-team.ttl#sharesWith> a owl:ObjectProperty ;
+    rdfs:label "sharesWith@en"^^xsd:string ;
+    rdfs:comment "Directional sharing: one actor shares resources or information with another.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#isSharedWithBy> .
+
+<module-team.ttl#speaksTo> a owl:ObjectProperty ;
+    rdfs:label "speaksTo@en"^^xsd:string ;
+    rdfs:comment "Directional verbal interaction: one actor speaks to another.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#isSpokenToBy> .
+
+<module-team.ttl#AffectiveSupporter> a owl:Class ;
+    rdfs:comment "Provides affective and motivational support: empathy, encouragement, emotion regulation, and psychological-safety maintenance (SEL / affective scaffolding).@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#VirtualAgent> .
+
+<module-team.ttl#ClassroomManagement> a owl:Class ;
+    rdfs:comment "Instructor manages classroom logistics, transitions, or behavior.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#InstructorIntervention> .
+
+<module-team.ttl#ConceptualExpert> a owl:Class ;
+    rdfs:comment "Provides domain-specific knowledge and conceptual explanations (Hannafin: Conceptual).@en"^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <module-team.ttl#hasDomainBoundary> ;
+            owl:someValuesFrom <module-knowledge.ttl#DomainBoundary> ],
+        <module-team.ttl#VirtualAgent> .
+
+<module-team.ttl#DeepQuestioning> a owl:Class ;
+    rdfs:comment "Instructor uses Socratic or probing questions to deepen student thinking.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#InstructorIntervention> .
+
+<module-team.ttl#DirectionalGuidance> a owl:Class ;
+    rdfs:comment "Instructor provides procedural or strategic direction to advance the project.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#InstructorIntervention> .
+
+<module-team.ttl#DivergentBrainstormer> a owl:Class ;
+    rdfs:comment "Stimulates creative ideation and alternative perspectives (Hannafin: Strategic/Divergent).@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#VirtualAgent> .
+
+<module-team.ttl#EmotionalSupport> a owl:Class ;
+    rdfs:comment "Instructor provides emotional or motivational support to students.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#InstructorIntervention> .
+
+<module-team.ttl#MetacognitiveChallenger> a owl:Class ;
+    rdfs:comment "Prompts reflection, self-monitoring, and self-regulation (Hannafin: Metacognitive).@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#VirtualAgent> .
+
+<module-team.ttl#ProceduralGuide> a owl:Class ;
+    rdfs:comment "Scaffolds procedural steps in the engineering design process (Hannafin: Procedural).@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#VirtualAgent> .
+
+<module-team.ttl#SafetyIntervention> a owl:Class ;
+    rdfs:comment "Instructor intervenes to address a physical or digital safety concern.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#InstructorIntervention> .
+
+<module-team.ttl#SafetyMonitor> a owl:Class ;
+    rdfs:comment "Monitors physical and digital safety risks in PBL activities, especially during prototyping and testing.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#VirtualAgent> .
+
+<module-team.ttl#TimeManagement> a owl:Class ;
+    rdfs:comment "Instructor intervenes to keep the project on schedule or adjust pacing.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#InstructorIntervention> .
+
+<module-team.ttl#hasDomainBoundary> a owl:ObjectProperty ;
+    rdfs:label "hasDomainBoundary@en"^^xsd:string ;
+    rdfs:comment "KG-driven guardrail: defines the epistemological scope within which a VirtualAgent can operate.@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range <module-knowledge.ttl#DomainBoundary> ;
+    owl:inverseOf <module-team.ttl#isDomainOfAgent> .
+
+<module-team.ttl#Instructor> a owl:Class ;
+    rdfs:comment "A teacher or facilitator guiding the PBL process.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#HumanActor> .
+
+<module-team.ttl#HumanActor> a owl:Class ;
+    rdfs:comment "A human participant in a PBL team.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#Actor> ;
+    owl:disjointWith <module-team.ttl#VirtualAgent> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-team.ttl#Learner> <module-team.ttl#Instructor> ) ] .
+
+<module-team.ttl#InstructorIntervention> a owl:Class ;
+    rdfs:comment "A deliberate instructional intervention by the teacher during PBL.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#LearningEvent> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-team.ttl#SafetyIntervention> <module-team.ttl#DirectionalGuidance> <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) ] .
+
+<module-team.ttl#HumanRole> a owl:Class ;
+    rdfs:comment "A functional role within a PBL team. Disjoint from Actor hierarchy.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-team.ttl#Learner> a owl:Class ;
+    rdfs:comment "A student participating in the PBL project.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#HumanActor> ;
+    owl:disjointWith <module-team.ttl#Instructor> .
+
+<module-team.ttl#Team> a owl:Class ;
+    rdfs:comment "A collaborative group of human learners working on a PBL project. CSCL fundamental unit.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-team.ttl#Actor> a owl:Class ;
+    rdfs:comment "Abstract top class for all participants (human and AI) in a PBL team.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:disjointWith <module-team.ttl#HumanRole> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-team.ttl#HumanActor> <module-team.ttl#VirtualAgent> ) ] .
+
+<module-team.ttl#VirtualAgent> a owl:Class ;
+    rdfs:comment "An AI pedagogical agent endowed with a specific scaffolding role.@en"^^xsd:string ;
+    rdfs:subClassOf <module-team.ttl#Actor> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-team.ttl#ProceduralGuide> <module-team.ttl#ConceptualExpert> <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) ] .
+
+[] rdf:first <module-process.ttl#DesignReasoningAction> ;
+    rdf:rest ( <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
+
+[] rdf:first <module-process.ttl#EvidenceAnalyzing> ;
+    rdf:rest ( <module-process.ttl#PrincipleFormulating> ) .
+
+[] rdf:first <module-process.ttl#PlanningUtterance> ;
+    rdf:rest ( <module-process.ttl#DesignJustification> <module-process.ttl#ConstraintReasoningAction> ) .
+
+[] rdf:first <module-process.ttl#PeerTutoring> ;
+    rdf:rest ( <module-process.ttl#PeerAssessment> <module-process.ttl#TaskCoordination> <module-process.ttl#KnowledgeSharing> <module-process.ttl#CognitiveConflict> ) .
+
+[] rdf:first <module-process.ttl#ProcessConfusion> ;
+    rdf:rest ( <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) .
+
+[] rdf:first <module-process.ttl#Agreement> ;
+    rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
+
+[] rdf:first <module-process.ttl#TaskManagement> ;
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+
+[] rdf:first <module-core.ttl#FiveE_Engage> ;
+    rdf:rest ( <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
+
+[] rdf:first <module-process.ttl#Iteration> ;
+    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+
+[] rdf:first <module-process.ttl#ToolSharing> ;
+    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+
+[] rdf:first <module-core.ttl#MakingActivity> ;
+    rdf:rest ( <module-core.ttl#InquiryActivity> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-team.ttl#ProceduralGuide> <module-team.ttl#ConceptualExpert> <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-team.ttl#Programmer> <module-team.ttl#Builder> <module-team.ttl#ProjectManager> <module-team.ttl#Researcher> <module-team.ttl#Designer> <module-team.ttl#Presenter> <module-team.ttl#MaterialManager> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-team.ttl#Team> <module-team.ttl#Actor> <module-team.ttl#HumanRole> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-team.ttl#SafetyIntervention> <module-team.ttl#DirectionalGuidance> <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
+
+[] rdf:first <module-anchor.ttl#AnalogicalTransfer> ;
+    rdf:rest ( <module-anchor.ttl#IntegratedExplanation> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
+    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
+
+[] rdf:first <module-core.ttl#SolutionIdeation> ;
+    rdf:rest ( <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] rdf:first <module-anchor.ttl#PerformanceTrace> ;
+    rdf:rest ( <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-anchor.ttl#CompetencyDimension> ;
+    rdf:rest ( <module-anchor.ttl#PerformanceTrace> <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborationIndicator> ;
+    rdf:rest ( <module-anchor.ttl#OutcomeIndicator> ) .
+
+[] rdf:first <module-knowledge.ttl#MappingBridge> ;
+    rdf:rest ( <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
+
+[] rdf:first <module-knowledge.ttl#Skill> ;
+    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+
+[] rdf:first <module-process.ttl#Understanding> ;
+    rdf:rest ( <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
+
+[] rdf:first <module-process.ttl#PartialSuccess> ;
+    rdf:rest ( <module-process.ttl#Failure> ) .
+

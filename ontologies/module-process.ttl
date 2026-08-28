@@ -1,0 +1,635 @@
+@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<module-anchor.ttl#hasCognitiveStep> rdfs:domain <module-process.ttl#DiscourseAction> .
+
+<module-anchor.ttl#isCognitiveStepOf> rdfs:range <module-process.ttl#DiscourseAction> .
+
+<module-anchor.ttl#isTriggeredByDiscourse> rdfs:range <module-process.ttl#DiscourseAction> .
+
+<module-anchor.ttl#triggersAgent> rdfs:domain <module-process.ttl#DiscourseAction> .
+
+<module-knowledge.ttl#expressesPerspective> rdfs:domain <module-process.ttl#DiscourseAction> .
+
+<module-knowledge.ttl#isExpressedInAction> rdfs:range <module-process.ttl#DiscourseAction> .
+
+<module-process.ttl> a owl:Ontology ;
+    owl:imports <module-core.ttl>,
+        <module-knowledge.ttl> .
+
+<module-process.ttl#estimatedDuration> a owl:DatatypeProperty ;
+    rdfs:label "estimatedDuration@en"^^xsd:string ;
+    rdfs:comment "Estimated duration of an activity in minutes.@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Activity> ;
+    rdfs:range xsd:integer .
+
+<module-process.ttl#isAddressedToClass> a owl:DatatypeProperty ;
+    rdfs:label "isAddressedToClass@en"^^xsd:string ;
+    rdfs:comment "Whether this discourse action is addressed to the whole class (e.g. during final presentations, gallery walk debriefs).@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range xsd:boolean .
+
+<module-process.ttl#iterationNumber> a owl:DatatypeProperty ;
+    rdfs:label "iterationNumber@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Iteration> ;
+    rdfs:range xsd:integer .
+
+<module-process.ttl#performsAction> a owl:ObjectProperty ;
+    rdfs:label "performsAction@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#isAttributedTo> .
+
+<module-process.ttl#reflectionText> a owl:DatatypeProperty ;
+    rdfs:label "reflectionText@en"^^xsd:string ;
+    rdfs:comment "The textual content of a reflection.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Reflection> ;
+    rdfs:range xsd:string .
+
+<module-process.ttl#timestamp> a owl:DatatypeProperty ;
+    rdfs:label "timestamp@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range xsd:dateTime .
+
+<module-process.ttl#triggerConfidence> a owl:DatatypeProperty ;
+    rdfs:label "triggerConfidence@en"^^xsd:string ;
+    rdfs:comment "SWRL reasoning confidence score (0-1) for this trigger. Enables threshold-based filtering of low-confidence agent activations.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range xsd:decimal .
+
+<module-process.ttl#urgency> a owl:DatatypeProperty ;
+    rdfs:label "urgency@en"^^xsd:string ;
+    rdfs:comment "Urgency/priority level (0-1) for agent response arbitration. When multiple SWRL rules fire simultaneously, higher urgency triggers first.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range xsd:decimal .
+
+<module-process.ttl#utteranceText> a owl:DatatypeProperty ;
+    rdfs:label "utteranceText@en"^^xsd:string ;
+    rdfs:comment "The textual content of a discourse action.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range xsd:string .
+
+<module-process.ttl#valence> a owl:DatatypeProperty ;
+    rdfs:label "valence@en"^^xsd:string ;
+    rdfs:comment "Emotional valence of an EmotiveExpression (e.g. positive, negative, neutral).@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#EmotiveExpression> ;
+    rdfs:range xsd:string .
+
+<module-process.ttl#containsDiscourse> a owl:ObjectProperty ;
+    rdfs:label "containsDiscourse@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Phase> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#occursInPhase> .
+
+<module-process.ttl#directedToTeam> a owl:ObjectProperty ;
+    rdfs:label "directedToTeam@en"^^xsd:string ;
+    rdfs:comment "A discourse action directed at another team (e.g. gallery walk feedback, cross-team peer review). Distinguishes intra-team from inter-team discourse.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-team.ttl#Team> ;
+    owl:inverseOf <module-process.ttl#isTargetedByAction> .
+
+<module-process.ttl#hasIteration> a owl:ObjectProperty ;
+    rdfs:label "hasIteration@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#EngineeringDesignProcess> ;
+    rdfs:range <module-process.ttl#Iteration> ;
+    owl:inverseOf <module-process.ttl#isIterationOf> .
+
+<module-process.ttl#hasIterationEvent> a owl:ObjectProperty ;
+    rdfs:label "hasIterationEvent@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#EngineeringDesignProcess> ;
+    rdfs:range <module-process.ttl#Iteration> ;
+    owl:inverseOf <module-process.ttl#occursWithinProcess> .
+
+<module-process.ttl#hasIterationOutcome> a owl:ObjectProperty ;
+    rdfs:label "hasIterationOutcome@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Iteration> ;
+    rdfs:range <module-process.ttl#IterationOutcome> ;
+    owl:inverseOf <module-process.ttl#isOutcomeOfIteration> .
+
+<module-process.ttl#hasReflection> a owl:ObjectProperty ;
+    rdfs:label "hasReflection@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Phase> <module-core.ttl#Activity> ) ] ;
+    rdfs:range <module-process.ttl#Reflection> ;
+    owl:inverseOf <module-process.ttl#isReflectionOf> .
+
+<module-process.ttl#hasReflectionLevel> a owl:ObjectProperty ;
+    rdfs:label "hasReflectionLevel@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Reflection> ;
+    rdfs:range <module-process.ttl#ReflectionLevel> ;
+    owl:inverseOf <module-process.ttl#isLevelOfReflection> .
+
+<module-process.ttl#hasSubIteration> a owl:ObjectProperty ;
+    rdfs:label "hasSubIteration@en"^^xsd:string ;
+    rdfs:comment "Nested iteration: a micro-cycle inside a larger iteration (e.g. build→test→fix within a design iteration).@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Iteration> ;
+    rdfs:range <module-process.ttl#Iteration> ;
+    owl:inverseOf <module-process.ttl#isSubIterationOf> .
+
+<module-process.ttl#informsDesign> a owl:ObjectProperty ;
+    rdfs:label "informsDesign@en"^^xsd:string ;
+    rdfs:comment "S2D Bridge: A scientific discourse action directly informs a subsequent engineering activity. Hard computational evidence of the Science-to-Design cognitive trajectory (Informed Design).@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#DesignActivity> <module-core.ttl#MakingActivity> ) ] ;
+    owl:inverseOf <module-process.ttl#isInformedByScience> .
+
+<module-process.ttl#isDecisionJustifiedBy> a owl:ObjectProperty ;
+    rdfs:label "isDecisionJustifiedBy@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DesignJustification> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#justifiesDecision> .
+
+<module-process.ttl#isFollowedByAction> a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:label "isFollowedByAction@en"^^xsd:string ;
+    rdfs:comment "Generic transitive discourse thread.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#isPrecededByAction> .
+
+<module-process.ttl#isInformedByScience> a owl:ObjectProperty ;
+    rdfs:label "isInformedByScience@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#DesignActivity> <module-core.ttl#MakingActivity> ) ] ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#informsDesign> .
+
+<module-process.ttl#isIterationOf> a owl:ObjectProperty ;
+    rdfs:label "isIterationOf@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Iteration> ;
+    rdfs:range <module-process.ttl#EngineeringDesignProcess> ;
+    owl:inverseOf <module-process.ttl#hasIteration> .
+
+<module-process.ttl#isLevelOfReflection> a owl:ObjectProperty ;
+    rdfs:label "isLevelOfReflection@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#ReflectionLevel> ;
+    rdfs:range <module-process.ttl#Reflection> ;
+    owl:inverseOf <module-process.ttl#hasReflectionLevel> .
+
+<module-process.ttl#isMotivatedBy> a owl:ObjectProperty ;
+    rdfs:label "isMotivatedBy@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#HypothesisProposing> <module-core.ttl#InquiryActivity> ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#FailureReporting> <module-process.ttl#IterationOutcome> ) ] ;
+    owl:inverseOf <module-process.ttl#motivatesInquiry> .
+
+<module-process.ttl#isOutcomeOfIteration> a owl:ObjectProperty ;
+    rdfs:label "isOutcomeOfIteration@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#IterationOutcome> ;
+    rdfs:range <module-process.ttl#Iteration> ;
+    owl:inverseOf <module-process.ttl#hasIterationOutcome> .
+
+<module-process.ttl#isPrecededByAction> a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:label "isPrecededByAction@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#isFollowedByAction> .
+
+<module-process.ttl#isReferencedByAction> a owl:ObjectProperty ;
+    rdfs:label "isReferencedByAction@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#Concept> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#referencesConcept> .
+
+<module-process.ttl#isReferencedByTeam> a owl:ObjectProperty ;
+    rdfs:label "isReferencedByTeam@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Team> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#referencesTeamWork> .
+
+<module-process.ttl#isReflectionOf> a owl:ObjectProperty ;
+    rdfs:label "isReflectionOf@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Reflection> ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Phase> <module-core.ttl#Activity> ) ] ;
+    owl:inverseOf <module-process.ttl#hasReflection> .
+
+<module-process.ttl#isSubIterationOf> a owl:ObjectProperty ;
+    rdfs:label "isSubIterationOf@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Iteration> ;
+    rdfs:range <module-process.ttl#Iteration> ;
+    owl:inverseOf <module-process.ttl#hasSubIteration> .
+
+<module-process.ttl#isTargetedByAction> a owl:ObjectProperty ;
+    rdfs:label "isTargetedByAction@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Team> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#directedToTeam> .
+
+<module-process.ttl#isTriggeredBy> a owl:ObjectProperty ;
+    rdfs:label "isTriggeredBy@en"^^xsd:string ;
+    rdfs:comment "Causal discourse link.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#triggersAction> .
+
+<module-process.ttl#iterationTriggeredBy> a owl:ObjectProperty ;
+    rdfs:label "iterationTriggeredBy@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Iteration> ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Activity> <module-process.ttl#DiscourseAction> ) ] ;
+    owl:inverseOf <module-process.ttl#triggersIteration> .
+
+<module-process.ttl#justifiesDecision> a owl:ObjectProperty ;
+    rdfs:label "justifiesDecision@en"^^xsd:string ;
+    rdfs:comment "A design justification is supported by a scientific discourse action (Hypothesis, Evidence, or Principle). Completes the S2D evidence chain.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#DesignJustification> ;
+    owl:inverseOf <module-process.ttl#isDecisionJustifiedBy> .
+
+<module-process.ttl#motivatesInquiry> a owl:ObjectProperty ;
+    rdfs:label "motivatesInquiry@en"^^xsd:string ;
+    rdfs:comment "D2S Bridge: A failure report or iteration outcome motivates scientific inquiry (hypothesis proposing or investigation). Captures the Design-to-Science cognitive pathway — the moment an engineering prototype fails, prompting students to ask scientific questions and conduct research. Complements the S2D informsDesign bridge for full bidirectional cognitive tracing.@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#FailureReporting> <module-process.ttl#IterationOutcome> ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#HypothesisProposing> <module-core.ttl#InquiryActivity> ) ] ;
+    owl:inverseOf <module-process.ttl#isMotivatedBy> .
+
+<module-process.ttl#occursInPhase> a owl:ObjectProperty ;
+    rdfs:label "occursInPhase@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-core.ttl#Phase> ;
+    owl:inverseOf <module-process.ttl#containsDiscourse> .
+
+<module-process.ttl#occursWithinProcess> a owl:ObjectProperty ;
+    rdfs:label "occursWithinProcess@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Iteration> ;
+    rdfs:range <module-process.ttl#EngineeringDesignProcess> ;
+    owl:inverseOf <module-process.ttl#hasIterationEvent> .
+
+<module-process.ttl#referencesConcept> a owl:ObjectProperty ;
+    rdfs:label "referencesConcept@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-knowledge.ttl#Concept> ;
+    owl:inverseOf <module-process.ttl#isReferencedByAction> .
+
+<module-process.ttl#referencesTeamWork> a owl:ObjectProperty ;
+    rdfs:label "referencesTeamWork@en"^^xsd:string ;
+    rdfs:comment "A discourse action that references another team's work product or process. Captures cross-team ideation transfer and comparative reasoning.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-team.ttl#Team> ;
+    owl:inverseOf <module-process.ttl#isReferencedByTeam> .
+
+<module-process.ttl#triggersAction> a owl:ObjectProperty ;
+    rdfs:label "triggersAction@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#isTriggeredBy> .
+
+<module-process.ttl#triggersIteration> a owl:ObjectProperty ;
+    rdfs:label "triggersIteration@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Activity> <module-process.ttl#DiscourseAction> ) ] ;
+    rdfs:range <module-process.ttl#Iteration> ;
+    owl:inverseOf <module-process.ttl#iterationTriggeredBy> .
+
+<module-team.ttl#hasDiscourseAction> rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#isAttributedTo> .
+
+<module-process.ttl#Agreement> a owl:Class ;
+    rdfs:comment "Simple agreement or affirmation (e.g. 'Yeah, I agree', 'Good point').@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#SocialAffectiveAction> .
+
+<module-process.ttl#CelebrationGesture> a owl:Class ;
+    rdfs:comment "Student expresses joy/success nonverbally: cheering, high-fiving, jumping up.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#ClarificationQuestioning> a owl:Class ;
+    rdfs:comment "Student asks for clarification (distinct from HelpSeeking — not requesting help but clarification).@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#HelpSeekingAction> .
+
+<module-process.ttl#CognitiveConflict> a owl:Class ;
+    rdfs:comment "Deep epistemic conflict or cognitive dissonance — more intense than PeerArgumentation.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#CollaborativeDiscourseAction> .
+
+<module-process.ttl#ConstraintReasoningAction> a owl:Class ;
+    rdfs:comment "Student reasons about design constraints and adjusts approach accordingly (e.g. 'Limestone filter costs $120, over our $100 budget — we need an alternative'). Key to modeling constraint-driven backtracking and trade-off analysis in real PBL.@en@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DesignReasoningAction> .
+
+<module-process.ttl#CriticalReflection> a owl:Class ;
+    rdfs:comment "Critical analysis of assumptions, evidence, and implications.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
+
+<module-process.ttl#Demonstration> a owl:Class ;
+    rdfs:comment "Student showcases a result or prototype to peers or teacher.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#RegulatoryAction> .
+
+<module-process.ttl#Disagreement> a owl:Class ;
+    rdfs:comment "Simple disagreement or negation (e.g. 'I don't think so', 'No').@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#SocialAffectiveAction> .
+
+<module-process.ttl#EvidenceAnalyzing> a owl:Class ;
+    rdfs:comment "Student interprets experimental data (e.g. 'The multimeter shows a 0.3V drop at 15°.').@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ScientificInquiryAction> .
+
+<module-process.ttl#FacialExpression> a owl:Class ;
+    rdfs:comment "Student displays a facial expression indicating confusion, surprise, concentration, or frustration.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#Failure> a owl:Class ;
+    rdfs:comment "The iteration failed to meet success criteria.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#IterationOutcome> .
+
+<module-process.ttl#GazingAtPeerWork> a owl:Class ;
+    rdfs:comment "Student observes peer's work — may indicate learning or distraction.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#Gesturing> a owl:Class ;
+    rdfs:comment "Student uses hand gestures to indicate, describe, or emphasize (e.g. pointing, measuring with hands).@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#HabitualAction> a owl:Class ;
+    rdfs:comment "Non-reflective, routine action without conscious thought.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
+
+<module-process.ttl#HelpSeeking> a owl:Class ;
+    rdfs:comment "Student requests procedural or conceptual assistance (Hannafin).@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#HelpSeekingAction> .
+
+<module-process.ttl#IdeaGeneration> a owl:Class ;
+    rdfs:comment "Student generates novel ideas, brainstorms, or proposes hypotheses.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DesignReasoningAction> .
+
+<module-process.ttl#IdleBehavior> a owl:Class ;
+    rdfs:comment "Student is disengaged: staring blankly, playing with materials off-task.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#KnowledgeSharing> a owl:Class ;
+    rdfs:comment "Student proactively shares domain knowledge with peers.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#CollaborativeDiscourseAction> .
+
+<module-process.ttl#MaterialHoarding> a owl:Class ;
+    rdfs:comment "Student monopolizes materials — negative collaboration signal.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#Nodding> a owl:Class ;
+    rdfs:comment "Student nods in agreement or understanding — positive collaboration signal.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#PartialSuccess> a owl:Class ;
+    rdfs:comment "The iteration met some but not all success criteria.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#IterationOutcome> .
+
+<module-process.ttl#PeerArgumentation> a owl:Class ;
+    rdfs:comment "Epistemic discourse: students argue, debate, or reason collaboratively.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#CollaborativeDiscourseAction> .
+
+<module-process.ttl#PeerAssessment> a owl:Class ;
+    rdfs:comment "Student evaluates or gives feedback on a peer's work.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#CollaborativeDiscourseAction> .
+
+<module-process.ttl#PeerEncouragement> a owl:Class ;
+    rdfs:comment "Student provides emotional support or encouragement to a peer.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#SocialAffectiveAction> .
+
+<module-process.ttl#PeerTutoring> a owl:Class ;
+    rdfs:comment "One student explains a concept or teaches a skill to a peer.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#CollaborativeDiscourseAction> .
+
+<module-process.ttl#PhysicalPrototyping> a owl:Class ;
+    rdfs:comment "Student engages in hands-on building or assembly.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#PlanningUtterance> a owl:Class ;
+    rdfs:comment "Student articulates a planning or strategy statement.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DesignReasoningAction> .
+
+<module-process.ttl#PrincipleFormulating> a owl:Class ;
+    rdfs:comment "Student synthesizes a scientific principle from evidence (e.g. 'Efficiency stalls past the optimal pitch angle due to flow separation.'). This is the cognitive link from Science to Design — key to the S2D Bridge.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ScientificInquiryAction> .
+
+<module-process.ttl#ProcessConfusion> a owl:Class ;
+    rdfs:comment "Student expresses confusion about the design process itself.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#HelpSeekingAction> .
+
+<module-process.ttl#SerendipitousDiscovery> a owl:Class ;
+    rdfs:comment "Student reports an unexpected discovery or surprising result.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#RegulatoryAction> .
+
+<module-process.ttl#SocialBonding> a owl:Class ;
+    rdfs:comment "Social talk, joking, or humor that builds team cohesion but is off-task.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#SocialAffectiveAction> .
+
+<module-process.ttl#Success> a owl:Class ;
+    rdfs:comment "The iteration met all success criteria.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#IterationOutcome> .
+
+<module-process.ttl#Summarizing> a owl:Class ;
+    rdfs:comment "Student summarizes, recaps, or synthesizes what has been discussed.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#RegulatoryAction> .
+
+<module-process.ttl#TaskCoordination> a owl:Class ;
+    rdfs:comment "Task allocation or division of labor discourse (e.g. 'You do X, I'll do Y').@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#CollaborativeDiscourseAction> .
+
+<module-process.ttl#TaskManagement> a owl:Class ;
+    rdfs:comment "Task redirection or management (e.g. 'Let's finish this part first').@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#RegulatoryAction> .
+
+<module-process.ttl#ToolSharing> a owl:Class ;
+    rdfs:comment "Student shares tools or materials with a peer.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#TransformativeReflection> a owl:Class ;
+    rdfs:comment "Deep reflection resulting in fundamental perspective shift.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
+
+<module-process.ttl#Understanding> a owl:Class ;
+    rdfs:comment "Comprehension-level reflection: grasping meaning without critique.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
+
+<module-process.ttl#WritingActivity> a owl:Class ;
+    rdfs:comment "Student writes, draws, or sketches on paper/whiteboard — important nonverbal cognitive expression.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#NonverbalAction> .
+
+<module-process.ttl#isAttributedTo> a owl:ObjectProperty ;
+    rdfs:label "isAttributedTo@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-team.ttl#hasDiscourseAction> .
+
+<module-process.ttl#EmotiveExpression> a owl:Class ;
+    rdfs:comment "Student expresses emotion (frustration, excitement, disappointment) related to the task.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#SocialAffectiveAction> .
+
+<module-process.ttl#DesignJustification> a owl:Class ;
+    rdfs:comment "Student explicitly justifies a design decision based on scientific evidence or principles (e.g. 'Based on our test, we set the blade angle at 30° for maximum efficiency'). Key to completing the Science-to-Design evidence chain.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DesignReasoningAction> .
+
+<module-process.ttl#FailureReporting> a owl:Class ;
+    rdfs:comment "Student reports a failure, unexpected result, or error.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#HelpSeekingAction> .
+
+<module-process.ttl#HypothesisProposing> a owl:Class ;
+    rdfs:comment "Student proposes a testable scientific hypothesis (e.g. 'A steeper angle generates more voltage.').@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ScientificInquiryAction> .
+
+<module-process.ttl#EngineeringDesignProcess> a owl:Class ;
+    rdfs:comment "Top-level representation of an engineering design workflow.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-process.ttl#ScientificInquiryAction> a owl:Class ;
+    rdfs:comment "Scientific reasoning: proposing hypotheses, analyzing evidence, formulating principles.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DiscourseAction> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#HypothesisProposing> <module-process.ttl#EvidenceAnalyzing> <module-process.ttl#PrincipleFormulating> ) ] .
+
+<module-process.ttl#DesignReasoningAction> a owl:Class ;
+    rdfs:comment "Design thinking: ideation, planning, evidence-based justification.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DiscourseAction> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#IdeaGeneration> <module-process.ttl#PlanningUtterance> <module-process.ttl#DesignJustification> <module-process.ttl#ConstraintReasoningAction> ) ] .
+
+<module-process.ttl#HelpSeekingAction> a owl:Class ;
+    rdfs:comment "Help-seeking and confusion expression: requests for help, process confusion, clarification, failure reporting.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DiscourseAction> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#HelpSeeking> <module-process.ttl#ProcessConfusion> <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) ] .
+
+<module-process.ttl#RegulatoryAction> a owl:Class ;
+    rdfs:comment "Metacognitive regulation: summarizing, task management, demonstration, serendipitous discovery.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DiscourseAction> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#Summarizing> <module-process.ttl#TaskManagement> <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) ] .
+
+<module-process.ttl#SocialAffectiveAction> a owl:Class ;
+    rdfs:comment "Social and affective expression: bonding, agreement/disagreement, encouragement, emotion.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DiscourseAction> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#SocialBonding> <module-process.ttl#Agreement> <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) ] .
+
+<module-process.ttl#CollaborativeDiscourseAction> a owl:Class ;
+    rdfs:comment "Peer collaboration: argumentation, tutoring, assessment, coordination, knowledge sharing.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#DiscourseAction> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#PeerArgumentation> <module-process.ttl#PeerTutoring> <module-process.ttl#PeerAssessment> <module-process.ttl#TaskCoordination> <module-process.ttl#KnowledgeSharing> <module-process.ttl#CognitiveConflict> ) ] .
+
+<module-process.ttl#IterationOutcome> a owl:Class ;
+    rdfs:comment "The result of an engineering design iteration.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#Success> <module-process.ttl#PartialSuccess> <module-process.ttl#Failure> ) ] .
+
+<module-process.ttl#Reflection> a owl:Class ;
+    rdfs:comment "A metacognitive reflection activity on process or learning.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-process.ttl#ReflectionLevel> a owl:Class ;
+    rdfs:comment "Depth of reflection per Kember et al. (2008) framework.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#HabitualAction> <module-process.ttl#Understanding> <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) ] .
+
+<module-process.ttl#NonverbalAction> a owl:Class ;
+    rdfs:comment "Non-verbal learning behavior: physical prototyping, tool sharing, gazing, etc.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#LearningEvent> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#PhysicalPrototyping> <module-process.ttl#ToolSharing> <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) ] .
+
+<module-process.ttl#Iteration> a owl:Class ;
+    rdfs:comment "A single design cycle within an engineering design process.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-process.ttl#DiscourseAction> a owl:Class ;
+    rdfs:comment "Micro-level communicative intent capturing granular student discourse.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#LearningEvent>,
+        owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#ScientificInquiryAction> <module-process.ttl#DesignReasoningAction> <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) ] .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#HypothesisProposing> <module-process.ttl#EvidenceAnalyzing> <module-process.ttl#PrincipleFormulating> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#IdeaGeneration> <module-process.ttl#PlanningUtterance> <module-process.ttl#DesignJustification> <module-process.ttl#ConstraintReasoningAction> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#PeerArgumentation> <module-process.ttl#PeerTutoring> <module-process.ttl#PeerAssessment> <module-process.ttl#TaskCoordination> <module-process.ttl#KnowledgeSharing> <module-process.ttl#CognitiveConflict> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#HelpSeeking> <module-process.ttl#ProcessConfusion> <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#SocialBonding> <module-process.ttl#Agreement> <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#Summarizing> <module-process.ttl#TaskManagement> <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+
+[] rdf:first <module-core.ttl#FiveE_Engage> ;
+    rdf:rest ( <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#EngineeringDesignProcess> <module-process.ttl#Iteration> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#PhysicalPrototyping> <module-process.ttl#ToolSharing> <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+
+[] rdf:first <module-core.ttl#MakingActivity> ;
+    rdf:rest ( <module-core.ttl#InquiryActivity> ) .
+
+[] rdf:first <module-team.ttl#ConceptualExpert> ;
+    rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
+
+[] rdf:first <module-team.ttl#Builder> ;
+    rdf:rest ( <module-team.ttl#ProjectManager> <module-team.ttl#Researcher> <module-team.ttl#Designer> <module-team.ttl#Presenter> <module-team.ttl#MaterialManager> ) .
+
+[] rdf:first <module-team.ttl#Actor> ;
+    rdf:rest ( <module-team.ttl#HumanRole> ) .
+
+[] rdf:first <module-team.ttl#DirectionalGuidance> ;
+    rdf:rest ( <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
+
+[] rdf:first <module-anchor.ttl#AnalogicalTransfer> ;
+    rdf:rest ( <module-anchor.ttl#IntegratedExplanation> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
+    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
+
+[] rdf:first <module-core.ttl#SolutionIdeation> ;
+    rdf:rest ( <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] rdf:first <module-anchor.ttl#PerformanceTrace> ;
+    rdf:rest ( <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-anchor.ttl#CompetencyDimension> ;
+    rdf:rest ( <module-anchor.ttl#PerformanceTrace> <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-process.ttl#DiscourseAction> ;
+    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> ) .
+
+[] rdf:first <module-process.ttl#DiscourseAction> ;
+    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborationIndicator> ;
+    rdf:rest ( <module-anchor.ttl#OutcomeIndicator> ) .
+
+[] rdf:first <module-knowledge.ttl#MappingBridge> ;
+    rdf:rest ( <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
+
+[] rdf:first <module-knowledge.ttl#Skill> ;
+    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#HabitualAction> <module-process.ttl#Understanding> <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#Success> <module-process.ttl#PartialSuccess> <module-process.ttl#Failure> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#ScientificInquiryAction> <module-process.ttl#DesignReasoningAction> <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
+

@@ -1,0 +1,7 @@
+rule_id,discourse_type,phase_condition,agent,theory_basis,rating_1_to_5,comment
+R6,EmotiveExpression,any,AffectiveSupporter,Affective support,,
+R12,DesignJustification,Implementation,ConceptualExpert,Conceptual justification,,
+R13,SocialBonding,any,AffectiveSupporter,Affective support,,
+R15b,Disagreement,any,ProceduralGuide,Debate regulation,,
+R21,PeerEncouragement,any,AffectiveSupporter,Affective support,,
+R22,ConstraintReasoningAction,any,ProceduralGuide,Informed Design (constraints),,

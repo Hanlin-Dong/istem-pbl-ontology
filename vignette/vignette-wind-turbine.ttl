@@ -1,0 +1,833 @@
+@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
+@prefix ns1: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix ns2: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix ns3: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix ns4: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix ns5: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Skill_DataAnalysis> a <module-knowledge.ttl#Skill>,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Data Analysis"^^xsd:string ;
+    ns7:hasProficiencyLevel 3 .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#ValuePerspective_Community> a ns7:ValuePerspective,
+        owl:NamedIndividual ;
+    ns6:hasDescription "Local residents are concerned about noise levels and visual impact of wind turbines."^^xsd:string ;
+    ns6:hasTitle "Community Environmental Concern"^^xsd:string .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Instructor_DrWang> a <module-team.ttl#Instructor>,
+        owl:NamedIndividual ;
+    ns8:hasName "Dr. Wang"^^xsd:string .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Collab_Participation> a <module-anchor.ttl#CollaborationIndicator>,
+        owl:NamedIndividual ;
+    ns9:indicatorValue 0.72 ;
+    ns9:isIndicatorOfState <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar10> ;
+    ns6:hasTitle "Participation Equity Index"^^xsd:string .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Collab_Participation_Mar12> a ns9:CollaborationIndicator,
+        owl:NamedIndividual ;
+    ns9:indicatorValue 0.78 ;
+    ns9:isIndicatorOfState <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar12> ;
+    ns6:hasTitle "Participation Equity Index"^^xsd:string .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Process_Iterations> a ns9:ProcessIndicator,
+        owl:NamedIndividual ;
+    ns9:indicatorValue 0.65 ;
+    ns9:isIndicatorOfState <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar10> ;
+    ns6:hasTitle "Design Iteration Progress"^^xsd:string .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Process_Iterations_Mar12> a ns9:ProcessIndicator,
+        owl:NamedIndividual ;
+    ns9:indicatorValue 0.82 ;
+    ns9:isIndicatorOfState <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar12> ;
+    ns6:hasTitle "Design Iteration Progress"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Ask_BrainstormNeeds> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1> ;
+    ns6:hasTitle "Brainstorm: What do we need to know?"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Ask_DefineConstraints> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1> ;
+    ns6:hasTitle "Define constraints: materials, size, cost limit"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Ask_ResearchTurbines> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1> ;
+    ns6:hasTitle "Research real wind turbines (videos, articles)"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Create_AssembleTurbine> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns6:hasTitle "Assemble tower, nacelle, and blades"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Create_BuildBlades> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns6:hasTitle "Build blade assembly"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Imagine_CompareDesigns> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1> ;
+    ns6:hasTitle "Compare designs using constraint checklist"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_FinalTest> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns6:hasTitle "Final wind tunnel test with optimized design"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Inquiry_WindTunnelTest> a ns6:InquiryActivity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Science_FiveE_Explore_1> ;
+    ns6:hasTitle "Wind tunnel experiment: measure voltage vs. blade pitch"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Plan_PrepMaterials> a ns6:DesignActivity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns6:hasTitle "Prepare materials list & assign roles"^^xsd:string .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Skill_CADModeling> a ns7:Skill,
+        owl:NamedIndividual ;
+    ns6:hasTitle "CAD Modeling"^^xsd:string ;
+    ns7:hasProficiencyLevel 2 ;
+    ns7:requiresConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_GearRatio> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_01_Failure> a <module-process.ttl#Failure>,
+        owl:NamedIndividual ;
+    ns10:isOutcomeOfIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01_BuildTest> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_01a_PartialSuccess> a ns10:PartialSuccess,
+        owl:NamedIndividual ;
+    ns10:isOutcomeOfIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01a_FixAttachment> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_02_PartialSuccess> a ns10:PartialSuccess,
+        owl:NamedIndividual ;
+    ns10:isOutcomeOfIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_02_Redesign> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_03_Success> a ns10:Success,
+        owl:NamedIndividual ;
+    ns10:isOutcomeOfIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_03_Optimize> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Reflection_01_Carol_TestFailure> a ns10:Reflection,
+        owl:NamedIndividual ;
+    ns9:generatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_08_Carol_Metacognition> ;
+    ns10:reflectionText "After the first test failed, I realized we needed to reconsider our blade design approach. The materials we chose were too heavy, and we didn't account for proper torque distribution. Next iteration we should test blade pitch angles more systematically before building."^^xsd:string .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_AffectiveSupporter> a ns8:AffectiveSupporter,
+        owl:NamedIndividual ;
+    ns8:monitorsTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:personaPrompt "You are an empathetic supporter. Acknowledge emotions, encourage persistence after setbacks, and help the team regulate affect — without redirecting the task or evaluating ideas."^^xsd:string .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_ConceptualExpert> a ns8:ConceptualExpert,
+        owl:NamedIndividual ;
+    ns8:monitorsTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:personaPrompt "You are a domain expert in physics and engineering. Provide conceptual explanations about aerodynamics, structural mechanics, and circuits."^^xsd:string .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_DivergentBrainstormer> a ns8:DivergentBrainstormer,
+        owl:NamedIndividual ;
+    ns8:monitorsTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:personaPrompt "You are a creative ideation partner. Suggest wild ideas, analogies from nature, and unconventional approaches."^^xsd:string .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_MetacognitiveChallenger> a ns8:MetacognitiveChallenger,
+        owl:NamedIndividual ;
+    ns8:monitorsTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:personaPrompt "You are a metacognitive coach. Ask reflective questions: 'Why do you think that worked?', 'What would you do differently next time?'"^^xsd:string .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_SafetyMonitor> a ns8:SafetyMonitor,
+        owl:NamedIndividual ;
+    ns8:monitorsTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:personaPrompt "You are a safety officer. Monitor physical and digital safety risks during PBL activities, especially prototyping and testing. Alert the instructor when safety protocols are violated or risky behaviors detected."^^xsd:string .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Intervention_Safety_BladeAssembly> a ns8:SafetyIntervention,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Safety Intervention: Blade Assembly Protocol"^^xsd:string ;
+    ns8:overridesAgent <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_ProceduralGuide> .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Role_Builder> a ns8:Builder,
+        owl:NamedIndividual ;
+    ns8:isPlayedBy <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Role_Programmer> a ns8:Programmer,
+        owl:NamedIndividual ;
+    ns8:isPlayedBy <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Role_ProjectManager> a ns8:ProjectManager,
+        owl:NamedIndividual ;
+    ns8:isPlayedBy <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Bob> a ns9:CompetencyProfile,
+        owl:NamedIndividual ;
+    ns9:aggregatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_04_Bob_IdeaGen> ;
+    ns9:isProfileOf <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns6:hasTitle "Bob's Competency Profile"^^xsd:string .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_07_Bob_Creativity> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.78 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_08> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns9:recordedAt "2026-03-10T10:00:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:CreativityAndInnovation .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_08_Carol_Metacognition> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.83 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Reflection_01_Carol_TestFailure> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns9:recordedAt "2026-03-12T17:00:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:MetacognitiveSelfRegulation .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Create_FirstTest> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns6:hasDeliverable <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Deliverable_Turbine> ;
+    ns6:hasTitle "First wind test: measure voltage output"^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Imagine_SketchDesigns> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1> ;
+    ns6:hasTitle "Sketch 3 different blade designs"^^xsd:string ;
+    ns7:generatesBridge <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Analogy_AirfoilBlades> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_AnalyzeData> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns6:hasTitle "Analyze test data: voltage vs. blade angle"^^xsd:string ;
+    ns7:generatesBridge <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Integration_TorqueGearRatio> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_RedesignBlades> a ns6:Activity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns6:hasTitle "Redesign blades for higher RPM"^^xsd:string ;
+    ns10:isInformedByScience <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_DesignJustification_01> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Constraint_Budget> a ns6:Constraint,
+        owl:NamedIndividual ;
+    ns6:constraintViolationTriggers <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns6:hasDescription "Total materials cost must not exceed $100 for the wind turbine project."^^xsd:string ;
+    ns6:hasTitle "Budget: $100 max for materials"^^xsd:string ;
+    ns6:isConstraintOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Deliverable_Blueprint> a ns6:Deliverable,
+        owl:NamedIndividual ;
+    ns6:deliverableType "model"^^xsd:string ;
+    ns6:hasEvaluationCriterion "rubric.design-documentation"^^xsd:string ;
+    ns6:hasTitle "Blade Design Blueprint"^^xsd:string ;
+    ns6:isDeliverableOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Plan_DrawBlueprint> ;
+    ns6:isProducedBy <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Deliverable_Turbine> a ns6:Deliverable,
+        owl:NamedIndividual ;
+    ns6:deliverableType "prototype"^^xsd:string ;
+    ns6:hasEvaluationCriterion "rubric.build-quality"^^xsd:string,
+        "rubric.functionality"^^xsd:string ;
+    ns6:hasTitle "Wind Turbine Prototype"^^xsd:string ;
+    ns6:isDeliverableOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Create_FirstTest> ;
+    ns6:isProducedBy <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_01> a ns10:HelpSeeking,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "How do we attach the blades to the shaft securely?"^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_04> a ns10:ProcessConfusion,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:50:00"^^xsd:dateTime ;
+    ns10:utteranceText "Wait, should we test first or fix the wobble first? I'm not sure what the next step is."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_06> a ns10:HelpSeeking,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T11:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "Can someone explain why the voltage drops when we connect the LED directly?"^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_10> a ns10:PeerArgumentation,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:timestamp "2026-03-11T10:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "Adding weight to the base will reduce vibration, but if we make it TOO heavy the whole thing becomes hard to move. We need to balance stability with portability."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_11> a ns10:HelpSeeking,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:timestamp "2026-03-11T11:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "How do I calculate the gear ratio between our turbine shaft and the motor?"^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_12> a ns10:KnowledgeSharing,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:timestamp "2026-03-11T11:25:00"^^xsd:dateTime ;
+    ns10:utteranceText "If the big gear has 40 teeth and the small one has 10, the ratio is 4:1 — so the motor spins 4 times for every 1 turn of the turbine."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_Agreement_01> a ns10:Agreement,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:timestamp "2026-03-11T12:20:00"^^xsd:dateTime ;
+    ns10:utteranceText "Yeah, I agree — 30 degrees seems like the sweet spot from the data."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_Disagreement_01> a ns10:Disagreement,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T11:00:00"^^xsd:dateTime ;
+    ns10:utteranceText "I'm not so sure about balsa wood — it might be too brittle. I think we need something stronger for the blades."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_PeerTutoring_01> a ns10:PeerTutoring,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:timestamp "2026-03-11T11:30:00"^^xsd:dateTime ;
+    ns10:utteranceText "Let me show you how the gear ratio works. See, when the big gear turns once, the small gear has to turn four times. That's why our turbine spins the motor faster than if we connected them directly."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_SocialBonding_01> a ns10:SocialBonding,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:45:00"^^xsd:dateTime ;
+    ns10:utteranceText "This turbine is starting to look like a giant desk fan! Maybe we can use it to cool down our lunch after class."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01a_FixAttachment> a ns10:Iteration,
+        owl:NamedIndividual ;
+    ns10:hasIterationOutcome <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_01a_PartialSuccess> ;
+    ns10:isSubIterationOf <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01_BuildTest> ;
+    ns10:iterationNumber 1 .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_01_Bob_BuildBlades> a ns10:DiscourseAction,
+        ns10:PhysicalPrototyping,
+        owl:NamedIndividual ;
+    ns6:hasModality "physical"^^xsd:string ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:20:00"^^xsd:dateTime .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_02_Carol_ShareGlueGun> a ns10:DiscourseAction,
+        ns10:ToolSharing,
+        owl:NamedIndividual ;
+    ns6:hasModality "physical"^^xsd:string ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:35:00"^^xsd:dateTime .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_03_Carol_GestureAngle> a ns10:DiscourseAction,
+        ns10:Gesturing,
+        owl:NamedIndividual ;
+    ns6:hasModality "gestural"^^xsd:string ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:25:00"^^xsd:dateTime .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_04_Alice_NodAgree> a ns10:DiscourseAction,
+        ns10:Nodding,
+        owl:NamedIndividual ;
+    ns6:hasModality "gestural"^^xsd:string ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:27:00"^^xsd:dateTime .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_ProceduralGuide> a ns8:ProceduralGuide,
+        owl:NamedIndividual ;
+    ns8:isOverriddenByInstructor <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Intervention_Safety_BladeAssembly> ;
+    ns8:monitorsTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:personaPrompt "You are a procedural coach. Guide the team step-by-step through the engineering design process. Keep instructions concrete and scaffolded."^^xsd:string .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Alice> a ns9:CompetencyProfile,
+        owl:NamedIndividual ;
+    ns9:aggregatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_01_Alice_FailureReport>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_05_Alice_ConceptFailure> ;
+    ns9:isProfileOf <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns6:hasTitle "Alice's Competency Profile"^^xsd:string .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar10> a ns9:TeamState,
+        owl:NamedIndividual ;
+    ns9:collaborationIndex 0.72 ;
+    ns9:hasAnalyticsIndicator <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Collab_Participation>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Process_Iterations> ;
+    ns9:isStateOfTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns9:snapshotTime "2026-03-10T10:00:00"^^xsd:dateTime .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar12> a ns9:TeamState,
+        owl:NamedIndividual ;
+    ns9:collaborationIndex 0.78 ;
+    ns9:hasAnalyticsIndicator <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Collab_Participation_Mar12>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Indicator_Process_Iterations_Mar12> ;
+    ns9:isStateOfTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns9:snapshotTime "2026-03-12T14:00:00"^^xsd:dateTime .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_01_Alice_FailureReport> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.6 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_02> ;
+    ns9:isAggregatedIn <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Alice> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns9:recordedAt "2026-03-09T10:30:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:EngineeringThinking .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_02_Carol_PeerArg> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.8 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_03> ;
+    ns9:isAggregatedIn <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Carol> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns9:recordedAt "2026-03-09T10:45:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:CollaborativeTeamwork .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_03_Carol_Interdisciplinary> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.85 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_05> ;
+    ns9:isAggregatedIn <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Carol> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns9:recordedAt "2026-03-12T14:00:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:InterdisciplinaryIntegration .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_04_Bob_IdeaGen> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.7 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_08> ;
+    ns9:isAggregatedIn <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Bob> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns9:recordedAt "2026-03-10T10:00:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:EngineeringThinking .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_05_Alice_ConceptFailure> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.75 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_09> ;
+    ns9:isAggregatedIn <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Alice> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns9:recordedAt "2026-03-10T12:00:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:EngineeringThinking .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_06_Carol_Planning> a ns9:PerformanceTrace,
+        owl:NamedIndividual ;
+    ns9:competencyScore 0.82 ;
+    ns9:derivedFromEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_07> ;
+    ns9:isAggregatedIn <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Carol> ;
+    ns9:isGeneratedByLearner <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns9:recordedAt "2026-03-12T17:00:00"^^xsd:dateTime ;
+    ns9:tracesCompetency ns9:CollaborativeTeamwork .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Plan_DrawBlueprint> a ns6:DesignActivity,
+        owl:NamedIndividual ;
+    ns6:belongsToPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns6:hasDeliverable <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Deliverable_Blueprint> ;
+    ns6:hasTitle "Draw detailed blueprint with measurements"^^xsd:string ;
+    ns10:isInformedByScience <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Torque> a ns7:Concept,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Torque"^^xsd:string ;
+    ns7:belongsToDomain <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Physics> ;
+    ns7:hasDefinition "A measure of the force that causes an object to rotate about an axis."^^xsd:string ;
+    ns7:isLinkedByBridge <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Integration_TorqueGearRatio> ;
+    ns10:isReferencedByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_09> .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Engineering> a ns7:DomainBoundary,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Engineering"^^xsd:string ;
+    ns7:includesConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_GearRatio> ;
+    ns7:isBridgedBy <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Analogy_AirfoilBlades>,
+        <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Integration_TorqueGearRatio> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_05> a ns10:KnowledgeSharing,
+        owl:NamedIndividual ;
+    ns9:generatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_03_Carol_Interdisciplinary> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:55:00"^^xsd:dateTime ;
+    ns10:utteranceText "I read that the angle of the blades matters a lot. They call it 'pitch angle' — if it's too steep, the wind just pushes the blade down instead of spinning it."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_07> a ns10:PlanningUtterance,
+        owl:NamedIndividual ;
+    ns9:generatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_06_Carol_Planning> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:timestamp "2026-03-09T11:35:00"^^xsd:dateTime ;
+    ns10:utteranceText "OK, let's plan: Bob will reinforce the tower, Alice will adjust the blade pitch, and I'll rewire the circuit. Then we test again in 20 minutes."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_ConstraintReasoning_01> a ns10:ConstraintReasoningAction,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:referencesConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_GearRatio> ;
+    ns10:timestamp "2026-03-10T11:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "Balsa wood costs $15 per sheet and we need 4 sheets — that's $60 already. If we use cardboard for the tower base instead of plywood, we can stay under our $100 budget and still have enough for the motor."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_02_Redesign> a ns10:Iteration,
+        owl:NamedIndividual ;
+    ns10:hasIterationOutcome <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_02_PartialSuccess> ;
+    ns10:iterationNumber 2 ;
+    ns10:iterationTriggeredBy <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_09> ;
+    ns10:occursWithinProcess <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_03_Optimize> a ns10:Iteration,
+        owl:NamedIndividual ;
+    ns10:hasIterationOutcome <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_03_Success> ;
+    ns10:iterationNumber 3 ;
+    ns10:iterationTriggeredBy <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> ;
+    ns10:occursWithinProcess <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> .
+
+<module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Carol> a ns9:CompetencyProfile,
+        owl:NamedIndividual ;
+    ns9:aggregatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_02_Carol_PeerArg>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_03_Carol_Interdisciplinary>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_06_Carol_Planning> ;
+    ns9:isProfileOf <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns6:hasTitle "Carol's Competency Profile"^^xsd:string .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Analogy_AirfoilBlades> a ns7:AnalogyBridge,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Airfoil → Wind Turbine Blade Analogy"^^xsd:string ;
+    ns7:boundaryCrossingStage "coordination"^^xsd:string ;
+    ns7:bridgeComplexity 2 ;
+    ns7:bridgesDomain <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Engineering>,
+        <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Physics> ;
+    ns7:generatedInActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Imagine_SketchDesigns> ;
+    ns7:linksConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Bernoulli> .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Bernoulli> a ns7:Concept,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Bernoulli's Principle"^^xsd:string ;
+    ns7:belongsToDomain <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Physics> ;
+    ns7:hasDefinition "As the speed of a fluid increases, the pressure within the fluid decreases."^^xsd:string ;
+    ns7:isLinkedByBridge <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Analogy_AirfoilBlades> ;
+    ns10:isReferencedByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_03>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_GearRatio> a ns7:Concept,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Gear Ratio"^^xsd:string ;
+    ns7:belongsToDomain <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Engineering> ;
+    ns7:hasDefinition "The ratio of the number of teeth on two meshing gears, determining speed and torque multiplication."^^xsd:string ;
+    ns7:isConceptRequiredBy <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Skill_CADModeling> ;
+    ns7:isLinkedByBridge <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Integration_TorqueGearRatio> ;
+    ns10:isReferencedByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_ConstraintReasoning_01> .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Physics> a ns7:DomainBoundary,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Physics"^^xsd:string ;
+    ns7:includesConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Bernoulli>,
+        <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Torque> ;
+    ns7:isBridgedBy <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Analogy_AirfoilBlades>,
+        <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Integration_TorqueGearRatio> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_02> a ns10:FailureReporting,
+        owl:NamedIndividual ;
+    ns9:generatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_01_Alice_FailureReport> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:timestamp "2026-03-09T10:30:00"^^xsd:dateTime ;
+    ns10:triggersIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01_BuildTest> ;
+    ns10:utteranceText "The blades keep falling off when we spin the motor!"^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_03> a ns10:PeerArgumentation,
+        owl:NamedIndividual ;
+    ns9:generatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_02_Carol_PeerArg> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1> ;
+    ns10:referencesConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Bernoulli> ;
+    ns10:timestamp "2026-03-09T10:40:00"^^xsd:dateTime ;
+    ns10:utteranceText "I think three curved blades will catch more wind than four flat ones. Real wind turbines use three blades, and they're curved like airplane wings."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_08> a ns10:IdeaGeneration,
+        owl:NamedIndividual ;
+    ns9:generatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_04_Bob_IdeaGen>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_07_Bob_Creativity> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1> ;
+    ns10:timestamp "2026-03-10T10:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "What if we make the blades out of balsa wood instead of cardboard? It's lighter, so the wind can spin it faster. And we could carve an airfoil shape like a real wing."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_CrossTeam_01> a ns10:PeerArgumentation,
+        owl:NamedIndividual ;
+    ns10:directedToTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:referencesTeamWork <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns10:timestamp "2026-03-11T13:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "Team Beta used a gearbox from an old toy car and got much higher RPM. Maybe we should try something similar instead of direct drive."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_DesignJustification_01> a ns10:DesignJustification,
+        owl:NamedIndividual ;
+    ns10:informsDesign <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_RedesignBlades> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:isDecisionJustifiedBy <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns10:timestamp "2026-03-11T12:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "Based on our wind tunnel experiment, we know 30° blade pitch gives the highest voltage. Let's set the blades at 30° for our final design — the science proves it's the most efficient angle."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Evidence> a ns10:EvidenceAnalyzing,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns10:isFollowedByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> ;
+    ns10:isPrecededByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Hypothesis> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Science_FiveE_Explore_1> ;
+    ns10:timestamp "2026-03-04T10:15:00"^^xsd:dateTime ;
+    ns10:utteranceText "Look at the data: at 15 degrees we got 2.1V, at 30 degrees 2.8V, but at 45 degrees it dropped to 2.3V. There's an optimal point somewhere."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Hypothesis> a ns10:HypothesisProposing,
+        owl:NamedIndividual ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:isFollowedByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Evidence>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Science_FiveE_Explore_1> ;
+    ns10:timestamp "2026-03-04T09:30:00"^^xsd:dateTime ;
+    ns10:utteranceText "I think a steeper blade angle will generate more voltage because the wind hits the blade surface more directly, transferring more energy."^^xsd:string .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01_BuildTest> a ns10:Iteration,
+        owl:NamedIndividual ;
+    ns10:hasIterationOutcome <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#IterOutcome_01_Failure> ;
+    ns10:hasSubIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01a_FixAttachment> ;
+    ns10:iterationNumber 1 ;
+    ns10:iterationTriggeredBy <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_02> ;
+    ns10:occursWithinProcess <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> .
+
+<module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Bridge_Integration_TorqueGearRatio> a ns7:IntegrationBridge,
+        owl:NamedIndividual ;
+    ns6:hasTitle "Torque + Gear Ratio Integration"^^xsd:string ;
+    ns7:boundaryCrossingStage "reflection"^^xsd:string ;
+    ns7:bridgeComplexity 2 ;
+    ns7:bridgesDomain <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Engineering>,
+        <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Domain_Physics> ;
+    ns7:generatedInActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_AnalyzeData> ;
+    ns7:linksConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_GearRatio>,
+        <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Torque> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_09> a ns10:FailureReporting,
+        owl:NamedIndividual ;
+    ns9:generatesTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_05_Alice_ConceptFailure> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns10:referencesConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Torque> ;
+    ns10:timestamp "2026-03-10T12:15:00"^^xsd:dateTime ;
+    ns10:triggersIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_02_Redesign> ;
+    ns10:utteranceText "The whole turbine just fell over! The base is too light. When the fan was on high speed, the torque twisted the tower right off the table."^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Science_FiveE_Explore_1> a ns6:FiveE_Explore,
+        owl:NamedIndividual ;
+    ns6:endTime "2026-03-07T10:00:00"^^xsd:dateTime ;
+    ns6:hasActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Inquiry_WindTunnelTest> ;
+    ns6:hasTitle "5E Explore: Aerodynamics Experiment"^^xsd:string ;
+    ns6:isPhaseOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> ;
+    ns6:startTime "2026-03-04T09:00:00"^^xsd:dateTime ;
+    ns10:containsDiscourse <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Evidence>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Hypothesis>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1> a ns6:EiE_Ask,
+        owl:NamedIndividual ;
+    ns6:endTime "2026-03-03T10:30:00"^^xsd:dateTime ;
+    ns6:hasActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Ask_BrainstormNeeds>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Ask_DefineConstraints>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Ask_ResearchTurbines> ;
+    ns6:hasTitle "Ask: Understanding the Problem"^^xsd:string ;
+    ns6:isPhaseOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> ;
+    ns6:precedes <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns6:startTime "2026-03-01T09:00:00"^^xsd:dateTime .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> a ns6:Project,
+        owl:NamedIndividual ;
+    ns6:endTime "2026-03-15T17:00:00"^^xsd:dateTime ;
+    ns6:hasConstraint <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Constraint_Budget> ;
+    ns6:hasDescription "Team Alpha designs and builds a small-scale wind turbine capable of generating enough electricity to light an LED, while meeting constraints on blade material, tower height, and structural stability."^^xsd:string ;
+    ns6:hasPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Science_FiveE_Explore_1> ;
+    ns6:hasTitle "Wind Turbine Design Challenge"^^xsd:string ;
+    ns6:startTime "2026-03-01T09:00:00"^^xsd:dateTime ;
+    ns8:hasTeam <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> .
+
+<module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle> a ns10:PrincipleFormulating,
+        owl:NamedIndividual ;
+    ns10:informsDesign <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Plan_DrawBlueprint> ;
+    ns10:isAttributedTo <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns10:isPrecededByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Evidence>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Hypothesis> ;
+    ns10:justifiesDecision <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_DesignJustification_01> ;
+    ns10:occursInPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Science_FiveE_Explore_1> ;
+    ns10:referencesConcept <module-knowledge.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Concept_Bernoulli> ;
+    ns10:timestamp "2026-03-04T10:45:00"^^xsd:dateTime ;
+    ns10:triggersIteration <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_03_Optimize> ;
+    ns10:utteranceText "The scientific rule we discovered: there's an optimal pitch angle around 30 degrees where efficiency peaks. Past that, flow separation starts happening and voltage drops — just like Bernoulli predicted."^^xsd:string .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1> a ns6:EiE_Imagine,
+        owl:NamedIndividual ;
+    ns6:endTime "2026-03-05T11:00:00"^^xsd:dateTime ;
+    ns6:hasActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Imagine_CompareDesigns>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Imagine_SketchDesigns> ;
+    ns6:hasTitle "Imagine: Brainstorming Solutions"^^xsd:string ;
+    ns6:isPhaseOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> ;
+    ns6:precedes <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns6:startTime "2026-03-03T10:30:00"^^xsd:dateTime ;
+    ns6:succeeds <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1> ;
+    ns10:containsDiscourse <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_03>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_08> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> a ns6:EiE_Plan,
+        owl:NamedIndividual ;
+    ns6:endTime "2026-03-08T10:00:00"^^xsd:dateTime ;
+    ns6:hasActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Plan_DrawBlueprint>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Plan_PrepMaterials> ;
+    ns6:hasTitle "Plan: Selecting the Design"^^xsd:string ;
+    ns6:isBacktrackedFrom <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns6:isPhaseOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> ;
+    ns6:isTriggeredByConstraint <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Constraint_Budget> ;
+    ns6:precedes <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns6:startTime "2026-03-05T11:00:00"^^xsd:dateTime ;
+    ns6:succeeds <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1> .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice> a ns8:Learner,
+        owl:NamedIndividual ;
+    ns9:hasCompetencyProfile <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Alice> ;
+    ns9:hasPerformanceTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_01_Alice_FailureReport>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_05_Alice_ConceptFailure> ;
+    ns8:hasDiscourseAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_02>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_06>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_09>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_Agreement_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Evidence>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_04_Alice_NodAgree> ;
+    ns8:hasName "Alice"^^xsd:string ;
+    ns8:isMemberOf <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:learnerCurrentPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns8:playsRole <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Role_ProjectManager> .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob> a ns8:Learner,
+        owl:NamedIndividual ;
+    ns9:hasCompetencyProfile <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Bob> ;
+    ns9:hasPerformanceTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_04_Bob_IdeaGen>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_07_Bob_Creativity> ;
+    ns6:producesDeliverable <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Deliverable_Turbine> ;
+    ns8:hasDiscourseAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_04>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_08>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_11>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_ConstraintReasoning_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_Disagreement_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_SocialBonding_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_01_Bob_BuildBlades> ;
+    ns8:hasName "Bob"^^xsd:string ;
+    ns8:isMemberOf <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:learnerCurrentPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> ;
+    ns8:playsRole <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Role_Builder> .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> a ns8:Team,
+        owl:NamedIndividual ;
+    ns9:hasTeamState <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar10>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#TeamState_Snapshot_Mar12> ;
+    ns6:hasTitle "Team Alpha"^^xsd:string ;
+    ns10:isReferencedByTeam <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_CrossTeam_01> ;
+    ns10:isTargetedByAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_CrossTeam_01> ;
+    ns8:hasTeamMember <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Alice>,
+        <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Bob>,
+        <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> ;
+    ns8:isMonitoredByAgent <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_AffectiveSupporter>,
+        <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_ConceptualExpert>,
+        <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_DivergentBrainstormer>,
+        <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_MetacognitiveChallenger>,
+        <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_ProceduralGuide>,
+        <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Agent_SafetyMonitor> ;
+    ns8:isTeamOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> a ns6:EiE_Improve,
+        owl:NamedIndividual ;
+    ns6:backtracksTo <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns6:endTime "2026-03-15T16:00:00"^^xsd:dateTime ;
+    ns6:hasActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_AnalyzeData>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_FinalTest>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Improve_RedesignBlades> ;
+    ns6:hasTitle "Improve: Iterating the Design"^^xsd:string ;
+    ns6:isPhaseOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> ;
+    ns6:startTime "2026-03-12T11:00:00"^^xsd:dateTime ;
+    ns6:succeeds <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns10:containsDiscourse <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_07>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_10>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_11>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_12>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_Agreement_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_CrossTeam_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_DesignJustification_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_PeerTutoring_01> .
+
+<module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Learner_Carol> a ns8:Learner,
+        owl:NamedIndividual ;
+    ns9:hasCompetencyProfile <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Profile_Carol> ;
+    ns9:hasPerformanceTrace <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_02_Carol_PeerArg>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_03_Carol_Interdisciplinary>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_06_Carol_Planning>,
+        <module-anchor.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Trace_08_Carol_Metacognition> ;
+    ns6:producesDeliverable <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Deliverable_Blueprint> ;
+    ns8:hasDiscourseAction <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_03>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_05>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_07>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_10>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_12>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_CrossTeam_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_DesignJustification_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_PeerTutoring_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Hypothesis>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_S2D_Principle>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_02_Carol_ShareGlueGun>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_03_Carol_GestureAngle> ;
+    ns8:hasName "Carol"^^xsd:string ;
+    ns8:isMemberOf <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Team_Alpha> ;
+    ns8:learnerCurrentPhase <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Science_FiveE_Explore_1> ;
+    ns8:playsRole <module-team.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Role_Programmer> .
+
+<module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Create_Phase_1> a ns6:EiE_Create,
+        ns10:EngineeringDesignProcess,
+        owl:NamedIndividual ;
+    ns6:endTime "2026-03-12T11:00:00"^^xsd:dateTime ;
+    ns6:hasActivity <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Create_AssembleTurbine>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Create_BuildBlades>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Activity_Create_FirstTest> ;
+    ns6:hasTitle "Create: Building & Testing"^^xsd:string ;
+    ns6:isPhaseOf <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#WindTurbine_Project> ;
+    ns6:precedes <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Improve_Phase_1> ;
+    ns6:startTime "2026-03-08T10:00:00"^^xsd:dateTime ;
+    ns6:succeeds <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Ask_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Imagine_Phase_1>,
+        <module-core.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Plan_Phase_1> ;
+    ns10:containsDiscourse <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_02>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_04>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_05>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_06>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_09>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_ConstraintReasoning_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_Disagreement_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#DA_SocialBonding_01>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_01_Bob_BuildBlades>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_02_Carol_ShareGlueGun>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_03_Carol_GestureAngle>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#NVA_04_Alice_NodAgree> ;
+    ns10:hasIterationEvent <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_01_BuildTest>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_02_Redesign>,
+        <module-process.ttl#http://www.semanticweb.org/ie-pbl/ontology/1.0/vignette#Iteration_03_Optimize> .
+

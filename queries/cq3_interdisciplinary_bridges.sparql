@@ -1,0 +1,21 @@
+# CQ3: Interdisciplinary Bridges Detected
+# List bridges, their type, the domains and concepts they connect.
+
+PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX know: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#>
+
+SELECT ?bridgeName ?bridgeType ?domain1 ?domain2 ?concept1 ?concept2
+WHERE {
+    ?bridge a ?bridgeClass ;
+            core:hasTitle ?bridgeName ;
+            know:bridgesDomain ?d1 ;
+            know:bridgesDomain ?d2 ;
+            know:linksConcept ?c1 ;
+            know:linksConcept ?c2 .
+    ?d1 core:hasTitle ?domain1 .
+    ?d2 core:hasTitle ?domain2 .
+    ?c1 core:hasTitle ?concept1 .
+    ?c2 core:hasTitle ?concept2 .
+    FILTER(?d1 != ?d2)
+    BIND(REPLACE(STR(?bridgeClass), ".*#", "") AS ?bridgeType)
+}

@@ -1,0 +1,299 @@
+@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<module-knowledge.ttl> a owl:Ontology ;
+    owl:imports <module-core.ttl> .
+
+<module-knowledge.ttl#boundaryCrossingStage> a owl:DatatypeProperty ;
+    rdfs:label "boundaryCrossingStage@en"^^xsd:string ;
+    rdfs:comment "Current developmental stage of boundary crossing for this bridge (Akkerman & Bakker, 2011): 'identification', 'coordination', 'reflection', 'transformation'. Unlike the previous class-based model, this allows a single bridge to progress through multiple stages over time.@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range xsd:string .
+
+<module-knowledge.ttl#bridgeComplexity> a owl:DatatypeProperty ;
+    rdfs:label "bridgeComplexity@en"^^xsd:string ;
+    rdfs:comment "Number of domains this bridge spans. 2=binary bridge, 3+=complex multi-domain integration. Enables differentiation between simple cross-domain links and complex synthesis in projects with 4+ disciplines.@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range xsd:integer .
+
+<module-knowledge.ttl#hasDefinition> a owl:DatatypeProperty ;
+    rdfs:label "hasDefinition@en"^^xsd:string ;
+    rdfs:comment "Formal academic definition of a Concept.@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#Concept> ;
+    rdfs:range xsd:string .
+
+<module-knowledge.ttl#hasIntegrationDepth> a owl:DatatypeProperty ;
+    rdfs:label "hasIntegrationDepth@en"^^xsd:string ;
+    rdfs:comment "Depth of interdisciplinary integration on a 1-5 Likert scale. 1=superficial awareness; 3=moderate synthesis; 5=deep transformation.@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range xsd:integer .
+
+<module-knowledge.ttl#hasProficiencyLevel> a owl:DatatypeProperty ;
+    rdfs:label "hasProficiencyLevel@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#Skill> ;
+    rdfs:range xsd:integer .
+
+<module-knowledge.ttl#wasDerivedFrom> a owl:AnnotationProperty ;
+    rdfs:label "was derived from@en"^^xsd:string ;
+    rdfs:comment "PROV-O alignment: standard provenance mapping. Corresponds to PROV-O wasDerivedFrom. In IE-PBL, the primary provenance chain uses derivedFromEvent (Module 5) to anchor PerformanceTraces to originating PBL events.@en"^^xsd:string .
+
+<module-process.ttl#isReferencedByAction> rdfs:domain <module-knowledge.ttl#Concept> .
+
+<module-process.ttl#referencesConcept> rdfs:range <module-knowledge.ttl#Concept> .
+
+<module-team.ttl#isDomainOfAgent> rdfs:domain <module-knowledge.ttl#DomainBoundary> .
+
+<module-knowledge.ttl#appliesConcept> a owl:ObjectProperty ;
+    rdfs:label "appliesConcept@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Activity> ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    owl:inverseOf <module-knowledge.ttl#isAppliedInActivity> .
+
+<module-knowledge.ttl#belongsToDomain> a owl:ObjectProperty ;
+    rdfs:label "belongsToDomain@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    rdfs:range <module-knowledge.ttl#DomainBoundary> ;
+    owl:inverseOf <module-knowledge.ttl#includesConcept> .
+
+<module-knowledge.ttl#bridgesMechanism> a owl:ObjectProperty ;
+    rdfs:label "bridgesMechanism@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range <module-knowledge.ttl#BoundaryCrossingMechanism> ;
+    owl:inverseOf <module-knowledge.ttl#isMechanismOfBridge> .
+
+<module-knowledge.ttl#expressesPerspective> a owl:ObjectProperty ;
+    rdfs:label "expressesPerspective@en"^^xsd:string ;
+    rdfs:comment "Links a discourse action (or activity) to the value perspective it expresses. Domain tightened to DiscourseAction in M3.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-knowledge.ttl#ValuePerspective> ;
+    owl:inverseOf <module-knowledge.ttl#isExpressedInAction> .
+
+<module-knowledge.ttl#generatedInActivity> a owl:ObjectProperty ;
+    rdfs:label "generatedInActivity@en"^^xsd:string ;
+    rdfs:comment "Links a bridge to the Activity where interdisciplinary thinking emerged.@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range <module-core.ttl#Activity> ;
+    owl:inverseOf <module-knowledge.ttl#generatesBridge> .
+
+<module-knowledge.ttl#generatesBridge> a owl:ObjectProperty ;
+    rdfs:label "generatesBridge@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#Activity> ;
+    rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    owl:inverseOf <module-knowledge.ttl#generatedInActivity> .
+
+<module-knowledge.ttl#hasPrerequisite> a owl:ObjectProperty ;
+    rdfs:label "hasPrerequisite@en"^^xsd:string ;
+    rdfs:comment "Knowledge prerequisite. Distinct from Activity-level dependsOn.@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    owl:inverseOf <module-knowledge.ttl#isPrerequisiteOf> .
+
+<module-knowledge.ttl#includesConcept> a owl:ObjectProperty ;
+    rdfs:label "includesConcept@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#DomainBoundary> ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    owl:inverseOf <module-knowledge.ttl#belongsToDomain> .
+
+<module-knowledge.ttl#isAppliedInActivity> a owl:ObjectProperty ;
+    rdfs:label "isAppliedInActivity@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    rdfs:range <module-core.ttl#Activity> ;
+    owl:inverseOf <module-knowledge.ttl#appliesConcept> .
+
+<module-knowledge.ttl#isBridgedBy> a owl:ObjectProperty ;
+    rdfs:label "isBridgedBy@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#DomainBoundary> ;
+    rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    owl:inverseOf <module-knowledge.ttl#bridgesDomain> .
+
+<module-knowledge.ttl#isConceptRequiredBy> a owl:ObjectProperty ;
+    rdfs:label "isConceptRequiredBy@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#Concept> ;
+    rdfs:range <module-knowledge.ttl#Skill> ;
+    owl:inverseOf <module-knowledge.ttl#requiresConcept> .
+
+<module-knowledge.ttl#isExpressedInAction> a owl:ObjectProperty ;
+    rdfs:label "isExpressedInAction@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#ValuePerspective> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-knowledge.ttl#expressesPerspective> .
+
+<module-knowledge.ttl#isLinkedByBridge> a owl:ObjectProperty ;
+    rdfs:label "isLinkedByBridge@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#Concept> ;
+    rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    owl:inverseOf <module-knowledge.ttl#linksConcept> .
+
+<module-knowledge.ttl#isMechanismOfBridge> a owl:ObjectProperty ;
+    rdfs:label "isMechanismOfBridge@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#BoundaryCrossingMechanism> ;
+    rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    owl:inverseOf <module-knowledge.ttl#bridgesMechanism> .
+
+<module-knowledge.ttl#isPrerequisiteOf> a owl:ObjectProperty ;
+    rdfs:label "isPrerequisiteOf@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> ) ] ;
+    owl:inverseOf <module-knowledge.ttl#hasPrerequisite> .
+
+<module-knowledge.ttl#linksConcept> a owl:ObjectProperty ;
+    rdfs:label "linksConcept@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range <module-knowledge.ttl#Concept> ;
+    owl:inverseOf <module-knowledge.ttl#isLinkedByBridge> .
+
+<module-knowledge.ttl#requiresConcept> a owl:ObjectProperty ;
+    rdfs:label "requiresConcept@en"^^xsd:string ;
+    rdfs:comment "A Skill depends on a Concept (e.g. CAD Modeling requires Spatial Geometry).@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#Skill> ;
+    rdfs:range <module-knowledge.ttl#Concept> ;
+    owl:inverseOf <module-knowledge.ttl#isConceptRequiredBy> .
+
+<module-team.ttl#hasDomainBoundary> rdfs:range <module-knowledge.ttl#DomainBoundary> .
+
+<module-knowledge.ttl#AnalogyBridge> a owl:Class ;
+    rdfs:subClassOf <module-knowledge.ttl#InterdisciplinaryBridge> .
+
+<module-knowledge.ttl#InheritanceBridge> a owl:Class ;
+    rdfs:subClassOf <module-knowledge.ttl#InterdisciplinaryBridge> .
+
+<module-knowledge.ttl#IntegrationBridge> a owl:Class ;
+    rdfs:subClassOf <module-knowledge.ttl#InterdisciplinaryBridge> .
+
+<module-knowledge.ttl#MappingBridge> a owl:Class ;
+    rdfs:subClassOf <module-knowledge.ttl#InterdisciplinaryBridge> .
+
+<module-knowledge.ttl#bridgesDomain> a owl:ObjectProperty ;
+    rdfs:label "bridgesDomain@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range <module-knowledge.ttl#DomainBoundary> ;
+    owl:inverseOf <module-knowledge.ttl#isBridgedBy> .
+
+<module-knowledge.ttl#BoundaryCrossingMechanism> a owl:Class ;
+    rdfs:comment "Abstract extension point for boundary crossing mechanism taxonomies. Akkerman & Bakker's four mechanisms are now modeled as developmental stages via boundaryCrossingStage on InterdisciplinaryBridge.@en@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-knowledge.ttl#ValuePerspective> a owl:Class ;
+    rdfs:comment "A stakeholder value, normative perspective, ethical consideration, or empathic understanding. Extends the knowledge model beyond cognitive propositional knowledge (Concept) and procedural knowledge (Skill) to include affective and normative dimensions essential for socio-scientific PBL projects.@en@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-knowledge.ttl#DomainBoundary> a owl:Class ;
+    rdfs:comment "Marks the epistemological scope of a domain (e.g. Physics, Engineering).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-knowledge.ttl#Skill> a owl:Class ;
+    rdfs:comment "A procedural capability (e.g. CAD Modeling, Data Analysis).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-knowledge.ttl#Concept> a owl:Class ;
+    rdfs:comment "A domain concept (e.g. Bernoulli's Principle, Torque).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-knowledge.ttl#InterdisciplinaryBridge> a owl:Class ;
+    rdfs:comment "Abstract top class for interdisciplinary connections (Klein).@en"^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass <module-knowledge.ttl#DomainBoundary> ;
+            owl:onProperty <module-knowledge.ttl#bridgesDomain> ],
+        owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#AnalogyBridge> <module-knowledge.ttl#MappingBridge> <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) ] .
+
+[] rdf:first <module-process.ttl#DesignReasoningAction> ;
+    rdf:rest ( <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
+
+[] rdf:first <module-process.ttl#EvidenceAnalyzing> ;
+    rdf:rest ( <module-process.ttl#PrincipleFormulating> ) .
+
+[] rdf:first <module-process.ttl#PlanningUtterance> ;
+    rdf:rest ( <module-process.ttl#DesignJustification> <module-process.ttl#ConstraintReasoningAction> ) .
+
+[] rdf:first <module-process.ttl#PeerTutoring> ;
+    rdf:rest ( <module-process.ttl#PeerAssessment> <module-process.ttl#TaskCoordination> <module-process.ttl#KnowledgeSharing> <module-process.ttl#CognitiveConflict> ) .
+
+[] rdf:first <module-process.ttl#ProcessConfusion> ;
+    rdf:rest ( <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) .
+
+[] rdf:first <module-process.ttl#Agreement> ;
+    rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
+
+[] rdf:first <module-process.ttl#TaskManagement> ;
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+
+[] rdf:first <module-core.ttl#FiveE_Engage> ;
+    rdf:rest ( <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
+
+[] rdf:first <module-process.ttl#Iteration> ;
+    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+
+[] rdf:first <module-process.ttl#ToolSharing> ;
+    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+
+[] rdf:first <module-core.ttl#MakingActivity> ;
+    rdf:rest ( <module-core.ttl#InquiryActivity> ) .
+
+[] rdf:first <module-team.ttl#ConceptualExpert> ;
+    rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
+
+[] rdf:first <module-team.ttl#Builder> ;
+    rdf:rest ( <module-team.ttl#ProjectManager> <module-team.ttl#Researcher> <module-team.ttl#Designer> <module-team.ttl#Presenter> <module-team.ttl#MaterialManager> ) .
+
+[] rdf:first <module-team.ttl#Actor> ;
+    rdf:rest ( <module-team.ttl#HumanRole> ) .
+
+[] rdf:first <module-team.ttl#DirectionalGuidance> ;
+    rdf:rest ( <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
+
+[] a owl:Restriction ;
+    owl:onProperty <module-team.ttl#hasDomainBoundary> ;
+    owl:someValuesFrom <module-knowledge.ttl#DomainBoundary> .
+
+[] rdf:first <module-anchor.ttl#AnalogicalTransfer> ;
+    rdf:rest ( <module-anchor.ttl#IntegratedExplanation> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
+    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
+
+[] rdf:first <module-core.ttl#SolutionIdeation> ;
+    rdf:rest ( <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] rdf:first <module-anchor.ttl#PerformanceTrace> ;
+    rdf:rest ( <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-anchor.ttl#CompetencyDimension> ;
+    rdf:rest ( <module-anchor.ttl#PerformanceTrace> <module-anchor.ttl#CompetencyProfile> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborationIndicator> ;
+    rdf:rest ( <module-anchor.ttl#OutcomeIndicator> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-knowledge.ttl#AnalogyBridge> <module-knowledge.ttl#MappingBridge> <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+
+[] rdf:first <module-process.ttl#Understanding> ;
+    rdf:rest ( <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
+
+[] rdf:first <module-process.ttl#PartialSuccess> ;
+    rdf:rest ( <module-process.ttl#Failure> ) .
+

@@ -1,0 +1,19 @@
+# CQ4: Agent Trigger Summary
+# Which agents were triggered by which discourse action types, and for which team?
+
+PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#>
+PREFIX anch: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+
+SELECT ?agentType ?actionType ?teamName ?utterance
+WHERE {
+    ?da a ?actionClass ;
+        anch:triggersAgent ?agent .
+    ?agent a ?agentClass ;
+           team:monitorsTeam ?team .
+    ?team core:hasTitle ?teamName .
+    OPTIONAL { ?da proc:utteranceText ?utterance }
+    BIND(REPLACE(STR(?agentClass), ".*#", "") AS ?agentType)
+    BIND(REPLACE(STR(?actionClass), ".*#", "") AS ?actionType)
+}

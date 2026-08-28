@@ -1,0 +1,429 @@
+@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<module-anchor.ttl> a owl:Ontology ;
+    owl:imports <module-core.ttl>,
+        <module-knowledge.ttl>,
+        <module-process.ttl>,
+        <module-team.ttl> .
+
+<module-anchor.ttl#CommunicationSkill> a owl:Class ;
+    rdfs:comment "Ability to articulate ideas clearly to team members.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CollaborativeTeamwork> .
+
+<module-anchor.ttl#ConflictResolution> a owl:Class ;
+    rdfs:comment "Ability to navigate and resolve disagreements constructively.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CollaborativeTeamwork> .
+
+<module-anchor.ttl#ConstraintAnalysis> a owl:Class ;
+    rdfs:comment "Ability to identify, analyze, and work within design constraints.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#EngineeringThinking> .
+
+<module-anchor.ttl#FailureAnalysis> a owl:Class ;
+    rdfs:comment "Ability to analyze failures and extract actionable insights (Productive Failure).@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#EngineeringThinking> .
+
+<module-anchor.ttl#IterativeImprovement> a owl:Class ;
+    rdfs:comment "Ability to iteratively refine a design based on feedback and test results.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#EngineeringThinking> .
+
+<module-anchor.ttl#ProblemDecomposition> a owl:Class ;
+    rdfs:comment "Ability to break down complex problems into manageable sub-problems.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#EngineeringThinking> .
+
+<module-anchor.ttl#RoleResponsibility> a owl:Class ;
+    rdfs:comment "Ability to fulfill assigned team role with accountability.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CollaborativeTeamwork> .
+
+<module-anchor.ttl#SystematicTesting> a owl:Class ;
+    rdfs:comment "Ability to design and execute tests to evaluate a solution.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#EngineeringThinking> .
+
+<module-anchor.ttl#alertThresholdCritical> a owl:DatatypeProperty ;
+    rdfs:label "alertThresholdCritical@en"^^xsd:string ;
+    rdfs:comment "Critical threshold: when indicatorValue falls below this, show red alert on dashboard.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#AnalyticsIndicator> ;
+    rdfs:range xsd:decimal .
+
+<module-anchor.ttl#alertThresholdWarning> a owl:DatatypeProperty ;
+    rdfs:label "alertThresholdWarning@en"^^xsd:string ;
+    rdfs:comment "Warning threshold: when indicatorValue falls below this, show yellow alert on dashboard.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#AnalyticsIndicator> ;
+    rdfs:range xsd:decimal .
+
+<module-anchor.ttl#alignmentLevel> a owl:DatatypeProperty ;
+    rdfs:label "alignmentLevel@en"^^xsd:string ;
+    rdfs:comment "Strength of alignment on a 1-5 Likert scale.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#StandardAlignment> ;
+    rdfs:range xsd:integer .
+
+<module-anchor.ttl#collaborationIndex> a owl:DatatypeProperty ;
+    rdfs:label "collaborationIndex@en"^^xsd:string ;
+    rdfs:comment "Overall CSCL collaboration quality index (0-1).@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#TeamState> ;
+    rdfs:range xsd:decimal .
+
+<module-anchor.ttl#competencyScore> a owl:DatatypeProperty ;
+    rdfs:label "competencyScore@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#PerformanceTrace> ;
+    rdfs:range xsd:decimal .
+
+<module-anchor.ttl#hasGradeBand> a owl:DatatypeProperty ;
+    rdfs:label "hasGradeBand@en"^^xsd:string ;
+    rdfs:comment "K-12 grade band for which this competency dimension applies: 'K-2', '3-5', '6-8', '9-12'. Allows differentiation of expected proficiency by age group.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CompetencyDimension> ;
+    rdfs:range xsd:string .
+
+<module-anchor.ttl#indicatorValue> a owl:DatatypeProperty ;
+    rdfs:label "indicatorValue@en"^^xsd:string ;
+    rdfs:comment "Quantitative value of an AnalyticsIndicator.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#AnalyticsIndicator> ;
+    rdfs:range xsd:decimal .
+
+<module-anchor.ttl#knowledgeCoConstruction> a owl:DatatypeProperty ;
+    rdfs:label "knowledgeCoConstruction@en"^^xsd:string ;
+    rdfs:comment "Level of collaborative knowledge building (Scardamalia & Bereiter).@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#TeamState> ;
+    rdfs:range xsd:decimal .
+
+<module-anchor.ttl#participationEquity> a owl:DatatypeProperty ;
+    rdfs:label "participationEquity@en"^^xsd:string ;
+    rdfs:comment "Gini-based equity of participation across team members.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#TeamState> ;
+    rdfs:range xsd:decimal .
+
+<module-anchor.ttl#recordedAt> a owl:DatatypeProperty ;
+    rdfs:label "recordedAt@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#PerformanceTrace> ;
+    rdfs:range xsd:dateTime .
+
+<module-anchor.ttl#snapshotTime> a owl:DatatypeProperty ;
+    rdfs:label "snapshotTime@en"^^xsd:string ;
+    rdfs:comment "Timestamp of the team state snapshot. Enables time-series trend analysis and dashboard visualizations of team dynamics over time.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#TeamState> ;
+    rdfs:range xsd:dateTime .
+
+<module-anchor.ttl#standardCode> a owl:DatatypeProperty ;
+    rdfs:label "standardCode@en"^^xsd:string ;
+    rdfs:comment "Standard identifier code (e.g. 'NGSS.HS-ETS1-2').@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#StandardAlignment> ;
+    rdfs:range xsd:string .
+
+<module-anchor.ttl#standardFramework> a owl:DatatypeProperty ;
+    rdfs:label "standardFramework@en"^^xsd:string ;
+    rdfs:comment "Curriculum standard framework: 'NGSS', 'CSTA', 'CommonCore', 'ITEEA'.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#StandardAlignment> ;
+    rdfs:range xsd:string .
+
+<module-anchor.ttl#stepType> a owl:DatatypeProperty ;
+    rdfs:label "stepType@en"^^xsd:string ;
+    rdfs:comment "Type label for the cognitive step: 'analogical_reasoning', 'causal_attribution', 'hypothesis_testing', 'abstraction', 'problem_decomposition'.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CognitiveStep> ;
+    rdfs:range xsd:string .
+
+<module-anchor.ttl#transactivityIndex> a owl:DatatypeProperty ;
+    rdfs:label "transactivityIndex@en"^^xsd:string ;
+    rdfs:comment "Degree of cross-referencing and building on peer contributions.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#TeamState> ;
+    rdfs:range xsd:decimal .
+
+<module-team.ttl#hasCompetency> rdfs:range <module-anchor.ttl#CompetencyDimension> .
+
+<module-anchor.ttl#aggregatesTrace> a owl:ObjectProperty ;
+    rdfs:label "aggregatesTrace@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CompetencyProfile> ;
+    rdfs:range <module-anchor.ttl#PerformanceTrace> ;
+    owl:inverseOf <module-anchor.ttl#isAggregatedIn> .
+
+<module-anchor.ttl#derivedFromEvent> a owl:ObjectProperty ;
+    rdfs:label "derivedFromEvent@en"^^xsd:string ;
+    rdfs:comment "Anchors a PerformanceTrace to the PBL event it was derived from. Provides unbroken evidence chain for process-oriented assessment.@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#PerformanceTrace> ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Activity> <module-process.ttl#DiscourseAction> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> ) ] ;
+    owl:inverseOf <module-anchor.ttl#generatesTrace> .
+
+<module-anchor.ttl#evidencesCompetency> a owl:ObjectProperty ;
+    rdfs:label "evidencesCompetency@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CognitiveStep> ;
+    rdfs:range <module-anchor.ttl#CompetencyDimension> ;
+    owl:inverseOf <module-anchor.ttl#isEvidencedBy> .
+
+<module-anchor.ttl#generatesTrace> a owl:ObjectProperty ;
+    rdfs:label "generatesTrace@en"^^xsd:string ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( <module-core.ttl#Activity> <module-process.ttl#DiscourseAction> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> ) ] ;
+    rdfs:range <module-anchor.ttl#PerformanceTrace> ;
+    owl:inverseOf <module-anchor.ttl#derivedFromEvent> .
+
+<module-anchor.ttl#hasAlignment> a owl:ObjectProperty ;
+    rdfs:label "hasAlignment@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CompetencyDimension> ;
+    rdfs:range <module-anchor.ttl#StandardAlignment> ;
+    owl:inverseOf <module-anchor.ttl#isAlignmentOf> .
+
+<module-anchor.ttl#hasAnalyticsIndicator> a owl:ObjectProperty ;
+    rdfs:label "hasAnalyticsIndicator@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#TeamState> ;
+    rdfs:range <module-anchor.ttl#AnalyticsIndicator> ;
+    owl:inverseOf <module-anchor.ttl#isIndicatorOfState> .
+
+<module-anchor.ttl#hasCognitiveStep> a owl:ObjectProperty ;
+    rdfs:label "hasCognitiveStep@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-anchor.ttl#CognitiveStep> ;
+    owl:inverseOf <module-anchor.ttl#isCognitiveStepOf> .
+
+<module-anchor.ttl#hasCompetencyProfile> a owl:ObjectProperty ;
+    rdfs:label "hasCompetencyProfile@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range <module-anchor.ttl#CompetencyProfile> ;
+    owl:inverseOf <module-anchor.ttl#isProfileOf> .
+
+<module-anchor.ttl#hasPerformanceTrace> a owl:ObjectProperty ;
+    rdfs:label "hasPerformanceTrace@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Learner> ;
+    rdfs:range <module-anchor.ttl#PerformanceTrace> ;
+    owl:inverseOf <module-anchor.ttl#isGeneratedByLearner> .
+
+<module-anchor.ttl#hasTeamState> a owl:ObjectProperty ;
+    rdfs:label "hasTeamState@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Team> ;
+    rdfs:range <module-anchor.ttl#TeamState> ;
+    owl:inverseOf <module-anchor.ttl#isStateOfTeam> .
+
+<module-anchor.ttl#isAggregatedIn> a owl:ObjectProperty ;
+    rdfs:label "isAggregatedIn@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#PerformanceTrace> ;
+    rdfs:range <module-anchor.ttl#CompetencyProfile> ;
+    owl:inverseOf <module-anchor.ttl#aggregatesTrace> .
+
+<module-anchor.ttl#isAlignmentOf> a owl:ObjectProperty ;
+    rdfs:label "isAlignmentOf@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#StandardAlignment> ;
+    rdfs:range <module-anchor.ttl#CompetencyDimension> ;
+    owl:inverseOf <module-anchor.ttl#hasAlignment> .
+
+<module-anchor.ttl#isCognitiveStepOf> a owl:ObjectProperty ;
+    rdfs:label "isCognitiveStepOf@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CognitiveStep> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-anchor.ttl#hasCognitiveStep> .
+
+<module-anchor.ttl#isEvidencedBy> a owl:ObjectProperty ;
+    rdfs:label "isEvidencedBy@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CompetencyDimension> ;
+    rdfs:range <module-anchor.ttl#CognitiveStep> ;
+    owl:inverseOf <module-anchor.ttl#evidencesCompetency> .
+
+<module-anchor.ttl#isGeneratedByLearner> a owl:ObjectProperty ;
+    rdfs:label "isGeneratedByLearner@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#PerformanceTrace> ;
+    rdfs:range <module-team.ttl#Learner> ;
+    owl:inverseOf <module-anchor.ttl#hasPerformanceTrace> .
+
+<module-anchor.ttl#isIndicatorOfState> a owl:ObjectProperty ;
+    rdfs:label "isIndicatorOfState@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#AnalyticsIndicator> ;
+    rdfs:range <module-anchor.ttl#TeamState> ;
+    owl:inverseOf <module-anchor.ttl#hasAnalyticsIndicator> .
+
+<module-anchor.ttl#isProfileOf> a owl:ObjectProperty ;
+    rdfs:label "isProfileOf@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CompetencyProfile> ;
+    rdfs:range <module-team.ttl#Learner> ;
+    owl:inverseOf <module-anchor.ttl#hasCompetencyProfile> .
+
+<module-anchor.ttl#isStateOfTeam> a owl:ObjectProperty ;
+    rdfs:label "isStateOfTeam@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#TeamState> ;
+    rdfs:range <module-team.ttl#Team> ;
+    owl:inverseOf <module-anchor.ttl#hasTeamState> .
+
+<module-anchor.ttl#isTracedByPerformance> a owl:ObjectProperty ;
+    rdfs:label "isTracedByPerformance@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#CompetencyDimension> ;
+    rdfs:range <module-anchor.ttl#PerformanceTrace> ;
+    owl:inverseOf <module-anchor.ttl#tracesCompetency> .
+
+<module-anchor.ttl#isTriggeredByDiscourse> a owl:ObjectProperty ;
+    rdfs:label "isTriggeredByDiscourse@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#VirtualAgent> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-anchor.ttl#triggersAgent> .
+
+<module-anchor.ttl#tracesCompetency> a owl:ObjectProperty ;
+    rdfs:label "tracesCompetency@en"^^xsd:string ;
+    rdfs:domain <module-anchor.ttl#PerformanceTrace> ;
+    rdfs:range <module-anchor.ttl#CompetencyDimension> ;
+    owl:inverseOf <module-anchor.ttl#isTracedByPerformance> .
+
+<module-anchor.ttl#triggersAgent> a owl:ObjectProperty ;
+    rdfs:label "triggersAgent@en"^^xsd:string ;
+    rdfs:comment "Maps a DiscourseAction to the VirtualAgent that should respond. Trigger conditions encoded in SWRL rules. Cross-module: M3 → M4.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-team.ttl#VirtualAgent> ;
+    owl:inverseOf <module-anchor.ttl#isTriggeredByDiscourse> .
+
+<module-anchor.ttl#AnalogicalTransfer> a owl:Class ;
+    rdfs:comment "Ability to transfer principles and patterns analogically from one domain to another.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#InterdisciplinaryIntegration> .
+
+<module-anchor.ttl#CollaborationIndicator> a owl:Class ;
+    rdfs:subClassOf <module-anchor.ttl#AnalyticsIndicator> .
+
+<module-anchor.ttl#CreativityAndInnovation> a owl:Class ;
+    rdfs:comment "Ability to generate novel ideas, discover unexpected connections, and innovate within design constraints.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CompetencyDimension> .
+
+<module-anchor.ttl#CrossDomainConceptRecognition> a owl:Class ;
+    rdfs:comment "Ability to recognize and identify concepts spanning multiple disciplinary domains.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#InterdisciplinaryIntegration> .
+
+<module-anchor.ttl#IntegratedExplanation> a owl:Class ;
+    rdfs:comment "Ability to synthesize and articulate explanations that integrate multiple disciplinary perspectives.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#InterdisciplinaryIntegration> .
+
+<module-anchor.ttl#MetacognitiveSelfRegulation> a owl:Class ;
+    rdfs:comment "Ability to reflect on one's own learning process, monitor understanding, and self-regulate cognitive strategies.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CompetencyDimension> .
+
+<module-anchor.ttl#OutcomeIndicator> a owl:Class ;
+    rdfs:subClassOf <module-anchor.ttl#AnalyticsIndicator> .
+
+<module-anchor.ttl#ProcessIndicator> a owl:Class ;
+    rdfs:subClassOf <module-anchor.ttl#AnalyticsIndicator> .
+
+<module-anchor.ttl#CollaborativeTeamwork> a owl:Class ;
+    rdfs:comment "Ability to collaborate, communicate, and coordinate within a team (CSCL).@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CompetencyDimension> .
+
+<module-anchor.ttl#InterdisciplinaryIntegration> a owl:Class ;
+    rdfs:comment "Ability to integrate concepts and methods across disciplinary boundaries (Klein).@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CompetencyDimension> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-anchor.ttl#CrossDomainConceptRecognition> <module-anchor.ttl#AnalogicalTransfer> <module-anchor.ttl#IntegratedExplanation> ) ] .
+
+<module-anchor.ttl#StandardAlignment> a owl:Class ;
+    rdfs:comment "Maps a CompetencyDimension to an external curriculum standard (NGSS, CSTA, Common Core, ITEEA).@en@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-anchor.ttl#CognitiveStep> a owl:Class ;
+    rdfs:comment "A cognitive operation that bridges discourse actions to competency evidence. Enables explainable three-hop traceability: DiscourseAction → hasCognitiveStep → CognitiveStep → evidencesCompetency → CompetencyDimension.@en@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-anchor.ttl#CompetencyProfile> a owl:Class ;
+    rdfs:comment "An aggregated competency profile for a learner, collecting multiple PerformanceTraces over time.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-anchor.ttl#EngineeringThinking> a owl:Class ;
+    rdfs:comment "Ability to apply engineering design process, constraint analysis, and systematic problem-solving.@en"^^xsd:string ;
+    rdfs:subClassOf <module-anchor.ttl#CompetencyDimension> .
+
+<module-anchor.ttl#AnalyticsIndicator> a owl:Class ;
+    rdfs:comment "Unified abstract class for all dashboard analytics indicators.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-anchor.ttl#ProcessIndicator> <module-anchor.ttl#CollaborationIndicator> <module-anchor.ttl#OutcomeIndicator> ) ] .
+
+<module-anchor.ttl#TeamState> a owl:Class ;
+    rdfs:comment "A snapshot of team status at a specific point in time.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:disjointWith <module-anchor.ttl#AnalyticsIndicator> .
+
+<module-anchor.ttl#PerformanceTrace> a owl:Class ;
+    rdfs:comment "A timestamped record of a learner's performance on a specific competency, anchored to a PBL event.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-anchor.ttl#CompetencyDimension> a owl:Class ;
+    rdfs:comment "A measurable competency dimension for process-oriented assessment.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-anchor.ttl#EngineeringThinking> <module-anchor.ttl#CollaborativeTeamwork> <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) ] .
+
+[] rdf:first <module-process.ttl#DesignReasoningAction> ;
+    rdf:rest ( <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
+
+[] rdf:first <module-process.ttl#EvidenceAnalyzing> ;
+    rdf:rest ( <module-process.ttl#PrincipleFormulating> ) .
+
+[] rdf:first <module-process.ttl#PlanningUtterance> ;
+    rdf:rest ( <module-process.ttl#DesignJustification> <module-process.ttl#ConstraintReasoningAction> ) .
+
+[] rdf:first <module-process.ttl#PeerTutoring> ;
+    rdf:rest ( <module-process.ttl#PeerAssessment> <module-process.ttl#TaskCoordination> <module-process.ttl#KnowledgeSharing> <module-process.ttl#CognitiveConflict> ) .
+
+[] rdf:first <module-process.ttl#ProcessConfusion> ;
+    rdf:rest ( <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) .
+
+[] rdf:first <module-process.ttl#Agreement> ;
+    rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
+
+[] rdf:first <module-process.ttl#TaskManagement> ;
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+
+[] rdf:first <module-core.ttl#FiveE_Engage> ;
+    rdf:rest ( <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
+
+[] rdf:first <module-process.ttl#Iteration> ;
+    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+
+[] rdf:first <module-process.ttl#ToolSharing> ;
+    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+
+[] rdf:first <module-core.ttl#MakingActivity> ;
+    rdf:rest ( <module-core.ttl#InquiryActivity> ) .
+
+[] rdf:first <module-team.ttl#ConceptualExpert> ;
+    rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
+
+[] rdf:first <module-team.ttl#Builder> ;
+    rdf:rest ( <module-team.ttl#ProjectManager> <module-team.ttl#Researcher> <module-team.ttl#Designer> <module-team.ttl#Presenter> <module-team.ttl#MaterialManager> ) .
+
+[] rdf:first <module-team.ttl#Actor> ;
+    rdf:rest ( <module-team.ttl#HumanRole> ) .
+
+[] rdf:first <module-team.ttl#DirectionalGuidance> ;
+    rdf:rest ( <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-anchor.ttl#CrossDomainConceptRecognition> <module-anchor.ttl#AnalogicalTransfer> <module-anchor.ttl#IntegratedExplanation> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-anchor.ttl#EngineeringThinking> <module-anchor.ttl#CollaborativeTeamwork> <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
+
+[] rdf:first <module-core.ttl#SolutionIdeation> ;
+    rdf:rest ( <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-anchor.ttl#CompetencyDimension> <module-anchor.ttl#PerformanceTrace> <module-anchor.ttl#CompetencyProfile> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-anchor.ttl#CognitiveStep> <module-anchor.ttl#CompetencyDimension> <module-anchor.ttl#PerformanceTrace> <module-anchor.ttl#CompetencyProfile> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-anchor.ttl#ProcessIndicator> <module-anchor.ttl#CollaborationIndicator> <module-anchor.ttl#OutcomeIndicator> ) .
+
+[] rdf:first <module-knowledge.ttl#MappingBridge> ;
+    rdf:rest ( <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
+
+[] rdf:first <module-knowledge.ttl#Skill> ;
+    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+
+[] rdf:first <module-process.ttl#Understanding> ;
+    rdf:rest ( <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
+
+[] rdf:first <module-process.ttl#PartialSuccess> ;
+    rdf:rest ( <module-process.ttl#Failure> ) .
+
