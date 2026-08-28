@@ -42,8 +42,9 @@ re-identification.
 
 ## License
 
-[Choose and state licenses, e.g., code under MIT, ontology under CC BY 4.0.]
+All contents of this repository are licensed under the Creative Commons Attribution
+4.0 International (CC BY 4.0).
 
-## Citation
-
-[Add the paper reference and the Zenodo DOI after the first archived release.]
+The "On request" materials (see *Data availability*) are not covered by this
+license and are provided solely for research verification under the terms
+stated in that section.
