@@ -9,7 +9,10 @@ Import from all other scripts instead of hardcoding.
 from pathlib import Path
 
 # ── Ontology Identity ──
-IRI = "https://w3id.org/ie-pbl/ontology/1.0/"
+# IRIs resolve to the actual files in the public GitHub repository
+# (raw.githubusercontent serves the Turtle source for any module IRI).
+IRI = "https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/"
+VIGNETTE_IRI = "https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#"
 
 # ── Project Paths ──
 PROJECT_ROOT = Path(__file__).resolve().parent.parent

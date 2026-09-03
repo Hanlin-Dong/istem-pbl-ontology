@@ -226,10 +226,10 @@ def export_sparql_queries():
 # Retrieve all discourse actions in the Create phase, ordered by timestamp,
 # showing learner, action type, agent triggered, and referenced concept.
 
-PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#>
+PREFIX proc: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#>
+PREFIX team: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#>
+PREFIX anch: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-anchor.ttl#>
 
 SELECT ?timestamp ?learnerName ?actionType ?utterance ?agentType
 WHERE {
@@ -251,10 +251,10 @@ ORDER BY ?timestamp
 # CQ2: Complete Performance Lineage for a Learner
 # Show all traces with competency, score, and originating event for learner "Alice".
 
-PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#>
+PREFIX proc: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#>
+PREFIX team: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#>
+PREFIX anch: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-anchor.ttl#>
 
 SELECT ?competency ?score ?timestamp ?utterance
 WHERE {
@@ -275,8 +275,8 @@ ORDER BY ?timestamp
 # CQ3: Interdisciplinary Bridges Detected
 # List bridges, their type, the domains and concepts they connect.
 
-PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX know: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#>
+PREFIX core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#>
+PREFIX know: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-knowledge.ttl#>
 
 SELECT ?bridgeName ?bridgeType ?domain1 ?domain2 ?concept1 ?concept2
 WHERE {
@@ -299,10 +299,10 @@ WHERE {
 # CQ4: Agent Trigger Summary
 # Which agents were triggered by which discourse action types, and for which team?
 
-PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#>
+PREFIX proc: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#>
+PREFIX team: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#>
+PREFIX anch: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-anchor.ttl#>
 
 SELECT ?agentType ?actionType ?teamName ?utterance
 WHERE {
@@ -323,8 +323,8 @@ WHERE {
 # engineering activity that the science informed. Uses transitive
 # isFollowedByAction to chain discourse events.
 
-PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#>
+PREFIX proc: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#>
 
 SELECT ?hypothesis ?evidence ?principle ?designActivity ?conceptTitle
 WHERE {

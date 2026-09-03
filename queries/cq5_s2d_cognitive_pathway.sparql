@@ -4,8 +4,8 @@
 # engineering activity that the science informed. Uses transitive
 # isFollowedByAction to chain discourse events.
 
-PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#>
+PREFIX proc: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#>
 
 SELECT ?hypothesis ?evidence ?principle ?designActivity ?conceptTitle
 WHERE {

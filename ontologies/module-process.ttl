@@ -1,12 +1,12 @@
-@base <https://w3id.org/ie-pbl/ontology/1.0/> .
-@prefix anchor: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
-@prefix core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#> .
-@prefix kn: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@base <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/> .
+@prefix anchor: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-anchor.ttl#> .
+@prefix core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#> .
+@prefix kn: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-knowledge.ttl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix proc: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix team: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <module-anchor.ttl#hasCognitiveStep> rdfs:domain <module-process.ttl#DiscourseAction> .

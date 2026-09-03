@@ -25,14 +25,14 @@ import json
 sys.path.insert(0, os.path.dirname(__file__))
 
 from owlready2 import *
-from config import IRI, VIGNETTE_DIR, ONTO_DIR
+from config import IRI, VIGNETTE_IRI, VIGNETTE_DIR, ONTO_DIR
 from tbox import build_all_tbox, validate_with_pellet
 
 
 def build_vignette(C):
     """Construct the Team_Alpha ABox in the default World."""
     # ── shorthand ──
-    pbl = f"{IRI}vignette#"
+    pbl = VIGNETTE_IRI
 
     # ═════════════════════════════════════════════════════════════════
     # PROJECT & DRIVING QUESTION
@@ -167,7 +167,7 @@ def build_vignette(C):
     proj.hasTeam.append(team)
 
     # v3.0: Constraint with dynamic reasoning
-    budget_constraint = C.Constraint(IRI + "vignette#" + "Constraint_Budget")
+    budget_constraint = C.Constraint(VIGNETTE_IRI + "Constraint_Budget")
     budget_constraint.hasTitle = ["Budget: $100 max for materials"]
     budget_constraint.hasDescription = ["Total materials cost must not exceed $100 for the wind turbine project."]
     proj.hasConstraint.append(budget_constraint)
@@ -187,14 +187,14 @@ def build_vignette(C):
     team.hasTeamMember.append(carol)
 
     # v3.0: Deliverable instances with hooks for future quality assessment
-    deliverable_turbine = C.Deliverable(IRI + "vignette#" + "Deliverable_Turbine")
+    deliverable_turbine = C.Deliverable(VIGNETTE_IRI + "Deliverable_Turbine")
     deliverable_turbine.hasTitle = ["Wind Turbine Prototype"]
     deliverable_turbine.deliverableType = ["prototype"]
     deliverable_turbine.isProducedBy.append(bob)
     deliverable_turbine.hasEvaluationCriterion = ["rubric.build-quality", "rubric.functionality"]
     act_create3.hasDeliverable.append(deliverable_turbine)
 
-    deliverable_blueprint = C.Deliverable(IRI + "vignette#" + "Deliverable_Blueprint")
+    deliverable_blueprint = C.Deliverable(VIGNETTE_IRI + "Deliverable_Blueprint")
     deliverable_blueprint.hasTitle = ["Blade Design Blueprint"]
     deliverable_blueprint.deliverableType = ["model"]
     deliverable_blueprint.isProducedBy.append(carol)
@@ -541,7 +541,7 @@ def build_vignette(C):
     da_princ.justifiesDecision.append(da_dj)
 
     # v3.0: ConstraintReasoningAction — Bob reasons about budget constraint
-    da_constraint = C.ConstraintReasoningAction(IRI + "vignette#" + "DA_ConstraintReasoning_01")
+    da_constraint = C.ConstraintReasoningAction(VIGNETTE_IRI + "DA_ConstraintReasoning_01")
     da_constraint.utteranceText = [
         "Balsa wood costs $15 per sheet and we need 4 sheets — that's $60 already. "
         "If we use cardboard for the tower base instead of plywood, we can stay "
@@ -553,7 +553,7 @@ def build_vignette(C):
     da_constraint.referencesConcept.append(gear_ratio)
 
     # v3.0: Cross-team discourse — Carol references another team's work
-    da_cross_team = C.PeerArgumentation(IRI + "vignette#" + "DA_CrossTeam_01")
+    da_cross_team = C.PeerArgumentation(VIGNETTE_IRI + "DA_CrossTeam_01")
     da_cross_team.utteranceText = [
         "Team Beta used a gearbox from an old toy car and got much higher RPM. "
         "Maybe we should try something similar instead of direct drive."
@@ -653,7 +653,7 @@ def build_vignette(C):
     bridge2.bridgeComplexity = [2]
 
     # v3.0: ValuePerspective
-    community_perspective = C.ValuePerspective(IRI + "vignette#" + "ValuePerspective_Community")
+    community_perspective = C.ValuePerspective(VIGNETTE_IRI + "ValuePerspective_Community")
     community_perspective.hasTitle = ["Community Environmental Concern"]
     community_perspective.hasDescription = [
         "Local residents are concerned about noise levels and visual impact of wind turbines."
@@ -896,7 +896,7 @@ def export_vignette_graph():
 
     # Filter: only keep triples where the subject is a vignette individual
     vignette_g = Graph()
-    vignette_base = f"{IRI}vignette#"
+    vignette_base = VIGNETTE_IRI
 
     for s, p, o in g:
         s_str = str(s)

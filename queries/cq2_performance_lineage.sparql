@@ -1,10 +1,10 @@
 # CQ2: Complete Performance Lineage for a Learner
 # Show all traces with competency, score, and originating event for learner "Alice".
 
-PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-core.ttl#>
+PREFIX proc: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#>
+PREFIX team: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#>
+PREFIX anch: <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-anchor.ttl#>
 
 SELECT ?competency ?score ?timestamp ?utterance
 WHERE {
