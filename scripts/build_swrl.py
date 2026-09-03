@@ -454,10 +454,13 @@ def build_swrl_rules(C):
     a6b.label.append("A6b: SerendipitousDiscovery→CreativityAndInnovation@en")
     rules["A6b_Serendipity_CI"] = a6b
 
-    # A7: CriticalReflection → MetacognitiveSelfRegulation
+    # A7: Reflection with critical-reflection depth → MetacognitiveSelfRegulation
+    # v4.0: re-grounded on the hasReflectionLevel chain — CriticalReflection is a
+    # ReflectionLevel (Kember), so the event must carry the level, not be one.
     a7 = Imp(namespace=ns_onto)
     a7.set_as_rule(
-        "CriticalReflection(?da), derivedFromEvent(?trace, ?da), "
+        "Reflection(?da), hasReflectionLevel(?da, ?lvl), CriticalReflection(?lvl), "
+        "derivedFromEvent(?trace, ?da), "
         "PerformanceTrace(?trace) "
         "-> tracesCompetency(?trace, MetacognitiveSelfRegulation)",
         namespaces=ontos

@@ -42,9 +42,20 @@ re-identification.
 
 ## License
 
-All contents of this repository are licensed under the Creative Commons Attribution
-4.0 International (CC BY 4.0).
+All contents of this repository are licensed under the Creative Commons
+Attribution 4.0 International (CC BY 4.0).
 
 The "On request" materials (see *Data availability*) are not covered by this
 license and are provided solely for research verification under the terms
 stated in that section.
+
+## Citation
+
+If you use this ontology, please cite the paper:
+
+Hanlin Dong, Meichun Zhu, Mingji Fang, Shasha Chen, and Qibin Qian.
+"iSTEM-PBL Ontology: Semantic Infrastructure for Hybrid Intelligence,
+Cognitive Tracing, and Process-Oriented Assessment in Project-Based Learning."
+*IEEE Transactions on Learning Technologies* (submission).
+
+Archived release: https://doi.org/10.5281/zenodo.22136473

@@ -1,12 +1,12 @@
-@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
-@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
-@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
-@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@base <https://w3id.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <module-anchor.ttl> a owl:Ontology ;
@@ -188,6 +188,12 @@
     rdfs:range <module-anchor.ttl#CompetencyProfile> ;
     owl:inverseOf <module-anchor.ttl#isProfileOf> .
 
+<module-anchor.ttl#hasCrossingActor> a owl:ObjectProperty ;
+    rdfs:label "hasCrossingActor@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#BoundaryCrossingEvent> ;
+    rdfs:range <module-team.ttl#Actor> ;
+    owl:inverseOf <module-anchor.ttl#isCrossingActorOf> .
+
 <module-anchor.ttl#hasPerformanceTrace> a owl:ObjectProperty ;
     rdfs:label "hasPerformanceTrace@en"^^xsd:string ;
     rdfs:domain <module-team.ttl#Learner> ;
@@ -217,6 +223,12 @@
     rdfs:domain <module-anchor.ttl#CognitiveStep> ;
     rdfs:range <module-process.ttl#DiscourseAction> ;
     owl:inverseOf <module-anchor.ttl#hasCognitiveStep> .
+
+<module-anchor.ttl#isCrossingActorOf> a owl:ObjectProperty ;
+    rdfs:label "isCrossingActorOf@en"^^xsd:string ;
+    rdfs:domain <module-team.ttl#Actor> ;
+    rdfs:range <module-knowledge.ttl#BoundaryCrossingEvent> ;
+    owl:inverseOf <module-anchor.ttl#hasCrossingActor> .
 
 <module-anchor.ttl#isEvidencedBy> a owl:ObjectProperty ;
     rdfs:label "isEvidencedBy@en"^^xsd:string ;
@@ -349,6 +361,9 @@
     owl:equivalentClass [ a owl:Class ;
             owl:unionOf ( <module-anchor.ttl#EngineeringThinking> <module-anchor.ttl#CollaborativeTeamwork> <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) ] .
 
+[] rdf:first <module-process.ttl#PartialSuccess> ;
+    rdf:rest ( <module-process.ttl#Failure> ) .
+
 [] rdf:first <module-process.ttl#DesignReasoningAction> ;
     rdf:rest ( <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
 
@@ -367,20 +382,23 @@
 [] rdf:first <module-process.ttl#Agreement> ;
     rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
 
+[] rdf:first <module-core.ttl#FinalPresentation> ;
+    rdf:rest ( <module-core.ttl#ClosingCeremony> ) .
+
 [] rdf:first <module-process.ttl#TaskManagement> ;
     rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
 
-[] rdf:first <module-core.ttl#FiveE_Engage> ;
-    rdf:rest ( <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
-
-[] rdf:first <module-process.ttl#Iteration> ;
-    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
-
-[] rdf:first <module-process.ttl#ToolSharing> ;
-    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+[] rdf:first <module-process.ttl#Reflection> ;
+    rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
 
 [] rdf:first <module-core.ttl#MakingActivity> ;
     rdf:rest ( <module-core.ttl#InquiryActivity> ) .
+
+[] rdf:first <module-process.ttl#ToolSharing> ;
+    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WrittenExpression> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
 
 [] rdf:first <module-team.ttl#ConceptualExpert> ;
     rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
@@ -393,9 +411,6 @@
 
 [] rdf:first <module-team.ttl#DirectionalGuidance> ;
     rdf:rest ( <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
-
-[] rdf:first <module-core.ttl#Phase> ;
-    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-anchor.ttl#CrossDomainConceptRecognition> <module-anchor.ttl#AnalogicalTransfer> <module-anchor.ttl#IntegratedExplanation> ) .
@@ -415,15 +430,15 @@
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-anchor.ttl#ProcessIndicator> <module-anchor.ttl#CollaborationIndicator> <module-anchor.ttl#OutcomeIndicator> ) .
 
+[] rdf:first <module-knowledge.ttl#CoordinationMechanism> ;
+    rdf:rest ( <module-knowledge.ttl#ReflectionMechanism> <module-knowledge.ttl#TransformationMechanism> ) .
+
 [] rdf:first <module-knowledge.ttl#MappingBridge> ;
     rdf:rest ( <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
 
 [] rdf:first <module-knowledge.ttl#Skill> ;
-    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingEvent> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
 
 [] rdf:first <module-process.ttl#Understanding> ;
-    rdf:rest ( <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
-
-[] rdf:first <module-process.ttl#PartialSuccess> ;
-    rdf:rest ( <module-process.ttl#Failure> ) .
+    rdf:rest ( <module-process.ttl#ReflectiveThought> <module-process.ttl#CriticalReflection> ) .
 

@@ -1,12 +1,12 @@
-@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
-@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
-@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
-@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@base <https://w3id.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <module-anchor.ttl#hasCognitiveStep> rdfs:domain <module-process.ttl#DiscourseAction> .
@@ -30,6 +30,12 @@
     rdfs:comment "Estimated duration of an activity in minutes.@en"^^xsd:string ;
     rdfs:domain <module-core.ttl#Activity> ;
     rdfs:range xsd:integer .
+
+<module-process.ttl#hasModality> a owl:DatatypeProperty ;
+    rdfs:label "hasModality@en"^^xsd:string ;
+    rdfs:comment "Communication modality of a learning event: 'verbal', 'gestural', 'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#LearningEvent> ;
+    rdfs:range xsd:string .
 
 <module-process.ttl#isAddressedToClass> a owl:DatatypeProperty ;
     rdfs:label "isAddressedToClass@en"^^xsd:string ;
@@ -56,7 +62,7 @@
 
 <module-process.ttl#timestamp> a owl:DatatypeProperty ;
     rdfs:label "timestamp@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:domain <module-process.ttl#LearningEvent> ;
     rdfs:range xsd:dateTime .
 
 <module-process.ttl#triggerConfidence> a owl:DatatypeProperty ;
@@ -83,11 +89,19 @@
     rdfs:domain <module-process.ttl#EmotiveExpression> ;
     rdfs:range xsd:string .
 
+<module-team.ttl#InstructorIntervention> rdfs:subClassOf <module-process.ttl#LearningEvent> .
+
 <module-process.ttl#containsDiscourse> a owl:ObjectProperty ;
     rdfs:label "containsDiscourse@en"^^xsd:string ;
     rdfs:domain <module-core.ttl#Phase> ;
-    rdfs:range <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#LearningEvent> ;
     owl:inverseOf <module-process.ttl#occursInPhase> .
+
+<module-process.ttl#containsSubPhaseAction> a owl:ObjectProperty ;
+    rdfs:label "containsSubPhaseAction@en"^^xsd:string ;
+    rdfs:domain <module-core.ttl#SubPhase> ;
+    rdfs:range <module-process.ttl#DiscourseAction> ;
+    owl:inverseOf <module-process.ttl#occursInSubPhase> .
 
 <module-process.ttl#directedToTeam> a owl:ObjectProperty ;
     rdfs:label "directedToTeam@en"^^xsd:string ;
@@ -95,18 +109,6 @@
     rdfs:domain <module-process.ttl#DiscourseAction> ;
     rdfs:range <module-team.ttl#Team> ;
     owl:inverseOf <module-process.ttl#isTargetedByAction> .
-
-<module-process.ttl#hasIteration> a owl:ObjectProperty ;
-    rdfs:label "hasIteration@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#EngineeringDesignProcess> ;
-    rdfs:range <module-process.ttl#Iteration> ;
-    owl:inverseOf <module-process.ttl#isIterationOf> .
-
-<module-process.ttl#hasIterationEvent> a owl:ObjectProperty ;
-    rdfs:label "hasIterationEvent@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#EngineeringDesignProcess> ;
-    rdfs:range <module-process.ttl#Iteration> ;
-    owl:inverseOf <module-process.ttl#occursWithinProcess> .
 
 <module-process.ttl#hasIterationOutcome> a owl:ObjectProperty ;
     rdfs:label "hasIterationOutcome@en"^^xsd:string ;
@@ -162,12 +164,6 @@
             owl:unionOf ( <module-core.ttl#DesignActivity> <module-core.ttl#MakingActivity> ) ] ;
     rdfs:range <module-process.ttl#DiscourseAction> ;
     owl:inverseOf <module-process.ttl#informsDesign> .
-
-<module-process.ttl#isIterationOf> a owl:ObjectProperty ;
-    rdfs:label "isIterationOf@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#Iteration> ;
-    rdfs:range <module-process.ttl#EngineeringDesignProcess> ;
-    owl:inverseOf <module-process.ttl#hasIteration> .
 
 <module-process.ttl#isLevelOfReflection> a owl:ObjectProperty ;
     rdfs:label "isLevelOfReflection@en"^^xsd:string ;
@@ -259,15 +255,15 @@
 
 <module-process.ttl#occursInPhase> a owl:ObjectProperty ;
     rdfs:label "occursInPhase@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:domain <module-process.ttl#LearningEvent> ;
     rdfs:range <module-core.ttl#Phase> ;
     owl:inverseOf <module-process.ttl#containsDiscourse> .
 
-<module-process.ttl#occursWithinProcess> a owl:ObjectProperty ;
-    rdfs:label "occursWithinProcess@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#Iteration> ;
-    rdfs:range <module-process.ttl#EngineeringDesignProcess> ;
-    owl:inverseOf <module-process.ttl#hasIterationEvent> .
+<module-process.ttl#occursInSubPhase> a owl:ObjectProperty ;
+    rdfs:label "occursInSubPhase@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-core.ttl#SubPhase> ;
+    owl:inverseOf <module-process.ttl#containsSubPhaseAction> .
 
 <module-process.ttl#referencesConcept> a owl:ObjectProperty ;
     rdfs:label "referencesConcept@en"^^xsd:string ;
@@ -319,7 +315,7 @@
     rdfs:subClassOf <module-process.ttl#DesignReasoningAction> .
 
 <module-process.ttl#CriticalReflection> a owl:Class ;
-    rdfs:comment "Critical analysis of assumptions, evidence, and implications.@en"^^xsd:string ;
+    rdfs:comment "Premise critique: reflection directed at the assumptions underlying beliefs and actions (Kember et al., 2008).@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
 
 <module-process.ttl#Demonstration> a owl:Class ;
@@ -414,6 +410,10 @@
     rdfs:comment "Student expresses confusion about the design process itself.@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#HelpSeekingAction> .
 
+<module-process.ttl#ReflectiveThought> a owl:Class ;
+    rdfs:comment "Kember's 'reflection' level: conscious, deliberate examination of experience and knowledge to guide action. Encoded as ReflectiveThought to avoid a name clash with the M3 Reflection activity class.@en@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
+
 <module-process.ttl#SerendipitousDiscovery> a owl:Class ;
     rdfs:comment "Student reports an unexpected discovery or surprising result.@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#RegulatoryAction> .
@@ -442,21 +442,17 @@
     rdfs:comment "Student shares tools or materials with a peer.@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#NonverbalAction> .
 
-<module-process.ttl#TransformativeReflection> a owl:Class ;
-    rdfs:comment "Deep reflection resulting in fundamental perspective shift.@en"^^xsd:string ;
-    rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
-
 <module-process.ttl#Understanding> a owl:Class ;
-    rdfs:comment "Comprehension-level reflection: grasping meaning without critique.@en"^^xsd:string ;
+    rdfs:comment "Intentional learning: constructing meaning without critique of premises.@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
 
-<module-process.ttl#WritingActivity> a owl:Class ;
+<module-process.ttl#WrittenExpression> a owl:Class ;
     rdfs:comment "Student writes, draws, or sketches on paper/whiteboard — important nonverbal cognitive expression.@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#NonverbalAction> .
 
 <module-process.ttl#isAttributedTo> a owl:ObjectProperty ;
     rdfs:label "isAttributedTo@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:domain <module-process.ttl#LearningEvent> ;
     rdfs:range <module-team.ttl#Actor> ;
     owl:inverseOf <module-team.ttl#hasDiscourseAction> .
 
@@ -475,10 +471,6 @@
 <module-process.ttl#HypothesisProposing> a owl:Class ;
     rdfs:comment "Student proposes a testable scientific hypothesis (e.g. 'A steeper angle generates more voltage.').@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#ScientificInquiryAction> .
-
-<module-process.ttl#EngineeringDesignProcess> a owl:Class ;
-    rdfs:comment "Top-level representation of an engineering design workflow.@en"^^xsd:string ;
-    rdfs:subClassOf owl:Thing .
 
 <module-process.ttl#ScientificInquiryAction> a owl:Class ;
     rdfs:comment "Scientific reasoning: proposing hypotheses, analyzing evidence, formulating principles.@en"^^xsd:string ;
@@ -522,6 +514,10 @@
     owl:equivalentClass [ a owl:Class ;
             owl:unionOf ( <module-process.ttl#Success> <module-process.ttl#PartialSuccess> <module-process.ttl#Failure> ) ] .
 
+<module-process.ttl#LearningEvent> a owl:Class ;
+    rdfs:comment "Abstract parent for all observable learning behaviors (verbal and nonverbal).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
 <module-process.ttl#Reflection> a owl:Class ;
     rdfs:comment "A metacognitive reflection activity on process or learning.@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
@@ -530,24 +526,30 @@
     rdfs:comment "Depth of reflection per Kember et al. (2008) framework.@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing ;
     owl:equivalentClass [ a owl:Class ;
-            owl:unionOf ( <module-process.ttl#HabitualAction> <module-process.ttl#Understanding> <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) ] .
-
-<module-process.ttl#NonverbalAction> a owl:Class ;
-    rdfs:comment "Non-verbal learning behavior: physical prototyping, tool sharing, gazing, etc.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#LearningEvent> ;
-    owl:equivalentClass [ a owl:Class ;
-            owl:unionOf ( <module-process.ttl#PhysicalPrototyping> <module-process.ttl#ToolSharing> <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) ] .
+            owl:unionOf ( <module-process.ttl#HabitualAction> <module-process.ttl#Understanding> <module-process.ttl#ReflectiveThought> <module-process.ttl#CriticalReflection> ) ] .
 
 <module-process.ttl#Iteration> a owl:Class ;
     rdfs:comment "A single design cycle within an engineering design process.@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
 
+<module-process.ttl#NonverbalAction> a owl:Class ;
+    rdfs:comment "Non-verbal learning behavior: physical prototyping, tool sharing, gazing, etc.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#LearningEvent> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-process.ttl#PhysicalPrototyping> <module-process.ttl#ToolSharing> <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WrittenExpression> ) ] .
+
 <module-process.ttl#DiscourseAction> a owl:Class ;
     rdfs:comment "Micro-level communicative intent capturing granular student discourse.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#LearningEvent>,
-        owl:Thing ;
+    rdfs:subClassOf owl:Thing,
+        <module-process.ttl#LearningEvent> ;
     owl:equivalentClass [ a owl:Class ;
             owl:unionOf ( <module-process.ttl#ScientificInquiryAction> <module-process.ttl#DesignReasoningAction> <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) ] .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#Success> <module-process.ttl#PartialSuccess> <module-process.ttl#Failure> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#ScientificInquiryAction> <module-process.ttl#DesignReasoningAction> <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-process.ttl#HypothesisProposing> <module-process.ttl#EvidenceAnalyzing> <module-process.ttl#PrincipleFormulating> ) .
@@ -564,20 +566,23 @@
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-process.ttl#SocialBonding> <module-process.ttl#Agreement> <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
 
+[] rdf:first <module-core.ttl#FinalPresentation> ;
+    rdf:rest ( <module-core.ttl#ClosingCeremony> ) .
+
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-process.ttl#Summarizing> <module-process.ttl#TaskManagement> <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
 
-[] rdf:first <module-core.ttl#FiveE_Engage> ;
-    rdf:rest ( <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
-
 [] a owl:AllDisjointClasses ;
-    owl:members ( <module-process.ttl#EngineeringDesignProcess> <module-process.ttl#Iteration> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( <module-process.ttl#PhysicalPrototyping> <module-process.ttl#ToolSharing> <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+    owl:members ( <module-process.ttl#Iteration> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
 
 [] rdf:first <module-core.ttl#MakingActivity> ;
     rdf:rest ( <module-core.ttl#InquiryActivity> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-process.ttl#PhysicalPrototyping> <module-process.ttl#ToolSharing> <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WrittenExpression> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
 
 [] rdf:first <module-team.ttl#ConceptualExpert> ;
     rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
@@ -591,17 +596,14 @@
 [] rdf:first <module-team.ttl#DirectionalGuidance> ;
     rdf:rest ( <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
 
-[] rdf:first <module-core.ttl#Phase> ;
-    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
-
 [] rdf:first <module-anchor.ttl#AnalogicalTransfer> ;
     rdf:rest ( <module-anchor.ttl#IntegratedExplanation> ) .
 
-[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
-    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
-
 [] rdf:first <module-core.ttl#SolutionIdeation> ;
     rdf:rest ( <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
+    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
 
 [] rdf:first <module-anchor.ttl#PerformanceTrace> ;
     rdf:rest ( <module-anchor.ttl#CompetencyProfile> ) .
@@ -618,18 +620,15 @@
 [] rdf:first <module-anchor.ttl#CollaborationIndicator> ;
     rdf:rest ( <module-anchor.ttl#OutcomeIndicator> ) .
 
+[] rdf:first <module-knowledge.ttl#CoordinationMechanism> ;
+    rdf:rest ( <module-knowledge.ttl#ReflectionMechanism> <module-knowledge.ttl#TransformationMechanism> ) .
+
 [] rdf:first <module-knowledge.ttl#MappingBridge> ;
     rdf:rest ( <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
 
 [] rdf:first <module-knowledge.ttl#Skill> ;
-    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingEvent> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( <module-process.ttl#HabitualAction> <module-process.ttl#Understanding> <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( <module-process.ttl#Success> <module-process.ttl#PartialSuccess> <module-process.ttl#Failure> ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( <module-process.ttl#ScientificInquiryAction> <module-process.ttl#DesignReasoningAction> <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
+    owl:members ( <module-process.ttl#HabitualAction> <module-process.ttl#Understanding> <module-process.ttl#ReflectiveThought> <module-process.ttl#CriticalReflection> ) .
 

@@ -9,7 +9,7 @@ Import from all other scripts instead of hardcoding.
 from pathlib import Path
 
 # ── Ontology Identity ──
-IRI = "http://www.semanticweb.org/ie-pbl/ontology/1.0/"
+IRI = "https://w3id.org/ie-pbl/ontology/1.0/"
 
 # ── Project Paths ──
 PROJECT_ROOT = Path(__file__).resolve().parent.parent

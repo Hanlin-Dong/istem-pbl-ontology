@@ -30,7 +30,7 @@ def check_covering_axioms(C):
         ("InterdisciplinaryBridge", ["AnalogyBridge", "MappingBridge",
                                       "InheritanceBridge", "IntegrationBridge"]),        # M3: Process
         ("ReflectionLevel", ["HabitualAction", "Understanding",
-                            "CriticalReflection", "TransformativeReflection"]),
+                            "CriticalReflection", "ReflectiveThought"]),
         ("IterationOutcome", ["Success", "PartialSuccess", "Failure"]),
         (("DiscourseAction"), ["HelpSeeking", "FailureReporting", "PeerArgumentation",
                             "ProcessConfusion", "KnowledgeSharing", "PlanningUtterance",
@@ -44,7 +44,7 @@ def check_covering_axioms(C):
         (("NonverbalAction"), ["PhysicalPrototyping", "ToolSharing",
                              "GazingAtPeerWork", "IdleBehavior",
                              "CelebrationGesture", "MaterialHoarding",
-                              "Gesturing", "Nodding", "FacialExpression", "WritingActivity"]),
+                              "Gesturing", "Nodding", "FacialExpression", "WrittenExpression"]),
         # M4: Team
         ("Actor", ["HumanActor", "VirtualAgent"]),
         ("HumanActor", ["Learner", "Instructor"]),
@@ -82,10 +82,11 @@ def check_covering_axioms(C):
                           "detail": f"Missing: {missing}"})
             continue
 
-        # Verify all subs are actually subclasses
+        # Verify all subs are actually subclasses (ancestor semantics — leaves
+        # may inherit through intermediate categories, so sc.is_a alone is
+        # insufficient for multi-level taxonomies)
         for sc in subs:
-            if parent not in sc.is_a and parent not in [x for x in sc.is_a
-                                                         if isinstance(x, ThingClass)]:
+            if parent not in sc.ancestors():
                 report.append({"axiom": parent_name, "status": "NOT_SUBCLASS",
                               "detail": f"{sc.name} is not a subclass of {parent_name}"})
 
@@ -109,10 +110,10 @@ def check_inverse_pairs(C):
         ("dependsOn", "isPrerequisiteFor"),
         ("bridgesDomain", "isBridgedBy"),
         ("hasPrerequisite", "isPrerequisiteOf"),
-        ("hasIteration", "isIterationOf"),
         ("hasReflection", "isReflectionOf"),
         ("hasReflectionLevel", "isLevelOfReflection"),
         ("occursInPhase", "containsDiscourse"),
+        ("occursInSubPhase", "containsSubPhaseAction"),
         ("isFollowedByAction", "isPrecededByAction"),
         ("isTriggeredBy", "triggersAction"),
         ("iterationTriggeredBy", "triggersIteration"),
@@ -137,7 +138,6 @@ def check_inverse_pairs(C):
         ("generatedInActivity", "generatesBridge"),
         ("belongsToDomain", "includesConcept"),
         ("isAppliedInActivity", "appliesConcept"),
-        ("occursWithinProcess", "hasIterationEvent"),
         # v2.1 new pairs
         ("justifiesDecision", "isDecisionJustifiedBy"),
         ("instructsTeam", "isInstructedBy"),

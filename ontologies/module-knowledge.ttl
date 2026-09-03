@@ -1,28 +1,32 @@
-@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
-@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
-@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
-@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@base <https://w3id.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<module-anchor.ttl#hasCrossingActor> rdfs:domain <module-knowledge.ttl#BoundaryCrossingEvent> .
+
+<module-anchor.ttl#isCrossingActorOf> rdfs:range <module-knowledge.ttl#BoundaryCrossingEvent> .
 
 <module-knowledge.ttl> a owl:Ontology ;
     owl:imports <module-core.ttl> .
-
-<module-knowledge.ttl#boundaryCrossingStage> a owl:DatatypeProperty ;
-    rdfs:label "boundaryCrossingStage@en"^^xsd:string ;
-    rdfs:comment "Current developmental stage of boundary crossing for this bridge (Akkerman & Bakker, 2011): 'identification', 'coordination', 'reflection', 'transformation'. Unlike the previous class-based model, this allows a single bridge to progress through multiple stages over time.@en"^^xsd:string ;
-    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
-    rdfs:range xsd:string .
 
 <module-knowledge.ttl#bridgeComplexity> a owl:DatatypeProperty ;
     rdfs:label "bridgeComplexity@en"^^xsd:string ;
     rdfs:comment "Number of domains this bridge spans. 2=binary bridge, 3+=complex multi-domain integration. Enables differentiation between simple cross-domain links and complex synthesis in projects with 4+ disciplines.@en"^^xsd:string ;
     rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
     rdfs:range xsd:integer .
+
+<module-knowledge.ttl#crossingTimestamp> a owl:DatatypeProperty ;
+    rdfs:label "crossingTimestamp@en"^^xsd:string ;
+    rdfs:comment "When this boundary-crossing episode occurred (ISO 8601).@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#BoundaryCrossingEvent> ;
+    rdfs:range xsd:string .
 
 <module-knowledge.ttl#hasDefinition> a owl:DatatypeProperty ;
     rdfs:label "hasDefinition@en"^^xsd:string ;
@@ -65,11 +69,11 @@
     rdfs:range <module-knowledge.ttl#DomainBoundary> ;
     owl:inverseOf <module-knowledge.ttl#includesConcept> .
 
-<module-knowledge.ttl#bridgesMechanism> a owl:ObjectProperty ;
-    rdfs:label "bridgesMechanism@en"^^xsd:string ;
-    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
-    rdfs:range <module-knowledge.ttl#BoundaryCrossingMechanism> ;
-    owl:inverseOf <module-knowledge.ttl#isMechanismOfBridge> .
+<module-knowledge.ttl#crossesBridge> a owl:ObjectProperty ;
+    rdfs:label "crossesBridge@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#BoundaryCrossingEvent> ;
+    rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    owl:inverseOf <module-knowledge.ttl#hasCrossingEvent> .
 
 <module-knowledge.ttl#expressesPerspective> a owl:ObjectProperty ;
     rdfs:label "expressesPerspective@en"^^xsd:string ;
@@ -90,6 +94,12 @@
     rdfs:domain <module-core.ttl#Activity> ;
     rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
     owl:inverseOf <module-knowledge.ttl#generatedInActivity> .
+
+<module-knowledge.ttl#hasCrossingEvent> a owl:ObjectProperty ;
+    rdfs:label "hasCrossingEvent@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
+    rdfs:range <module-knowledge.ttl#BoundaryCrossingEvent> ;
+    owl:inverseOf <module-knowledge.ttl#crossesBridge> .
 
 <module-knowledge.ttl#hasPrerequisite> a owl:ObjectProperty ;
     rdfs:label "hasPrerequisite@en"^^xsd:string ;
@@ -138,12 +148,6 @@
     rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
     owl:inverseOf <module-knowledge.ttl#linksConcept> .
 
-<module-knowledge.ttl#isMechanismOfBridge> a owl:ObjectProperty ;
-    rdfs:label "isMechanismOfBridge@en"^^xsd:string ;
-    rdfs:domain <module-knowledge.ttl#BoundaryCrossingMechanism> ;
-    rdfs:range <module-knowledge.ttl#InterdisciplinaryBridge> ;
-    owl:inverseOf <module-knowledge.ttl#bridgesMechanism> .
-
 <module-knowledge.ttl#isPrerequisiteOf> a owl:ObjectProperty ;
     rdfs:label "isPrerequisiteOf@en"^^xsd:string ;
     rdfs:domain [ a owl:Class ;
@@ -158,6 +162,12 @@
     rdfs:range <module-knowledge.ttl#Concept> ;
     owl:inverseOf <module-knowledge.ttl#isLinkedByBridge> .
 
+<module-knowledge.ttl#mechanismEnactedIn> a owl:ObjectProperty ;
+    rdfs:label "mechanismEnactedIn@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#BoundaryCrossingMechanism> ;
+    rdfs:range <module-knowledge.ttl#BoundaryCrossingEvent> ;
+    owl:inverseOf <module-knowledge.ttl#enactsMechanism> .
+
 <module-knowledge.ttl#requiresConcept> a owl:ObjectProperty ;
     rdfs:label "requiresConcept@en"^^xsd:string ;
     rdfs:comment "A Skill depends on a Concept (e.g. CAD Modeling requires Spatial Geometry).@en"^^xsd:string ;
@@ -170,6 +180,14 @@
 <module-knowledge.ttl#AnalogyBridge> a owl:Class ;
     rdfs:subClassOf <module-knowledge.ttl#InterdisciplinaryBridge> .
 
+<module-knowledge.ttl#CoordinationMechanism> a owl:Class ;
+    rdfs:comment "Establishing and using translation or synchronization procedures between two practices.@en@en"^^xsd:string ;
+    rdfs:subClassOf <module-knowledge.ttl#BoundaryCrossingMechanism> .
+
+<module-knowledge.ttl#IdentificationMechanism> a owl:Class ;
+    rdfs:comment "Recognizing differences between practices and identifying one's own position relative to them.@en@en"^^xsd:string ;
+    rdfs:subClassOf <module-knowledge.ttl#BoundaryCrossingMechanism> .
+
 <module-knowledge.ttl#InheritanceBridge> a owl:Class ;
     rdfs:subClassOf <module-knowledge.ttl#InterdisciplinaryBridge> .
 
@@ -179,19 +197,43 @@
 <module-knowledge.ttl#MappingBridge> a owl:Class ;
     rdfs:subClassOf <module-knowledge.ttl#InterdisciplinaryBridge> .
 
+<module-knowledge.ttl#ReflectionMechanism> a owl:Class ;
+    rdfs:comment "Explicit perspective-taking and comparison between practices, often jointly with boundary objects.@en@en"^^xsd:string ;
+    rdfs:subClassOf <module-knowledge.ttl#BoundaryCrossingMechanism> .
+
+<module-knowledge.ttl#TransformationMechanism> a owl:Class ;
+    rdfs:comment "Developing hybrid practices that combine learning from both sides of the boundary.@en@en"^^xsd:string ;
+    rdfs:subClassOf <module-knowledge.ttl#BoundaryCrossingMechanism> .
+
 <module-knowledge.ttl#bridgesDomain> a owl:ObjectProperty ;
     rdfs:label "bridgesDomain@en"^^xsd:string ;
     rdfs:domain <module-knowledge.ttl#InterdisciplinaryBridge> ;
     rdfs:range <module-knowledge.ttl#DomainBoundary> ;
     owl:inverseOf <module-knowledge.ttl#isBridgedBy> .
 
-<module-knowledge.ttl#BoundaryCrossingMechanism> a owl:Class ;
-    rdfs:comment "Abstract extension point for boundary crossing mechanism taxonomies. Akkerman & Bakker's four mechanisms are now modeled as developmental stages via boundaryCrossingStage on InterdisciplinaryBridge.@en@en"^^xsd:string ;
-    rdfs:subClassOf owl:Thing .
+<module-knowledge.ttl#enactsMechanism> a owl:ObjectProperty ;
+    rdfs:label "enactsMechanism@en"^^xsd:string ;
+    rdfs:domain <module-knowledge.ttl#BoundaryCrossingEvent> ;
+    rdfs:range <module-knowledge.ttl#BoundaryCrossingMechanism> ;
+    owl:inverseOf <module-knowledge.ttl#mechanismEnactedIn> .
 
 <module-knowledge.ttl#ValuePerspective> a owl:Class ;
     rdfs:comment "A stakeholder value, normative perspective, ethical consideration, or empathic understanding. Extends the knowledge model beyond cognitive propositional knowledge (Concept) and procedural knowledge (Skill) to include affective and normative dimensions essential for socio-scientific PBL projects.@en@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
+
+<module-knowledge.ttl#BoundaryCrossingEvent> a owl:Class ;
+    rdfs:comment "An observable boundary-crossing episode enacted by one or more dialogical mechanisms (Akkerman & Bakker, 2011).@en@en"^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass <module-knowledge.ttl#BoundaryCrossingMechanism> ;
+            owl:onProperty <module-knowledge.ttl#enactsMechanism> ],
+        owl:Thing .
+
+<module-knowledge.ttl#BoundaryCrossingMechanism> a owl:Class ;
+    rdfs:comment "Abstract parent of Akkerman & Bakker's (2011) four dialogical boundary-crossing mechanisms.@en@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( <module-knowledge.ttl#IdentificationMechanism> <module-knowledge.ttl#CoordinationMechanism> <module-knowledge.ttl#ReflectionMechanism> <module-knowledge.ttl#TransformationMechanism> ) ] .
 
 <module-knowledge.ttl#DomainBoundary> a owl:Class ;
     rdfs:comment "Marks the epistemological scope of a domain (e.g. Physics, Engineering).@en"^^xsd:string ;
@@ -199,10 +241,6 @@
 
 <module-knowledge.ttl#Skill> a owl:Class ;
     rdfs:comment "A procedural capability (e.g. CAD Modeling, Data Analysis).@en"^^xsd:string ;
-    rdfs:subClassOf owl:Thing .
-
-<module-knowledge.ttl#Concept> a owl:Class ;
-    rdfs:comment "A domain concept (e.g. Bernoulli's Principle, Torque).@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
 
 <module-knowledge.ttl#InterdisciplinaryBridge> a owl:Class ;
@@ -214,6 +252,13 @@
         owl:Thing ;
     owl:equivalentClass [ a owl:Class ;
             owl:unionOf ( <module-knowledge.ttl#AnalogyBridge> <module-knowledge.ttl#MappingBridge> <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) ] .
+
+<module-knowledge.ttl#Concept> a owl:Class ;
+    rdfs:comment "A domain concept (e.g. Bernoulli's Principle, Torque).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+[] rdf:first <module-process.ttl#PartialSuccess> ;
+    rdf:rest ( <module-process.ttl#Failure> ) .
 
 [] rdf:first <module-process.ttl#DesignReasoningAction> ;
     rdf:rest ( <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
@@ -233,20 +278,23 @@
 [] rdf:first <module-process.ttl#Agreement> ;
     rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
 
+[] rdf:first <module-core.ttl#FinalPresentation> ;
+    rdf:rest ( <module-core.ttl#ClosingCeremony> ) .
+
 [] rdf:first <module-process.ttl#TaskManagement> ;
     rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
 
-[] rdf:first <module-core.ttl#FiveE_Engage> ;
-    rdf:rest ( <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
-
-[] rdf:first <module-process.ttl#Iteration> ;
-    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
-
-[] rdf:first <module-process.ttl#ToolSharing> ;
-    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+[] rdf:first <module-process.ttl#Reflection> ;
+    rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
 
 [] rdf:first <module-core.ttl#MakingActivity> ;
     rdf:rest ( <module-core.ttl#InquiryActivity> ) .
+
+[] rdf:first <module-process.ttl#ToolSharing> ;
+    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WrittenExpression> ) .
+
+[] rdf:first <module-core.ttl#Phase> ;
+    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
 
 [] rdf:first <module-team.ttl#ConceptualExpert> ;
     rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
@@ -260,9 +308,6 @@
 [] rdf:first <module-team.ttl#DirectionalGuidance> ;
     rdf:rest ( <module-team.ttl#DeepQuestioning> <module-team.ttl#EmotionalSupport> <module-team.ttl#ClassroomManagement> <module-team.ttl#TimeManagement> ) .
 
-[] rdf:first <module-core.ttl#Phase> ;
-    rdf:rest ( <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
-
 [] a owl:Restriction ;
     owl:onProperty <module-team.ttl#hasDomainBoundary> ;
     owl:someValuesFrom <module-knowledge.ttl#DomainBoundary> .
@@ -270,11 +315,11 @@
 [] rdf:first <module-anchor.ttl#AnalogicalTransfer> ;
     rdf:rest ( <module-anchor.ttl#IntegratedExplanation> ) .
 
-[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
-    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
-
 [] rdf:first <module-core.ttl#SolutionIdeation> ;
     rdf:rest ( <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] rdf:first <module-anchor.ttl#CollaborativeTeamwork> ;
+    rdf:rest ( <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
 
 [] rdf:first <module-anchor.ttl#PerformanceTrace> ;
     rdf:rest ( <module-anchor.ttl#CompetencyProfile> ) .
@@ -286,14 +331,14 @@
     rdf:rest ( <module-anchor.ttl#OutcomeIndicator> ) .
 
 [] a owl:AllDisjointClasses ;
+    owl:members ( <module-knowledge.ttl#IdentificationMechanism> <module-knowledge.ttl#CoordinationMechanism> <module-knowledge.ttl#ReflectionMechanism> <module-knowledge.ttl#TransformationMechanism> ) .
+
+[] a owl:AllDisjointClasses ;
     owl:members ( <module-knowledge.ttl#AnalogyBridge> <module-knowledge.ttl#MappingBridge> <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+    owl:members ( <module-knowledge.ttl#Concept> <module-knowledge.ttl#Skill> <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingEvent> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
 
 [] rdf:first <module-process.ttl#Understanding> ;
-    rdf:rest ( <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
-
-[] rdf:first <module-process.ttl#PartialSuccess> ;
-    rdf:rest ( <module-process.ttl#Failure> ) .
+    rdf:rest ( <module-process.ttl#ReflectiveThought> <module-process.ttl#CriticalReflection> ) .
 

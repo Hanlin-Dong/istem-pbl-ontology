@@ -2,13 +2,14 @@
 """
 build_sparql.py — Competency Questions (CQ) verification via SPARQL.
 
-Executes 4 SPARQL queries against the TBox + ABox vignette to verify the
+Executes 5 SPARQL queries against the TBox + ABox vignette to verify the
 ontology's information retrieval capabilities:
 
   CQ1: Discourse timeline for Create phase (with triggered agents)
   CQ2: Performance lineage for Alice (complete evidence chain)
   CQ3: Interdisciplinary bridges detected in the project
   CQ4: Agent trigger summary — which agents responded to what
+  CQ5: S2D cognitive pathway (Informed Design end-to-end trace)
 
 Usage:
     python scripts/build_sparql.py
@@ -177,11 +178,46 @@ def run_sparql_cqs():
             "utterance": str(row.utterance)[:60] if row.utterance else "-",
         })
 
+    # CQ5: S2D cognitive pathway (Informed Design) — hypothesis → evidence →
+    # principle → justified design activity, chained via transitive
+    # isFollowedByAction and closed by informsDesign.
+    cq5 = g.query("""
+        SELECT ?hypothesis ?evidence ?principle ?designActivity ?conceptTitle
+        WHERE {
+            ?da_hyp a proc:HypothesisProposing ;
+                    proc:timestamp ?t_hyp ;
+                    proc:utteranceText ?hypothesis .
+            ?da_hyp proc:isFollowedByAction* ?da_evid .
+            ?da_evid a proc:EvidenceAnalyzing ;
+                     proc:utteranceText ?evidence .
+            ?da_evid proc:isFollowedByAction* ?da_princ .
+            ?da_princ a proc:PrincipleFormulating ;
+                      proc:utteranceText ?principle .
+            ?da_princ proc:informsDesign ?activity .
+            ?activity core:hasTitle ?designActivity .
+            OPTIONAL {
+                ?da_princ proc:referencesConcept ?concept .
+                ?concept core:hasTitle ?conceptTitle
+            }
+        }
+        ORDER BY ?t_hyp
+    """, initNs=NS)
+
+    results["CQ5_s2d_pathway"] = []
+    for row in cq5:
+        results["CQ5_s2d_pathway"].append({
+            "hypothesis": str(row.hypothesis)[:60],
+            "evidence": str(row.evidence)[:60],
+            "principle": str(row.principle)[:60],
+            "informs": str(row.designActivity),
+            "concept": str(row.conceptTitle),
+        })
+
     return results
 
 
 def export_sparql_queries():
-    """Export the 4 SPARQL queries as .sparql files."""
+    """Export the 5 SPARQL queries as .sparql files."""
     QUERIES_DIR.mkdir(parents=True, exist_ok=True)
 
     queries = {
@@ -190,10 +226,10 @@ def export_sparql_queries():
 # Retrieve all discourse actions in the Create phase, ordered by timestamp,
 # showing learner, action type, agent triggered, and referenced concept.
 
-PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
+PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
 
 SELECT ?timestamp ?learnerName ?actionType ?utterance ?agentType
 WHERE {
@@ -215,10 +251,10 @@ ORDER BY ?timestamp
 # CQ2: Complete Performance Lineage for a Learner
 # Show all traces with competency, score, and originating event for learner "Alice".
 
-PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
+PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
 
 SELECT ?competency ?score ?timestamp ?utterance
 WHERE {
@@ -239,8 +275,8 @@ ORDER BY ?timestamp
 # CQ3: Interdisciplinary Bridges Detected
 # List bridges, their type, the domains and concepts they connect.
 
-PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX know: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#>
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX know: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#>
 
 SELECT ?bridgeName ?bridgeType ?domain1 ?domain2 ?concept1 ?concept2
 WHERE {
@@ -263,10 +299,10 @@ WHERE {
 # CQ4: Agent Trigger Summary
 # Which agents were triggered by which discourse action types, and for which team?
 
-PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
+PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
 
 SELECT ?agentType ?actionType ?teamName ?utterance
 WHERE {
@@ -279,6 +315,36 @@ WHERE {
     BIND(REPLACE(STR(?agentClass), ".*#", "") AS ?agentType)
     BIND(REPLACE(STR(?actionClass), ".*#", "") AS ?actionType)
 }
+""",
+    "cq5_s2d_cognitive_pathway.sparql": """
+# CQ5: S2D Cognitive Pathway (Informed Design)
+# Traces a student's cognitive trajectory from HypothesisProposing through
+# EvidenceAnalyzing to PrincipleFormulating, then via informsDesign to the
+# engineering activity that the science informed. Uses transitive
+# isFollowedByAction to chain discourse events.
+
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+
+SELECT ?hypothesis ?evidence ?principle ?designActivity ?conceptTitle
+WHERE {
+    ?da_hyp a proc:HypothesisProposing ;
+            proc:timestamp ?t_hyp ;
+            proc:utteranceText ?hypothesis .
+    ?da_hyp proc:isFollowedByAction* ?da_evid .
+    ?da_evid a proc:EvidenceAnalyzing ;
+             proc:utteranceText ?evidence .
+    ?da_evid proc:isFollowedByAction* ?da_princ .
+    ?da_princ a proc:PrincipleFormulating ;
+              proc:utteranceText ?principle .
+    ?da_princ proc:informsDesign ?activity .
+    ?activity core:hasTitle ?designActivity .
+    OPTIONAL {
+        ?da_princ proc:referencesConcept ?concept .
+        ?concept core:hasTitle ?conceptTitle
+    }
+}
+ORDER BY ?t_hyp
 """,
     }
 
@@ -320,6 +386,7 @@ def main():
         "CQ2_alice_lineage": "Performance Lineage (Alice)",
         "CQ3_bridges": "Interdisciplinary Bridges",
         "CQ4_agent_triggers": "Agent Trigger Summary",
+        "CQ5_s2d_pathway": "S2D Cognitive Pathway (CQ5, Informed Design)",
     }
 
     for key, label in cq_names.items():

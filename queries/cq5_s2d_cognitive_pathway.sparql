@@ -1,0 +1,28 @@
+# CQ5: S2D Cognitive Pathway (Informed Design)
+# Traces a student's cognitive trajectory from HypothesisProposing through
+# EvidenceAnalyzing to PrincipleFormulating, then via informsDesign to the
+# engineering activity that the science informed. Uses transitive
+# isFollowedByAction to chain discourse events.
+
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+
+SELECT ?hypothesis ?evidence ?principle ?designActivity ?conceptTitle
+WHERE {
+    ?da_hyp a proc:HypothesisProposing ;
+            proc:timestamp ?t_hyp ;
+            proc:utteranceText ?hypothesis .
+    ?da_hyp proc:isFollowedByAction* ?da_evid .
+    ?da_evid a proc:EvidenceAnalyzing ;
+             proc:utteranceText ?evidence .
+    ?da_evid proc:isFollowedByAction* ?da_princ .
+    ?da_princ a proc:PrincipleFormulating ;
+              proc:utteranceText ?principle .
+    ?da_princ proc:informsDesign ?activity .
+    ?activity core:hasTitle ?designActivity .
+    OPTIONAL {
+        ?da_princ proc:referencesConcept ?concept .
+        ?concept core:hasTitle ?conceptTitle
+    }
+}
+ORDER BY ?t_hyp

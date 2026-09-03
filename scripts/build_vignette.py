@@ -4,7 +4,8 @@ build_vignette.py — Build the Team_Alpha Wind Turbine ABox Vignette.
 
 Creates a detailed ABox instantiation of a single PBL team designing a wind turbine.
 Includes:
-  - 1 Project with DrivingQuestion, 5 Phases, ~15 Activities
+  - 1 Project with DrivingQuestion, 7 phase individuals spanning all six macro-phases
+    (incl. the closure FinalPresentation segment), ~17 Activities
   - 3 Learners, 1 Instructor, 6 VirtualAgents, 1 Team
   - ~20 DiscourseActions with utteranceText and timestamps
   - 3 InterdisciplinaryBridge instances
@@ -50,7 +51,7 @@ def build_vignette(C):
     # PHASES & ACTIVITIES (using EiE framework for K-12 vignette)
     # ═════════════════════════════════════════════════════════════════
     # --- EiE_Ask Phase (⊑ ProblemScoping) ---
-    ask_phase = C.EiE_Ask(pbl + "Ask_Phase_1")
+    ask_phase = C.ProblemScoping(pbl + "Ask_Phase_1")
     ask_phase.hasTitle = ["Ask: Understanding the Problem"]
     ask_phase.startTime = [dt.datetime(2026, 3, 1, 9, 0, 0)]
     ask_phase.endTime   = [dt.datetime(2026, 3, 3, 10, 30, 0)]
@@ -69,7 +70,7 @@ def build_vignette(C):
     ask_phase.hasActivity.append(act_ask3)
 
     # --- Imagine Phase ---
-    imagine_phase = C.EiE_Imagine(pbl + "Imagine_Phase_1")
+    imagine_phase = C.SolutionIdeation(pbl + "Imagine_Phase_1")
     imagine_phase.hasTitle = ["Imagine: Brainstorming Solutions"]
     imagine_phase.startTime = [dt.datetime(2026, 3, 3, 10, 30, 0)]
     imagine_phase.endTime   = [dt.datetime(2026, 3, 5, 11, 0, 0)]
@@ -85,7 +86,7 @@ def build_vignette(C):
     imagine_phase.hasActivity.append(act_img2)
 
     # --- Plan Phase ---
-    plan_phase = C.EiE_Plan(pbl + "Plan_Phase_1")
+    plan_phase = C.SolutionIdeation(pbl + "Plan_Phase_1")
     plan_phase.hasTitle = ["Plan: Selecting the Design"]
     plan_phase.startTime = [dt.datetime(2026, 3, 5, 11, 0, 0)]
     plan_phase.endTime   = [dt.datetime(2026, 3, 8, 10, 0, 0)]
@@ -101,7 +102,7 @@ def build_vignette(C):
     plan_phase.hasActivity.append(act_plan2)
 
     # --- Create Phase ---
-    create_phase = C.EiE_Create(pbl + "Create_Phase_1")
+    create_phase = C.Implementation(pbl + "Create_Phase_1")
     create_phase.hasTitle = ["Create: Building & Testing"]
     create_phase.startTime = [dt.datetime(2026, 3, 8, 10, 0, 0)]
     create_phase.endTime   = [dt.datetime(2026, 3, 12, 11, 0, 0)]
@@ -121,7 +122,7 @@ def build_vignette(C):
     create_phase.hasActivity.append(act_create3)
 
     # --- Improve Phase ---
-    improve_phase = C.EiE_Improve(pbl + "Improve_Phase_1")
+    improve_phase = C.Evaluation(pbl + "Improve_Phase_1")
     improve_phase.hasTitle = ["Improve: Iterating the Design"]
     improve_phase.startTime = [dt.datetime(2026, 3, 12, 11, 0, 0)]
     improve_phase.endTime   = [dt.datetime(2026, 3, 15, 16, 0, 0)]
@@ -142,6 +143,22 @@ def build_vignette(C):
     act_imp3 = C.Activity(pbl + "Activity_Improve_FinalTest")
     act_imp3.hasTitle = ["Final wind tunnel test with optimized design"]
     improve_phase.hasActivity.append(act_imp3)
+
+    # --- Final Presentation Phase (closure; GSPBL public product) ---
+    present_phase = C.FinalPresentation(pbl + "Presentation_Phase_1")
+    present_phase.hasTitle = ["Final Presentation: Public Showcase"]
+    present_phase.startTime = [dt.datetime(2026, 3, 16, 9, 0, 0)]
+    present_phase.endTime   = [dt.datetime(2026, 3, 16, 10, 30, 0)]
+    improve_phase.precedes.append(present_phase)
+    proj.hasPhase.append(present_phase)
+
+    act_pres1 = C.DesignActivity(pbl + "Activity_Presentation_PrepareDeck")
+    act_pres1.hasTitle = ["Prepare presentation deck and demonstration script"]
+    present_phase.hasActivity.append(act_pres1)
+
+    act_pres2 = C.Activity(pbl + "Activity_Presentation_Deliver")
+    act_pres2.hasTitle = ["Deliver final presentation and demonstrate the turbine"]
+    present_phase.hasActivity.append(act_pres2)
     # ═════════════════════════════════════════════════════════════════
     # TEAM & ACTORS
     # ═════════════════════════════════════════════════════════════════
@@ -183,6 +200,13 @@ def build_vignette(C):
     deliverable_blueprint.isProducedBy.append(carol)
     deliverable_blueprint.hasEvaluationCriterion = ["rubric.design-documentation"]
     act_plan1.hasDeliverable.append(deliverable_blueprint)
+
+    deliverable_deck = C.Deliverable(pbl + "Deliverable_PresentationDeck")
+    deliverable_deck.hasTitle = ["Final Presentation Deck"]
+    deliverable_deck.deliverableType = ["presentation"]
+    deliverable_deck.isProducedBy.append(alice)
+    deliverable_deck.hasEvaluationCriterion = ["rubric.communication"]
+    act_pres1.hasDeliverable.append(deliverable_deck)
 
 
     # Instructor
@@ -295,7 +319,7 @@ def build_vignette(C):
     # ═════════════════════════════════════════════════════════════════
     # S2D SCIENTIFIC INVESTIGATION PHASE + INQUIRY ACTIVITY
     # ═════════════════════════════════════════════════════════════════
-    sci_phase = C.FiveE_Explore(pbl + "Science_FiveE_Explore_1")
+    sci_phase = C.ScientificInvestigation(pbl + "Science_Explore_Phase_1")
     sci_phase.hasTitle = ["5E Explore: Aerodynamics Experiment"]
     sci_phase.startTime = [dt.datetime(2026, 3, 4, 9, 0, 0)]
     sci_phase.endTime   = [dt.datetime(2026, 3, 7, 10, 0, 0)]
@@ -541,6 +565,27 @@ def build_vignette(C):
     da_cross_team.referencesTeamWork.append(team)
 
     # ═════════════════════════════════════════════════════════════════
+    # CLOSURE DISCOURSE ACTIONS (final presentation; GSPBL public product)
+    # ═════════════════════════════════════════════════════════════════
+    da_present_ks = C.KnowledgeSharing(pbl + "DA_21_Present_KnowledgeSharing")
+    da_present_ks.utteranceText = [
+        "Our final design uses three blades at a 25-degree pitch: the wind-tunnel "
+        "data showed it generates 30% more voltage than our first prototype."
+    ]
+    da_present_ks.timestamp = [dt.datetime(2026, 3, 16, 9, 20, 0)]
+    da_present_ks.occursInPhase.append(present_phase)
+    da_present_ks.isAttributedTo.append(alice)
+
+    da_present_demo = C.Demonstration(pbl + "DA_22_Present_Demonstration")
+    da_present_demo.utteranceText = [
+        "Live demonstration: with the fan on high, watch the LED — the meter "
+        "reads about 9 volts with the new blade angle."
+    ]
+    da_present_demo.timestamp = [dt.datetime(2026, 3, 16, 9, 35, 0)]
+    da_present_demo.occursInPhase.append(present_phase)
+    da_present_demo.isAttributedTo.append(bob)
+
+    # ═════════════════════════════════════════════════════════════════
     # NONVERBAL ACTIONS (v2.0 — complementing DiscourseAction)
     # ═════════════════════════════════════════════════════════════════
     nva_proto = C.PhysicalPrototyping(pbl + "NVA_01_Bob_BuildBlades")
@@ -586,10 +631,25 @@ def build_vignette(C):
     bridge2.linksConcept.append(gear_ratio)
     bridge2.generatedInActivity.append(act_imp1)
 
-    # v3.0: boundaryCrossingStage and bridgeComplexity
-    bridge1.boundaryCrossingStage = ["coordination"]
+    # v4.0: reified boundary-crossing events (mechanisms co-occur and recur)
+    mech_id = C.IdentificationMechanism(pbl + "Mechanism_Identification")
+    mech_co = C.CoordinationMechanism(pbl + "Mechanism_Coordination")
+    mech_re = C.ReflectionMechanism(pbl + "Mechanism_Reflection")
+    mech_tr = C.TransformationMechanism(pbl + "Mechanism_Transformation")
+
+    bce1 = C.BoundaryCrossingEvent(pbl + "CrossingEvent_AirfoilAnalogy")
+    bce1.hasTitle = ["Coordinating airfoil parameter translation to blade design"]
+    bce1.crossesBridge.append(bridge1)
+    bce1.enactsMechanism.append(mech_co)
+    bce1.enactsMechanism.append(mech_re)
+    bce1.crossingTimestamp = ["2025-04-10T10:15:00"]
+
+    bce2 = C.BoundaryCrossingEvent(pbl + "CrossingEvent_TorqueGearIntegration")
+    bce2.hasTitle = ["Hybrid torque-gear design methodology session"]
+    bce2.crossesBridge.append(bridge2)
+    bce2.enactsMechanism.append(mech_tr)
+    bce2.crossingTimestamp = ["2025-04-24T14:30:00"]
     bridge1.bridgeComplexity = [2]
-    bridge2.boundaryCrossingStage = ["reflection"]
     bridge2.bridgeComplexity = [2]
 
     # v3.0: ValuePerspective
@@ -755,7 +815,7 @@ def build_vignette(C):
     iter_1.iterationNumber = [1]
     iter_1.iterationTriggeredBy.append(da2)
     da2.triggersIteration.append(iter_1)
-    iter_1.occursWithinProcess.append(create_phase)
+    # occursWithinProcess removed with EDP (v3.1)
 
     iter_outcome_1 = C.Failure(pbl + "IterOutcome_01_Failure")
     iter_1.hasIterationOutcome.append(iter_outcome_1)
@@ -776,7 +836,7 @@ def build_vignette(C):
     iter_2.iterationNumber = [2]
     iter_2.iterationTriggeredBy.append(da9)
     da9.triggersIteration.append(iter_2)
-    iter_2.occursWithinProcess.append(create_phase)
+    # occursWithinProcess removed with EDP (v3.1)
 
     iter_outcome_2 = C.PartialSuccess(pbl + "IterOutcome_02_PartialSuccess")
     iter_2.hasIterationOutcome.append(iter_outcome_2)
@@ -787,26 +847,42 @@ def build_vignette(C):
     iter_3.iterationNumber = [3]
     iter_3.iterationTriggeredBy.append(da_princ)
     da_princ.triggersIteration.append(iter_3)
-    iter_3.occursWithinProcess.append(create_phase)
+    # occursWithinProcess removed with EDP (v3.1)
 
     iter_outcome_3 = C.Success(pbl + "IterOutcome_03_Success")
     iter_3.hasIterationOutcome.append(iter_outcome_3)
     iter_outcome_3.isOutcomeOfIteration.append(iter_3)
 
+    # ═════════════════════════════════════════════════════════════════
+    # v3.1: SUB-PHASE DECOMPOSITION (grade-band; occursInSubPhase)
+    # ═════════════════════════════════════════════════════════════════
+    subp_needs = C.SubPhase(pbl + "SubPhase_NeedsFinding")
+    subp_needs.hasTitle = ["Needs Finding"]
+    subp_stake = C.SubPhase(pbl + "SubPhase_StakeholderAnalysis")
+    subp_stake.hasTitle = ["Stakeholder Analysis"]
+    ask_phase.hasSubPhase.extend([subp_needs, subp_stake])
+
+    subp_blade = C.SubPhase(pbl + "SubPhase_BladeAssembly")
+    subp_blade.hasTitle = ["Blade Assembly"]
+    create_phase.hasSubPhase.append(subp_blade)
+    da1.occursInSubPhase.append(subp_blade)
+    da2.occursInSubPhase.append(subp_blade)
+
     return {
         "project": proj,
         "team": team,
         "learners": [alice, bob, carol],
-        "agents": [proc_guide, conc_expert, meta_chall, div_brain, safety_mon],
+        "agents": [proc_guide, conc_expert, meta_chall, div_brain, safety_mon, affective_sup],
         "discourse_actions": [da1, da2, da3, da4, da5, da6, da7, da8, da9, da10, da11, da12,
-                              da_social, da_disagree, da_agree, da_tutor, da_dj, da_constraint, da_cross_team],
+                              da_social, da_disagree, da_agree, da_tutor, da_dj, da_constraint, da_cross_team,
+                              da_present_ks, da_present_demo],
         "nonverbal_actions": [nva_proto, nva_tool, nva_gesture, nva_nod],
         "interventions": [intervention_safety],
         "traces": [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8],
         "bridges": [bridge1, bridge2],
         "reflections": [reflection_carol],
         "team_state_snapshots": [ts, ts2],
-        "deliverables": [deliverable_turbine, deliverable_blueprint],
+        "deliverables": [deliverable_turbine, deliverable_blueprint, deliverable_deck],
         "value_perspectives": [community_perspective],
         "constraints": [budget_constraint],
     }
@@ -829,7 +905,19 @@ def export_vignette_graph():
 
     path = VIGNETTE_DIR / "vignette-wind-turbine.ttl"
     path.parent.mkdir(parents=True, exist_ok=True)
-    vignette_g.serialize(str(path), format="turtle", base=IRI)
+    # Bind explicit prefixes so the emitted Turtle is self-contained: every
+    # namespace used by predicates and type objects gets a declared @prefix.
+    vignette_g.bind("pbl", vignette_base)
+    vignette_g.bind("core", f"{IRI}module-core.ttl#")
+    vignette_g.bind("knowledge", f"{IRI}module-knowledge.ttl#")
+    vignette_g.bind("process", f"{IRI}module-process.ttl#")
+    vignette_g.bind("team", f"{IRI}module-team.ttl#")
+    vignette_g.bind("anchor", f"{IRI}module-anchor.ttl#")
+    vignette_g.bind("owl", "http://www.w3.org/2002/07/owl#")
+    vignette_g.bind("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+    vignette_g.bind("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
+    vignette_g.bind("xsd", "http://www.w3.org/2001/XMLSchema#")
+    vignette_g.serialize(str(path), format="turtle")
     print(f"  ✓ Vignette exported: {path} ({len(vignette_g)} triples)")
     return path
 

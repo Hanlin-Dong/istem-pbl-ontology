@@ -1,56 +1,19 @@
-@base <http://www.semanticweb.org/ie-pbl/ontology/1.0/> .
-@prefix anchor: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
-@prefix core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#> .
-@prefix kn: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
+@base <https://w3id.org/ie-pbl/ontology/1.0/> .
+@prefix anchor: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#> .
+@prefix core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#> .
+@prefix kn: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#> .
+@prefix proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#> .
+@prefix team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <module-core.ttl> a owl:Ontology .
 
-<module-core.ttl#CDIO_Conceive> a owl:Class ;
-    rdfs:comment "[CDIO] Define customer needs, consider technology, regulations, and strategy.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ProblemScoping> .
-
-<module-core.ttl#CDIO_Design> a owl:Class ;
-    rdfs:comment "[CDIO] Create detailed plans, drawings, specifications, and models.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#SolutionIdeation> .
-
-<module-core.ttl#CDIO_Implement> a owl:Class ;
-    rdfs:comment "[CDIO] Manufacture, build, code, integrate, and validate the design.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Implementation> .
-
-<module-core.ttl#CDIO_Operate> a owl:Class ;
-    rdfs:comment "[CDIO] Deploy, maintain, evolve, and retire the system; assess performance.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Evaluation> .
-
-<module-core.ttl#EiE_Ask> a owl:Class ;
-    rdfs:comment "[EiE] Define the problem, its constraints, and success criteria.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ProblemScoping> .
-
-<module-core.ttl#EiE_Create> a owl:Class ;
-    rdfs:comment "[EiE] Build and test a prototype.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Implementation> .
-
-<module-core.ttl#EiE_Imagine> a owl:Class ;
-    rdfs:comment "[EiE] Brainstorm multiple possible solutions.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#SolutionIdeation> ;
-    owl:disjointWith <module-core.ttl#EiE_Plan> .
-
-<module-core.ttl#EiE_Improve> a owl:Class ;
-    rdfs:comment "[EiE] Iterate and optimize based on feedback and testing.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Evaluation> .
-
 <module-core.ttl#EntryEvent> a owl:Class ;
     rdfs:comment "The initial hook activity that introduces the project and sparks curiosity.@en"^^xsd:string ;
     rdfs:subClassOf <module-core.ttl#Activity> .
-
-<module-core.ttl#FinalPresentation> a owl:Class ;
-    rdfs:comment "Final project presentation, report submission, and reflection.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#CommunicationAndClosure> .
 
 <module-core.ttl#concurrentWith> a owl:ObjectProperty,
         owl:SymmetricProperty ;
@@ -73,7 +36,7 @@
 
 <module-core.ttl#hasCognitiveMode> a owl:DatatypeProperty ;
     rdfs:label "hasCognitiveMode@en"^^xsd:string ;
-    rdfs:comment "Cognitive mode of a SolutionIdeation phase: 'divergent' (brainstorming, generating alternatives) or 'convergent' (selecting, refining, planning). Distinguishes EiE_Imagine from EiE_Plan.@en"^^xsd:string ;
+    rdfs:comment "Cognitive mode of a SolutionIdeation phase: 'divergent' (brainstorming, generating alternatives) or 'convergent' (selecting, refining, planning).@en"^^xsd:string ;
     rdfs:domain <module-core.ttl#SolutionIdeation> ;
     rdfs:range xsd:string .
 
@@ -86,12 +49,6 @@
     rdfs:label "hasEvaluationCriterion@en"^^xsd:string ;
     rdfs:comment "External rubric item reference (ID or URL). Decoupled hook for future quality assessment plugin. Example: 'rubric.creativity', 'ngss.hs-ets1-2'.@en"^^xsd:string ;
     rdfs:domain <module-core.ttl#Deliverable> ;
-    rdfs:range xsd:string .
-
-<module-core.ttl#hasModality> a owl:DatatypeProperty ;
-    rdfs:label "hasModality@en"^^xsd:string ;
-    rdfs:comment "Communication modality of a learning event: 'verbal', 'gestural', 'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en"^^xsd:string ;
-    rdfs:domain <module-core.ttl#LearningEvent> ;
     rdfs:range xsd:string .
 
 <module-core.ttl#hasTitle> a owl:DatatypeProperty ;
@@ -119,15 +76,15 @@
 
 <module-knowledge.ttl#isAppliedInActivity> rdfs:range <module-core.ttl#Activity> .
 
-<module-process.ttl#NonverbalAction> rdfs:subClassOf <module-core.ttl#LearningEvent> .
-
 <module-process.ttl#containsDiscourse> rdfs:domain <module-core.ttl#Phase> .
+
+<module-process.ttl#containsSubPhaseAction> rdfs:domain <module-core.ttl#SubPhase> .
 
 <module-process.ttl#estimatedDuration> rdfs:domain <module-core.ttl#Activity> .
 
 <module-process.ttl#occursInPhase> rdfs:range <module-core.ttl#Phase> .
 
-<module-team.ttl#InstructorIntervention> rdfs:subClassOf <module-core.ttl#LearningEvent> .
+<module-process.ttl#occursInSubPhase> rdfs:range <module-core.ttl#SubPhase> .
 
 <module-team.ttl#hasTeam> rdfs:domain <module-core.ttl#Project> .
 
@@ -135,33 +92,17 @@
 
 <module-team.ttl#learnerCurrentPhase> rdfs:range <module-core.ttl#Phase> .
 
-<module-core.ttl#BackgroundResearchPhase> a owl:Class ;
-    rdfs:comment "Literature review and background reading to establish scientific foundations.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+<module-core.ttl#ClosingCeremony> a owl:Class ;
+    rdfs:comment "[GSPBL: public product] Ceremonial closing of the project: guest speeches, awards where given, group photos, and farewell; not all projects include awards.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#CommunicationAndClosure> .
 
-<module-core.ttl#EiE_Plan> a owl:Class ;
-    rdfs:comment "[EiE] Select and design a solution approach.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#SolutionIdeation> .
+<module-core.ttl#FinalPresentation> a owl:Class ;
+    rdfs:comment "[GSPBL: public product] Final public presentation of the project outcomes to an audience beyond the team.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#CommunicationAndClosure> .
 
-<module-core.ttl#FiveE_Elaborate> a owl:Class ;
-    rdfs:comment "[5E] Elaborate: apply and extend scientific principles to new contexts.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
-
-<module-core.ttl#FiveE_Engage> a owl:Class ;
-    rdfs:comment "[5E] Engage: spark curiosity, connect to prior knowledge, present the driving question.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
-
-<module-core.ttl#FiveE_Evaluate> a owl:Class ;
-    rdfs:comment "[5E] Evaluate: formative and summative assessment of scientific understanding.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
-
-<module-core.ttl#FiveE_Explain> a owl:Class ;
-    rdfs:comment "[5E] Students articulate scientific principles discovered during exploration.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
-
-<module-core.ttl#FiveE_Explore> a owl:Class ;
-    rdfs:comment "[5E] Hands-on exploration: students conduct experiments to discover scientific phenomena.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#ScientificInvestigation> .
+<module-core.ttl#PresentationRehearsal> a owl:Class ;
+    rdfs:comment "[GSPBL: critique & revision] Preparing and rehearsing the public presentation: drafting slides, practicing delivery, peer critique before the audience session.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#CommunicationAndClosure> .
 
 <module-core.ttl#backtracksTo> a owl:ObjectProperty ;
     rdfs:label "backtracksTo@en"^^xsd:string ;
@@ -302,12 +243,20 @@
     rdfs:range <module-core.ttl#Phase> ;
     owl:inverseOf <module-core.ttl#precedes> .
 
-<module-core.ttl#SubPhase> a owl:Class ;
-    rdfs:comment "A finer-grained sub-stage within a Phase. Allows grade-band-specific decomposition without modifying the abstract Phase taxonomy. Example: ProblemScoping may decompose into NeedsFinding, StakeholderAnalysis, ConstraintIdentification for high school, but remain undivided for K-2.@en"^^xsd:string ;
-    rdfs:subClassOf owl:Thing .
+<module-core.ttl#Evaluation> a owl:Class ;
+    rdfs:comment "Testing, measuring, analyzing results against criteria, iterating.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
 
-<module-core.ttl#CommunicationAndClosure> a owl:Class ;
-    rdfs:comment "Presenting outcomes, documenting processes, reflecting, closing the project.@en"^^xsd:string ;
+<module-core.ttl#Implementation> a owl:Class ;
+    rdfs:comment "Building, coding, prototyping — translating design into artifact.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#ProblemScoping> a owl:Class ;
+    rdfs:comment "Defining the problem space, identifying constraints, establishing success criteria.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
+<module-core.ttl#ScientificInvestigation> a owl:Class ;
+    rdfs:comment "Formal scientific inquiry: experiments, data analysis, and discovery of laws that inform engineering design. Key to Integrated STEM 'Informed Design' (Burghardt & Hacker, 2004).@en"^^xsd:string ;
     rdfs:subClassOf <module-core.ttl#Phase> .
 
 <module-core.ttl#DesignActivity> a owl:Class ;
@@ -322,43 +271,29 @@
     rdfs:comment "Physical fabrication: 3D printing, assembling, cutting, soldering.@en"^^xsd:string ;
     rdfs:subClassOf <module-core.ttl#Activity> .
 
+<module-core.ttl#SolutionIdeation> a owl:Class ;
+    rdfs:comment "Generating, brainstorming, and selecting among possible solutions.@en"^^xsd:string ;
+    rdfs:subClassOf <module-core.ttl#Phase> .
+
 <module-core.ttl#DrivingQuestion> a owl:Class ;
     rdfs:comment "The central, open-ended question that drives the PBL project inquiry.@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
 
-<module-core.ttl#Evaluation> a owl:Class ;
-    rdfs:comment "Testing, measuring, analyzing results against criteria, iterating.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Phase> .
-
-<module-core.ttl#Implementation> a owl:Class ;
-    rdfs:comment "Building, coding, prototyping — translating design into artifact.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Phase> .
-
-<module-core.ttl#LearningEvent> a owl:Class ;
-    rdfs:comment "Abstract parent for all observable learning behaviors (verbal and nonverbal).@en"^^xsd:string ;
+<module-core.ttl#SubPhase> a owl:Class ;
+    rdfs:comment "A finer-grained sub-stage within a Phase. Allows grade-band-specific decomposition without modifying the abstract Phase taxonomy. Example: ProblemScoping may decompose into NeedsFinding, StakeholderAnalysis, ConstraintIdentification for high school, but remain undivided for K-2.@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
 
-<module-core.ttl#ProblemScoping> a owl:Class ;
-    rdfs:comment "Defining the problem space, identifying constraints, establishing success criteria.@en"^^xsd:string ;
+<module-core.ttl#CommunicationAndClosure> a owl:Class ;
+    rdfs:comment "Presenting outcomes, documenting processes, reflecting, closing the project.@en"^^xsd:string ;
     rdfs:subClassOf <module-core.ttl#Phase> .
 
 <module-core.ttl#Constraint> a owl:Class ;
     rdfs:comment "A boundary condition on a project (time, resource, scope, etc.).@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
 
-<module-process.ttl#DiscourseAction> rdfs:subClassOf <module-core.ttl#LearningEvent> .
-
-<module-core.ttl#SolutionIdeation> a owl:Class ;
-    rdfs:comment "Generating, brainstorming, and selecting among possible solutions.@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Phase> .
-
 <module-core.ttl#Deliverable> a owl:Class ;
     rdfs:comment "A tangible output artifact produced by an activity.@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing .
-
-<module-core.ttl#ScientificInvestigation> a owl:Class ;
-    rdfs:comment "Formal scientific inquiry: experiments, data analysis, and discovery of laws that inform engineering design. Key to Integrated STEM 'Informed Design' (Burghardt & Hacker, 2004).@en"^^xsd:string ;
-    rdfs:subClassOf <module-core.ttl#Phase> .
 
 <module-core.ttl#Project> a owl:Class ;
     rdfs:comment "A PBL unit consisting of phases, activities, constraints, and deliverables.@en"^^xsd:string ;
@@ -377,6 +312,9 @@
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-core.ttl#ProblemScoping> <module-core.ttl#SolutionIdeation> <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
 
+[] rdf:first <module-process.ttl#PartialSuccess> ;
+    rdf:rest ( <module-process.ttl#Failure> ) .
+
 [] rdf:first <module-process.ttl#DesignReasoningAction> ;
     rdf:rest ( <module-process.ttl#CollaborativeDiscourseAction> <module-process.ttl#HelpSeekingAction> <module-process.ttl#SocialAffectiveAction> <module-process.ttl#RegulatoryAction> ) .
 
@@ -389,11 +327,11 @@
 [] rdf:first <module-process.ttl#PeerTutoring> ;
     rdf:rest ( <module-process.ttl#PeerAssessment> <module-process.ttl#TaskCoordination> <module-process.ttl#KnowledgeSharing> <module-process.ttl#CognitiveConflict> ) .
 
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-core.ttl#PresentationRehearsal> <module-core.ttl#FinalPresentation> <module-core.ttl#ClosingCeremony> ) .
+
 [] rdf:first <module-process.ttl#ProcessConfusion> ;
     rdf:rest ( <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( <module-core.ttl#BackgroundResearchPhase> <module-core.ttl#FiveE_Engage> <module-core.ttl#FiveE_Explore> <module-core.ttl#FiveE_Explain> <module-core.ttl#FiveE_Elaborate> <module-core.ttl#FiveE_Evaluate> ) .
 
 [] rdf:first <module-process.ttl#Agreement> ;
     rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
@@ -401,8 +339,11 @@
 [] rdf:first <module-process.ttl#TaskManagement> ;
     rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
 
-[] rdf:first <module-process.ttl#Iteration> ;
-    rdf:rest ( <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+[] rdf:first <module-process.ttl#Reflection> ;
+    rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-core.ttl#DesignActivity> <module-core.ttl#MakingActivity> <module-core.ttl#InquiryActivity> ) .
 
 [] rdf:first <module-core.ttl#Phase> ;
     rdf:rest ( <module-core.ttl#Activity> ) .
@@ -429,19 +370,16 @@
     rdf:rest () .
 
 [] rdf:first <module-process.ttl#ToolSharing> ;
-    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WritingActivity> ) .
+    rdf:rest ( <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WrittenExpression> ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( <module-core.ttl#DesignActivity> <module-core.ttl#MakingActivity> <module-core.ttl#InquiryActivity> ) .
+    owl:members ( <module-core.ttl#Project> <module-core.ttl#Phase> <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
 
 [] rdf:first <module-team.ttl#ConceptualExpert> ;
     rdf:rest ( <module-team.ttl#MetacognitiveChallenger> <module-team.ttl#DivergentBrainstormer> <module-team.ttl#SafetyMonitor> <module-team.ttl#AffectiveSupporter> ) .
 
 [] rdf:first <module-team.ttl#Builder> ;
     rdf:rest ( <module-team.ttl#ProjectManager> <module-team.ttl#Researcher> <module-team.ttl#Designer> <module-team.ttl#Presenter> <module-team.ttl#MaterialManager> ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( <module-core.ttl#Project> <module-core.ttl#Phase> <module-core.ttl#Activity> <module-core.ttl#Constraint> <module-core.ttl#Deliverable> <module-core.ttl#DrivingQuestion> ) .
 
 [] rdf:first <module-team.ttl#Actor> ;
     rdf:rest ( <module-team.ttl#HumanRole> ) .
@@ -470,15 +408,15 @@
 [] rdf:first <module-anchor.ttl#CollaborationIndicator> ;
     rdf:rest ( <module-anchor.ttl#OutcomeIndicator> ) .
 
+[] rdf:first <module-knowledge.ttl#CoordinationMechanism> ;
+    rdf:rest ( <module-knowledge.ttl#ReflectionMechanism> <module-knowledge.ttl#TransformationMechanism> ) .
+
 [] rdf:first <module-knowledge.ttl#MappingBridge> ;
     rdf:rest ( <module-knowledge.ttl#InheritanceBridge> <module-knowledge.ttl#IntegrationBridge> ) .
 
 [] rdf:first <module-knowledge.ttl#Skill> ;
-    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
+    rdf:rest ( <module-knowledge.ttl#DomainBoundary> <module-knowledge.ttl#InterdisciplinaryBridge> <module-knowledge.ttl#BoundaryCrossingEvent> <module-knowledge.ttl#BoundaryCrossingMechanism> <module-knowledge.ttl#ValuePerspective> ) .
 
 [] rdf:first <module-process.ttl#Understanding> ;
-    rdf:rest ( <module-process.ttl#CriticalReflection> <module-process.ttl#TransformativeReflection> ) .
-
-[] rdf:first <module-process.ttl#PartialSuccess> ;
-    rdf:rest ( <module-process.ttl#Failure> ) .
+    rdf:rest ( <module-process.ttl#ReflectiveThought> <module-process.ttl#CriticalReflection> ) .
 

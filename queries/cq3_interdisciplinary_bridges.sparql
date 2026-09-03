@@ -1,8 +1,8 @@
 # CQ3: Interdisciplinary Bridges Detected
 # List bridges, their type, the domains and concepts they connect.
 
-PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX know: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-knowledge.ttl#>
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX know: <https://w3id.org/ie-pbl/ontology/1.0/module-knowledge.ttl#>
 
 SELECT ?bridgeName ?bridgeType ?domain1 ?domain2 ?concept1 ?concept2
 WHERE {

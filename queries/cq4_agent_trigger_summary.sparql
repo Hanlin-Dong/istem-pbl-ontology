@@ -1,10 +1,10 @@
 # CQ4: Agent Trigger Summary
 # Which agents were triggered by which discourse action types, and for which team?
 
-PREFIX core: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-core.ttl#>
-PREFIX proc: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-process.ttl#>
-PREFIX team: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-team.ttl#>
-PREFIX anch: <http://www.semanticweb.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
+PREFIX core: <https://w3id.org/ie-pbl/ontology/1.0/module-core.ttl#>
+PREFIX proc: <https://w3id.org/ie-pbl/ontology/1.0/module-process.ttl#>
+PREFIX team: <https://w3id.org/ie-pbl/ontology/1.0/module-team.ttl#>
+PREFIX anch: <https://w3id.org/ie-pbl/ontology/1.0/module-anchor.ttl#>
 
 SELECT ?agentType ?actionType ?teamName ?utterance
 WHERE {

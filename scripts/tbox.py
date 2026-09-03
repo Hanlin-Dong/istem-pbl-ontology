@@ -78,19 +78,6 @@ def build_core():
         C.EntryEvent = make_class(onto, "EntryEvent", bases=(C.Activity,),
             comment="The initial hook activity that introduces the project and sparks curiosity.")
 
-        # ── Learning Event (abstract base for all observable behaviors) ──
-        # Moved from M3 (v3.0) to resolve M3↔M4 circular dependency.
-        # DiscourseAction, NonverbalAction (M3), and InstructorIntervention (M4)
-        # all extend this class. Placed in Core as a fundamental PBL concept
-        # and an extension point for future event types (e.g. AILearningEvent).
-        C.LearningEvent = make_class(onto, "LearningEvent",
-            comment="Abstract parent for all observable learning behaviors (verbal and nonverbal).")
-        # v2.1: modality annotation for LearningEvent
-        C.hasModality = make_datatype_prop(onto, "hasModality", [C.LearningEvent], str)
-        C.hasModality.comment.append(
-            "Communication modality of a learning event: 'verbal', 'gestural', "
-            "'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en")
-
         # ═══════════════════════════════════════════════════════════════
         # TWO-TIERED PHASE TAXONOMY
         #
@@ -98,7 +85,8 @@ def build_core():
         #   These are the targets for SWRL rules — framework-agnostic.
         # Tier 2: Framework-Specific Subclasses (subclasses of Macro-Phases).
         #   EiE for K-8, CDIO for higher-ed. Pellet subsumption reasoning
-        #   automatically infers that EiE_Create is also an Implementation.
+        #   automatically infers that any framework-specific phase subsumes to
+        #   its macro-phase parent (e.g. EiE_Create ⊑ Implementation at deployment).
         #
         # References:
         #   EiE: Engineering is Elementary (Boston Museum of Science)
@@ -127,54 +115,24 @@ def build_core():
         declare_covering(C.Phase, [C.ProblemScoping, C.SolutionIdeation, C.ScientificInvestigation,
                                     C.Implementation, C.Evaluation, C.CommunicationAndClosure])
 
-        # ── Tier 2: Framework-Specific Subclasses ──
+        # ── Tier 2: Closure Sub-Phases (Gold Standard PBL) ──
+        # The only macro-phase without EDP-framework coverage; its internal
+        # structure comes from PBL pedagogy (Larmer et al. 2015).
+        # Other frameworks (EiE, CDIO, 5E) are discussed in the paper as
+        # examples of subsumption but are not pre-defined in the base ontology;
+        # they are added as Tier-2 subclasses at deployment time.
 
-        # --- EiE (K-8): Engineering is Elementary ---
-        C.EiE_Ask = make_class(onto, "EiE_Ask", bases=(C.ProblemScoping,),
-            comment="[EiE] Define the problem, its constraints, and success criteria.")
-        C.EiE_Imagine = make_class(onto, "EiE_Imagine", bases=(C.SolutionIdeation,),
-            comment="[EiE] Brainstorm multiple possible solutions.")
-        C.EiE_Plan = make_class(onto, "EiE_Plan", bases=(C.SolutionIdeation,),
-            comment="[EiE] Select and design a solution approach.")
-        C.EiE_Create = make_class(onto, "EiE_Create", bases=(C.Implementation,),
-            comment="[EiE] Build and test a prototype.")
-        C.EiE_Improve = make_class(onto, "EiE_Improve", bases=(C.Evaluation,),
-            comment="[EiE] Iterate and optimize based on feedback and testing.")
-
-        # --- CDIO (Higher Education): Conceive-Design-Implement-Operate ---
-        C.CDIO_Conceive = make_class(onto, "CDIO_Conceive", bases=(C.ProblemScoping,),
-            comment="[CDIO] Define customer needs, consider technology, regulations, and strategy.")
-        C.CDIO_Design = make_class(onto, "CDIO_Design", bases=(C.SolutionIdeation,),
-            comment="[CDIO] Create detailed plans, drawings, specifications, and models.")
-        C.CDIO_Implement = make_class(onto, "CDIO_Implement", bases=(C.Implementation,),
-            comment="[CDIO] Manufacture, build, code, integrate, and validate the design.")
-        C.CDIO_Operate = make_class(onto, "CDIO_Operate", bases=(C.Evaluation,),
-            comment="[CDIO] Deploy, maintain, evolve, and retire the system; assess performance.")
-
-        # --- Generic / Cross-framework ---
+        C.PresentationRehearsal = make_class(onto, "PresentationRehearsal", bases=(C.CommunicationAndClosure,),
+            comment="[GSPBL: critique & revision] Preparing and rehearsing the public presentation: "
+                    "drafting slides, practicing delivery, peer critique before the audience session.")
         C.FinalPresentation = make_class(onto, "FinalPresentation", bases=(C.CommunicationAndClosure,),
-            comment="Final project presentation, report submission, and reflection.")
+            comment="[GSPBL: public product] Final public presentation of the project outcomes "
+                    "to an audience beyond the team.")
+        C.ClosingCeremony = make_class(onto, "ClosingCeremony", bases=(C.CommunicationAndClosure,),
+            comment="[GSPBL: public product] Ceremonial closing of the project: guest speeches, "
+                    "awards where given, group photos, and farewell; not all projects include awards.")
 
-        # --- Science-Curriculum Subclasses (⊑ ScientificInvestigation) ---
-        # 5E Model (Bybee et al., 2006): Engage-Explore-Explain-Elaborate-Evaluate
-        C.BackgroundResearchPhase = make_class(onto, "BackgroundResearchPhase", bases=(C.ScientificInvestigation,),
-            comment="Literature review and background reading to establish scientific foundations.")
-        C.FiveE_Engage = make_class(onto, "FiveE_Engage", bases=(C.ScientificInvestigation,),
-            comment="[5E] Engage: spark curiosity, connect to prior knowledge, present the driving question.")
-        C.FiveE_Explore = make_class(onto, "FiveE_Explore", bases=(C.ScientificInvestigation,),
-            comment="[5E] Hands-on exploration: students conduct experiments to discover scientific phenomena.")
-        C.FiveE_Explain = make_class(onto, "FiveE_Explain", bases=(C.ScientificInvestigation,),
-            comment="[5E] Students articulate scientific principles discovered during exploration.")
-        C.FiveE_Elaborate = make_class(onto, "FiveE_Elaborate", bases=(C.ScientificInvestigation,),
-            comment="[5E] Elaborate: apply and extend scientific principles to new contexts.")
-        C.FiveE_Evaluate = make_class(onto, "FiveE_Evaluate", bases=(C.ScientificInvestigation,),
-            comment="[5E] Evaluate: formative and summative assessment of scientific understanding.")
-
-        declare_disjoint(C.BackgroundResearchPhase, C.FiveE_Engage, C.FiveE_Explore,
-                         C.FiveE_Explain, C.FiveE_Elaborate, C.FiveE_Evaluate)
-
-        # Tier-2 pairwise disjoint within each macro-phase
-        declare_disjoint(C.EiE_Imagine, C.EiE_Plan)  # both ⊑ SolutionIdeation; cognitiveMode distinguishes divergent vs convergent
+        declare_disjoint(C.PresentationRehearsal, C.FinalPresentation, C.ClosingCeremony)
 
         # ── Activity Subtypes: Distinguishing Inquiry from Design from Making ──
         # Reference: Informed Design (Burghardt & Hacker, 2004); NGSS Science & Engineering Practices
@@ -237,8 +195,7 @@ def build_core():
         C.hasCognitiveMode = make_datatype_prop(onto, "hasCognitiveMode", [C.SolutionIdeation], str)
         C.hasCognitiveMode.comment.append(
             "Cognitive mode of a SolutionIdeation phase: 'divergent' (brainstorming, "
-            "generating alternatives) or 'convergent' (selecting, refining, planning). "
-            "Distinguishes EiE_Imagine from EiE_Plan.@en")
+            "generating alternatives) or 'convergent' (selecting, refining, planning).@en")
 
         # ── v3.0: SubPhase — finer-grained decomposition of Phase ──
         # Allows different grade bands to have different internal phase structure
@@ -304,17 +261,37 @@ def build_knowledge():
         C.InheritanceBridge = make_class(onto, "InheritanceBridge", bases=(C.InterdisciplinaryBridge,))
         C.IntegrationBridge = make_class(onto, "IntegrationBridge", bases=(C.InterdisciplinaryBridge,))
 
-        # Boundary Crossing Mechanisms (Akkerman & Bakker, 2011)
-        # v3.0: Akkerman's four dialogical learning mechanisms refactored from
-        # disjoint subclasses to a developmental stage property on InterdisciplinaryBridge.
-        # This resolves the type-vs-progression tension: a bridge can pass through
-        # identification → coordination → reflection → transformation over time.
-        # BoundaryCrossingMechanism is retained as an abstract extension point for
-        # future mechanism taxonomies beyond Akkerman.
+        # Boundary Crossing (Akkerman & Bakker, 2011)
+        # v4.0: the four dialogical mechanisms restored as classes — they are
+        # mechanisms (they can co-occur and recur), not developmental stages of
+        # an artifact. They are enacted by reified BoundaryCrossingEvent
+        # individuals rather than attached to bridges as a datatype property.
         C.BoundaryCrossingMechanism = make_class(onto, "BoundaryCrossingMechanism",
-            comment="Abstract extension point for boundary crossing mechanism taxonomies. "
-                    "Akkerman & Bakker's four mechanisms are now modeled as developmental "
-                    "stages via boundaryCrossingStage on InterdisciplinaryBridge.@en")
+            comment="Abstract parent of Akkerman & Bakker's (2011) four dialogical "
+                    "boundary-crossing mechanisms.@en")
+        C.IdentificationMechanism = make_class(onto, "IdentificationMechanism", bases=(C.BoundaryCrossingMechanism,),
+            comment="Recognizing differences between practices and identifying one's "
+                    "own position relative to them.@en")
+        C.CoordinationMechanism = make_class(onto, "CoordinationMechanism", bases=(C.BoundaryCrossingMechanism,),
+            comment="Establishing and using translation or synchronization procedures "
+                    "between two practices.@en")
+        C.ReflectionMechanism = make_class(onto, "ReflectionMechanism", bases=(C.BoundaryCrossingMechanism,),
+            comment="Explicit perspective-taking and comparison between practices, "
+                    "often jointly with boundary objects.@en")
+        C.TransformationMechanism = make_class(onto, "TransformationMechanism", bases=(C.BoundaryCrossingMechanism,),
+            comment="Developing hybrid practices that combine learning from both "
+                    "sides of the boundary.@en")
+        declare_disjoint(C.IdentificationMechanism, C.CoordinationMechanism,
+                         C.ReflectionMechanism, C.TransformationMechanism)
+        declare_covering(C.BoundaryCrossingMechanism,
+            [C.IdentificationMechanism, C.CoordinationMechanism,
+             C.ReflectionMechanism, C.TransformationMechanism])
+
+        # v4.0: reified crossing episode — one event may enact several mechanisms
+        # (co-occurrence), and events may recur for the same bridge (recurrence).
+        C.BoundaryCrossingEvent = make_class(onto, "BoundaryCrossingEvent",
+            comment="An observable boundary-crossing episode enacted by one or more "
+                    "dialogical mechanisms (Akkerman & Bakker, 2011).@en")
 
         declare_disjoint(C.AnalogyBridge, C.MappingBridge, C.InheritanceBridge, C.IntegrationBridge)
         declare_covering(C.InterdisciplinaryBridge,
@@ -328,7 +305,7 @@ def build_knowledge():
                     "knowledge (Skill) to include affective and normative dimensions "
                     "essential for socio-scientific PBL projects.@en")
 
-        declare_disjoint(C.Concept, C.Skill, C.DomainBoundary, C.InterdisciplinaryBridge, C.BoundaryCrossingMechanism, C.ValuePerspective)
+        declare_disjoint(C.Concept, C.Skill, C.DomainBoundary, C.InterdisciplinaryBridge, C.BoundaryCrossingEvent, C.BoundaryCrossingMechanism, C.ValuePerspective)
 
         # ── Object Properties ──
         C.bridgesDomain, C.isBridgedBy = make_property_pair(onto,
@@ -338,8 +315,12 @@ def build_knowledge():
         C.linksConcept, C.isLinkedByBridge = make_property_pair(onto,
             "linksConcept", "isLinkedByBridge", C.InterdisciplinaryBridge, C.Concept)
 
-        C.bridgesMechanism, C.isMechanismOfBridge = make_property_pair(onto,
-            "bridgesMechanism", "isMechanismOfBridge", C.InterdisciplinaryBridge, C.BoundaryCrossingMechanism)
+        # v4.0: mechanisms attach to reified crossing events, not to bridges.
+        C.crossesBridge, C.hasCrossingEvent = make_property_pair(onto,
+            "crossesBridge", "hasCrossingEvent", C.BoundaryCrossingEvent, C.InterdisciplinaryBridge)
+        C.enactsMechanism, C.mechanismEnactedIn = make_property_pair(onto,
+            "enactsMechanism", "mechanismEnactedIn", C.BoundaryCrossingEvent, C.BoundaryCrossingMechanism)
+        C.BoundaryCrossingEvent.is_a.append(C.enactsMechanism.min(1, C.BoundaryCrossingMechanism))
 
         C.requiresConcept, C.isConceptRequiredBy = make_property_pair(onto,
             "requiresConcept", "isConceptRequiredBy", C.Skill, C.Concept)
@@ -376,13 +357,11 @@ def build_knowledge():
             "Depth of interdisciplinary integration on a 1-5 Likert scale. "
             "1=superficial awareness; 3=moderate synthesis; 5=deep transformation.@en")
 
-        # v3.0: Akkerman developmental stage as datatype property
-        C.boundaryCrossingStage = make_datatype_prop(onto, "boundaryCrossingStage", [C.InterdisciplinaryBridge], str)
-        C.boundaryCrossingStage.comment.append(
-            "Current developmental stage of boundary crossing for this bridge "
-            "(Akkerman & Bakker, 2011): 'identification', 'coordination', "
-            "'reflection', 'transformation'. Unlike the previous class-based model, "
-            "this allows a single bridge to progress through multiple stages over time.@en")
+        # v4.0: crossing events are timestamped so mechanism recurrence can be
+        # analyzed over time without re-typing artifacts.
+        C.crossingTimestamp = make_datatype_prop(onto, "crossingTimestamp", [C.BoundaryCrossingEvent], str)
+        C.crossingTimestamp.comment.append(
+            "When this boundary-crossing episode occurred (ISO 8601).@en")
 
         # v3.0: Bridge complexity for multi-domain projects
         C.bridgeComplexity = make_datatype_prop(onto, "bridgeComplexity", [C.InterdisciplinaryBridge], int)
@@ -423,9 +402,22 @@ def build_process():
     onto = get_ontology(MODULE_IRIS["process"])
 
     with onto:
+        # ── LearningEvent (abstract root for all observable events) ──
+        # v3.1: moved back to M3 (its conceptual home, the event layer).
+        # v3.0 had placed it in Core to resolve an M3↔M4 import cycle; that
+        # cycle no longer exists (M4 already references M3 classes, and
+        # isAttributedTo uses the placeholder-range + M5 refinement pattern).
+        # DiscourseAction, NonverbalAction (M3), and InstructorIntervention (M4)
+        # all extend this class; extension point for future event types
+        # (e.g. AILearningEvent).
+        C.LearningEvent = make_class(onto, "LearningEvent",
+            comment="Abstract parent for all observable learning behaviors (verbal and nonverbal).")
+        C.hasModality = make_datatype_prop(onto, "hasModality", [C.LearningEvent], str)
+        C.hasModality.comment.append(
+            "Communication modality of a learning event: 'verbal', 'gestural', "
+            "'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en")
+
         # ── Core Process Classes ──
-        C.EngineeringDesignProcess = make_class(onto, "EngineeringDesignProcess",
-            comment="Top-level representation of an engineering design workflow.")
         C.Iteration = make_class(onto, "Iteration",
             comment="A single design cycle within an engineering design process.")
         C.Reflection = make_class(onto, "Reflection",
@@ -437,14 +429,19 @@ def build_process():
         C.HabitualAction = make_class(onto, "HabitualAction", bases=(C.ReflectionLevel,),
             comment="Non-reflective, routine action without conscious thought.")
         C.Understanding = make_class(onto, "Understanding", bases=(C.ReflectionLevel,),
-            comment="Comprehension-level reflection: grasping meaning without critique.")
+            comment="Intentional learning: constructing meaning without critique "
+                    "of premises.")
+        C.ReflectiveThought = make_class(onto, "ReflectiveThought", bases=(C.ReflectionLevel,),
+            comment="Kember's 'reflection' level: conscious, deliberate examination "
+                    "of experience and knowledge to guide action. Encoded as "
+                    "ReflectiveThought to avoid a name clash with the M3 "
+                    "Reflection activity class.@en")
         C.CriticalReflection = make_class(onto, "CriticalReflection", bases=(C.ReflectionLevel,),
-            comment="Critical analysis of assumptions, evidence, and implications.")
-        C.TransformativeReflection = make_class(onto, "TransformativeReflection", bases=(C.ReflectionLevel,),
-            comment="Deep reflection resulting in fundamental perspective shift.")
-        declare_disjoint(C.HabitualAction, C.Understanding, C.CriticalReflection, C.TransformativeReflection)
+            comment="Premise critique: reflection directed at the assumptions "
+                    "underlying beliefs and actions (Kember et al., 2008).")
+        declare_disjoint(C.HabitualAction, C.Understanding, C.ReflectiveThought, C.CriticalReflection)
         declare_covering(C.ReflectionLevel,
-            [C.HabitualAction, C.Understanding, C.CriticalReflection, C.TransformativeReflection])
+            [C.HabitualAction, C.Understanding, C.ReflectiveThought, C.CriticalReflection])
 
         # ── Iteration Outcomes ──
         C.IterationOutcome = make_class(onto, "IterationOutcome",
@@ -571,12 +568,11 @@ def build_process():
         declare_disjoint(*reg); declare_covering(C.RegulatoryAction, reg)
 
         # Top-level disjointness
-        declare_disjoint(C.EngineeringDesignProcess, C.Iteration, C.Reflection,
+        declare_disjoint(C.Iteration, C.Reflection,
                          C.ReflectionLevel, C.IterationOutcome, C.DiscourseAction)
 
         # ── Object Properties ──
-        C.hasIteration, C.isIterationOf = make_property_pair(onto,
-            "hasIteration", "isIterationOf", C.EngineeringDesignProcess, C.Iteration)
+
 
         C.hasSubIteration, C.isSubIterationOf = make_property_pair(onto,
             "hasSubIteration", "isSubIterationOf", C.Iteration, C.Iteration)
@@ -590,9 +586,17 @@ def build_process():
         C.hasReflectionLevel, C.isLevelOfReflection = make_property_pair(onto,
             "hasReflectionLevel", "isLevelOfReflection", C.Reflection, C.ReflectionLevel)
 
-        # Cross-module: DiscourseAction → Phase (M1)
+        # Cross-module: LearningEvent → Phase (M1)
+        # v3.1: domain broadened from DiscourseAction to LearningEvent so that
+        # InstructorIntervention (M4) can also anchor to phases.
         C.occursInPhase, C.containsDiscourse = make_property_pair(onto,
-            "occursInPhase", "containsDiscourse", C.DiscourseAction, C.Phase)
+            "occursInPhase", "containsDiscourse", C.LearningEvent, C.Phase)
+        # v3.1: sub-phase anchoring (DiscourseAction → SubPhase). Grade-band
+        # sub-phase decomposition stays transparent to the macro-phase rules,
+        # while M5 evidence chains inherit sub-phase context via
+        # PerformanceTrace —derivedFromEvent→ DiscourseAction —occursInSubPhase→ SubPhase.
+        C.occursInSubPhase, C.containsSubPhaseAction = make_property_pair(onto,
+            "occursInSubPhase", "containsSubPhaseAction", C.DiscourseAction, C.SubPhase)
 
         # Transitive discourse threading
         C.isFollowedByAction, C.isPrecededByAction = make_property_pair(onto,
@@ -649,14 +653,13 @@ def build_process():
 
         # Placeholder: isAttributedTo — refined by M4
         C.isAttributedTo, C.performsAction = make_property_pair(onto,
-            "isAttributedTo", "performsAction", C.DiscourseAction, Thing)
+            "isAttributedTo", "performsAction", C.LearningEvent, Thing)
 
         # Iteration-EDP tracking
-        C.occursWithinProcess, C.hasIterationEvent = make_property_pair(onto,
-            "occursWithinProcess", "hasIterationEvent", C.Iteration, C.EngineeringDesignProcess)
+
 
         # ── Data Properties ──
-        C.timestamp = make_datatype_prop(onto, "timestamp", [C.DiscourseAction], dt.datetime)
+        C.timestamp = make_datatype_prop(onto, "timestamp", [C.LearningEvent], dt.datetime)
         C.utteranceText = make_datatype_prop(onto, "utteranceText", [C.DiscourseAction], str)
         C.utteranceText.comment.append("The textual content of a discourse action.@en")
         C.iterationNumber = make_datatype_prop(onto, "iterationNumber", [C.Iteration], int)
@@ -667,8 +670,17 @@ def build_process():
         C.valence = make_datatype_prop(onto, "valence", [C.EmotiveExpression], str)
         C.valence.comment.append("Emotional valence of an EmotiveExpression (e.g. positive, negative, neutral).@en")
 
-        # Nonverbal actions (parallel to DiscourseAction, both ⊑ LearningEvent from M1)
-        # v3.0: LearningEvent moved to M1 (Core) — resolves M3↔M4 circular dependency
+        # ── Learning Event (abstract base for all observable behaviors) ──
+        # v3.1: moved back to M3, its conceptual home (the event layer).
+        # v3.0 had placed it in Core to resolve an M3↔M4 import cycle; that
+        # cycle no longer exists (M4 already references M3 classes, and
+        # isAttributedTo uses the placeholder-range + M5 refinement pattern).
+        # DiscourseAction, NonverbalAction (M3), and InstructorIntervention (M4)
+        # all extend this class; extension point for future event types
+        # (e.g. AILearningEvent).
+
+
+        # Nonverbal actions (parallel to DiscourseAction, both ⊑ LearningEvent)
         C.DiscourseAction.is_a.append(C.LearningEvent)
         C.NonverbalAction = make_class(onto, "NonverbalAction", bases=(C.LearningEvent,),
             comment="Non-verbal learning behavior: physical prototyping, tool sharing, gazing, etc.")
@@ -691,15 +703,15 @@ def build_process():
             comment="Student nods in agreement or understanding — positive collaboration signal.")
         C.FacialExpression = make_class(onto, "FacialExpression", bases=(C.NonverbalAction,),
             comment="Student displays a facial expression indicating confusion, surprise, concentration, or frustration.")
-        C.WritingActivity = make_class(onto, "WritingActivity", bases=(C.NonverbalAction,),
+        C.WrittenExpression = make_class(onto, "WrittenExpression", bases=(C.NonverbalAction,),
             comment="Student writes, draws, or sketches on paper/whiteboard — important nonverbal cognitive expression.")
         declare_disjoint(C.PhysicalPrototyping, C.ToolSharing, C.GazingAtPeerWork,
                          C.IdleBehavior, C.CelebrationGesture, C.MaterialHoarding,
-                         C.Gesturing, C.Nodding, C.FacialExpression, C.WritingActivity)
+                         C.Gesturing, C.Nodding, C.FacialExpression, C.WrittenExpression)
         declare_covering(C.NonverbalAction, [C.PhysicalPrototyping, C.ToolSharing,
                          C.GazingAtPeerWork, C.IdleBehavior,
                          C.CelebrationGesture, C.MaterialHoarding,
-                         C.Gesturing, C.Nodding, C.FacialExpression, C.WritingActivity])
+                         C.Gesturing, C.Nodding, C.FacialExpression, C.WrittenExpression])
 
         # v3.0: urgency and triggerConfidence moved from M5 (Anchor) to M3 (Process)
         # because their domain is DiscourseAction (M3). Keeps property with its domain class.
@@ -984,6 +996,12 @@ def build_anchor():
         C.triggersAgent.comment.append(
             "Maps a DiscourseAction to the VirtualAgent that should respond. "
             "Trigger conditions encoded in SWRL rules. Cross-module: M3 → M4.@en")
+
+        # v4.0: actor attribution for reified boundary-crossing events (M2).
+        # M2 defines the event; M5 (Anchor) wires it to the M4 Actor hierarchy,
+        # mirroring the isAttributedTo dependency-inversion pattern.
+        C.hasCrossingActor, C.isCrossingActorOf = make_property_pair(onto,
+            "hasCrossingActor", "isCrossingActorOf", C.BoundaryCrossingEvent, C.Actor)
 
         # v3.0: isAttributedTo refinement moved from M4 to M5.
         # M3 defines isAttributedTo with range=Thing as a placeholder;
