@@ -415,13 +415,24 @@ def build_process():
         C.hasModality = make_datatype_prop(onto, "hasModality", [C.LearningEvent], str)
         C.hasModality.comment.append(
             "Communication modality of a learning event: 'verbal', 'gestural', "
-            "'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en")
+            "'physical', 'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en")
 
         # ── Core Process Classes ──
         C.Iteration = make_class(onto, "Iteration",
             comment="A single design cycle within an engineering design process.")
+        # v4.1: Reflection is a product, not an event. It carries the
+        # reflection text and its Kember depth level, while the observable
+        # events that express it live in the LearningEvent hierarchy and
+        # link to it via expressesReflection (attribution and timing on
+        # the event; the product stays time-invariant).
         C.Reflection = make_class(onto, "Reflection",
-            comment="A metacognitive reflection activity on process or learning.")
+            comment="A reflection product — e.g. a written journal entry or "
+                    "recorded reflective artifact — capturing metacognitive "
+                    "reflection on process or learning. Modeled as a product "
+                    "rather than an event: it carries the reflection text and "
+                    "its Kember depth level, while the observable events that "
+                    "express it are LearningEvent individuals linked via "
+                    "expressesReflection.")
 
         # ── Reflection Levels (Kember et al., 2008) ──
         C.ReflectionLevel = make_class(onto, "ReflectionLevel",
@@ -474,7 +485,7 @@ def build_process():
         C.SocialAffectiveAction = make_class(onto, "SocialAffectiveAction", bases=(C.DiscourseAction,),
             comment="Social and affective expression: bonding, agreement/disagreement, encouragement, emotion.")
         C.RegulatoryAction = make_class(onto, "RegulatoryAction", bases=(C.DiscourseAction,),
-            comment="Metacognitive regulation: summarizing, task management, demonstration, serendipitous discovery.")
+            comment="Metacognitive regulation: summarizing, task management, demonstration, serendipitous discovery, reflective expression.")
 
         # --- Existing 14 types ---
         C.HelpSeeking = make_class(onto, "HelpSeeking", bases=(C.HelpSeekingAction,),
@@ -501,6 +512,20 @@ def build_process():
             comment="Student expresses emotion (frustration, excitement, disappointment) related to the task.")
         C.SerendipitousDiscovery = make_class(onto, "SerendipitousDiscovery", bases=(C.RegulatoryAction,),
             comment="Student reports an unexpected discovery or surprising result.")
+
+        # v4.1: ReflectiveExpression — observable counterpart of the Reflection
+        # product. Closes a coverage gap in the coding scheme: verbal reflection
+        # is not Summarizing (which recaps discussion content, not self-evaluative
+        # metacognition), and written reflection is not merely WrittenExpression
+        # (a modality-level code for any writing). Links to the product via
+        # expressesReflection.
+        C.ReflectiveExpression = make_class(onto, "ReflectiveExpression", bases=(C.RegulatoryAction,),
+            comment="Student externally expresses reflective content about their "
+                    "own process or learning (e.g. 'We didn't account for torque — "
+                    "next time we should test pitch angles first'), verbally or "
+                    "in writing. Observable counterpart of the Reflection "
+                    "product; linked to it via expressesReflection, with "
+                    "attribution and timing carried by the event.")
 
         # ── Scientific Method Discourse Types (Informed Design / S2D) ──
         C.HypothesisProposing = make_class(onto, "HypothesisProposing", bases=(C.ScientificInquiryAction,),
@@ -564,7 +589,8 @@ def build_process():
         declare_disjoint(*hlp); declare_covering(C.HelpSeekingAction, hlp)
         soc = [C.SocialBonding, C.Agreement, C.Disagreement, C.PeerEncouragement, C.EmotiveExpression]
         declare_disjoint(*soc); declare_covering(C.SocialAffectiveAction, soc)
-        reg = [C.Summarizing, C.TaskManagement, C.Demonstration, C.SerendipitousDiscovery]
+        reg = [C.Summarizing, C.TaskManagement, C.Demonstration, C.SerendipitousDiscovery,
+               C.ReflectiveExpression]
         declare_disjoint(*reg); declare_covering(C.RegulatoryAction, reg)
 
         # Top-level disjointness
@@ -585,6 +611,20 @@ def build_process():
 
         C.hasReflectionLevel, C.isLevelOfReflection = make_property_pair(onto,
             "hasReflectionLevel", "isLevelOfReflection", C.Reflection, C.ReflectionLevel)
+
+        # v4.1: event→product bridge. Any observable learning event (verbal,
+        # written, or digital) may express a Reflection product. Attribution
+        # (isAttributedTo) and timing (timestamp) live on the event, keeping
+        # the product time-invariant while M5 evidence chains stay anchored.
+        C.expressesReflection, C.isExpressedInLearningEvent = make_property_pair(onto,
+            "expressesReflection", "isExpressedInLearningEvent",
+            C.LearningEvent, C.Reflection)
+        C.expressesReflection.comment.append(
+            "Links an observable learning event (e.g. ReflectiveExpression, "
+            "WrittenExpression) to the Reflection product it expresses. "
+            "Bridges the event layer to the reflection product: attribution "
+            "and timing live on the event; the product carries the text and "
+            "its Kember level.@en")
 
         # Cross-module: LearningEvent → Phase (M1)
         # v3.1: domain broadened from DiscourseAction to LearningEvent so that
@@ -895,15 +935,18 @@ def build_team():
             "KG-driven guardrail: defines the epistemological scope within which a VirtualAgent can operate.@en")
         C.ConceptualExpert.is_a.append(C.hasDomainBoundary.some(C.DomainBoundary))
 
-        # Bridge M3→M4: Actor → DiscourseAction
+        # Bridge M3→M4: Actor → LearningEvent
         # v3.0: isAttributedTo refinement (range=Actor, inverse=hasDiscourseAction)
         # moved to M5 (Anchor) — resolves M3↔M4 circular dependency
         C.hasDiscourseAction = type("hasDiscourseAction", (ObjectProperty,), {"namespace": onto})
         C.hasDiscourseAction.label.append("has discourse action@en")
         C.hasDiscourseAction.comment.append(
-            "An Actor produces a DiscourseAction. Completes the M3:M4 bridge.@en")
+            "An Actor produces a learning event (discourse or nonverbal). "
+            "Completes the M3:M4 bridge. Range matches isAttributedTo's domain "
+            "(LearningEvent) so nonverbal and instructor events are not entailed "
+            "as DiscourseActions.@en")
         C.hasDiscourseAction.domain.append(C.Actor)
-        C.hasDiscourseAction.range.append(C.DiscourseAction)
+        C.hasDiscourseAction.range.append(C.LearningEvent)
 
         # Forward reference to M5 (will be tightened in build_anchor)
         C.hasCompetency = type("hasCompetency", (ObjectProperty,), {"namespace": onto})
@@ -987,15 +1030,16 @@ def build_anchor():
     with onto:
         # ═════════════════════════════════════════════════════════════════
         # BRIDGE AREA A — Orchestration Bridge
-        # Links M3 (DiscourseAction) → M4 (VirtualAgent) for SWRL-driven
+        # Links M3 (LearningEvent) → M4 (VirtualAgent) for SWRL-driven
         # agent triggering. Extension: add trigger sub-properties for
         # finer-grained control.
         # ═════════════════════════════════════════════════════════════════
         C.triggersAgent, C.isTriggeredByDiscourse = make_property_pair(onto,
-            "triggersAgent", "isTriggeredByDiscourse", C.DiscourseAction, C.VirtualAgent)
+            "triggersAgent", "isTriggeredByDiscourse", C.LearningEvent, C.VirtualAgent)
         C.triggersAgent.comment.append(
-            "Maps a DiscourseAction to the VirtualAgent that should respond. "
-            "Trigger conditions encoded in SWRL rules. Cross-module: M3 → M4.@en")
+            "Maps a LearningEvent (DiscourseAction, NonverbalAction, or InstructorIntervention) "
+            "to the VirtualAgent that should respond. Trigger conditions encoded in SWRL rules. "
+            "Cross-module: M3 → M4.@en")
 
         # v4.0: actor attribution for reified boundary-crossing events (M2).
         # M2 defines the event; M5 (Anchor) wires it to the M4 Actor hierarchy,
@@ -1009,7 +1053,7 @@ def build_anchor():
         # This keeps M3 free of M4 references (resolves circular dependency).
         C.isAttributedTo.range = [C.Actor]
         C.performsAction.domain = [C.Actor]
-        C.performsAction.range = [C.DiscourseAction]
+        C.performsAction.range = [C.LearningEvent]
         C.isAttributedTo.inverse_property = C.hasDiscourseAction
 
         # ═════════════════════════════════════════════════════════════════

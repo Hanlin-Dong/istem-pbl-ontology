@@ -13,9 +13,9 @@
 
 <module-anchor.ttl#isCognitiveStepOf> rdfs:range <module-process.ttl#DiscourseAction> .
 
-<module-anchor.ttl#isTriggeredByDiscourse> rdfs:range <module-process.ttl#DiscourseAction> .
+<module-anchor.ttl#isTriggeredByDiscourse> rdfs:range <module-process.ttl#LearningEvent> .
 
-<module-anchor.ttl#triggersAgent> rdfs:domain <module-process.ttl#DiscourseAction> .
+<module-anchor.ttl#triggersAgent> rdfs:domain <module-process.ttl#LearningEvent> .
 
 <module-knowledge.ttl#expressesPerspective> rdfs:domain <module-process.ttl#DiscourseAction> .
 
@@ -33,7 +33,7 @@
 
 <module-process.ttl#hasModality> a owl:DatatypeProperty ;
     rdfs:label "hasModality@en"^^xsd:string ;
-    rdfs:comment "Communication modality of a learning event: 'verbal', 'gestural', 'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en"^^xsd:string ;
+    rdfs:comment "Communication modality of a learning event: 'verbal', 'gestural', 'physical', 'written', 'digital', 'facial'. Supports multi-modal learning analytics.@en"^^xsd:string ;
     rdfs:domain <module-process.ttl#LearningEvent> ;
     rdfs:range xsd:string .
 
@@ -51,7 +51,7 @@
 <module-process.ttl#performsAction> a owl:ObjectProperty ;
     rdfs:label "performsAction@en"^^xsd:string ;
     rdfs:domain <module-team.ttl#Actor> ;
-    rdfs:range <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#LearningEvent> ;
     owl:inverseOf <module-process.ttl#isAttributedTo> .
 
 <module-process.ttl#reflectionText> a owl:DatatypeProperty ;
@@ -110,6 +110,13 @@
     rdfs:range <module-team.ttl#Team> ;
     owl:inverseOf <module-process.ttl#isTargetedByAction> .
 
+<module-process.ttl#expressesReflection> a owl:ObjectProperty ;
+    rdfs:label "expressesReflection@en"^^xsd:string ;
+    rdfs:comment "Links an observable learning event (e.g. ReflectiveExpression, WrittenExpression) to the Reflection product it expresses. Bridges the event layer to the reflection product: attribution and timing live on the event; the product carries the text and its Kember level.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#LearningEvent> ;
+    rdfs:range <module-process.ttl#Reflection> ;
+    owl:inverseOf <module-process.ttl#isExpressedInLearningEvent> .
+
 <module-process.ttl#hasIterationOutcome> a owl:ObjectProperty ;
     rdfs:label "hasIterationOutcome@en"^^xsd:string ;
     rdfs:domain <module-process.ttl#Iteration> ;
@@ -149,6 +156,12 @@
     rdfs:domain <module-process.ttl#DesignJustification> ;
     rdfs:range <module-process.ttl#DiscourseAction> ;
     owl:inverseOf <module-process.ttl#justifiesDecision> .
+
+<module-process.ttl#isExpressedInLearningEvent> a owl:ObjectProperty ;
+    rdfs:label "isExpressedInLearningEvent@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#Reflection> ;
+    rdfs:range <module-process.ttl#LearningEvent> ;
+    owl:inverseOf <module-process.ttl#expressesReflection> .
 
 <module-process.ttl#isFollowedByAction> a owl:ObjectProperty,
         owl:TransitiveProperty ;
@@ -291,7 +304,7 @@
     rdfs:range <module-process.ttl#Iteration> ;
     owl:inverseOf <module-process.ttl#iterationTriggeredBy> .
 
-<module-team.ttl#hasDiscourseAction> rdfs:range <module-process.ttl#DiscourseAction> ;
+<module-team.ttl#hasDiscourseAction> rdfs:range <module-process.ttl#LearningEvent> ;
     owl:inverseOf <module-process.ttl#isAttributedTo> .
 
 <module-process.ttl#Agreement> a owl:Class ;
@@ -410,6 +423,10 @@
     rdfs:comment "Student expresses confusion about the design process itself.@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#HelpSeekingAction> .
 
+<module-process.ttl#ReflectiveExpression> a owl:Class ;
+    rdfs:comment "Student externally expresses reflective content about their own process or learning (e.g. 'We didn't account for torque — next time we should test pitch angles first'), verbally or in writing. Observable counterpart of the Reflection product; linked to it via expressesReflection, with attribution and timing carried by the event.@en"^^xsd:string ;
+    rdfs:subClassOf <module-process.ttl#RegulatoryAction> .
+
 <module-process.ttl#ReflectiveThought> a owl:Class ;
     rdfs:comment "Kember's 'reflection' level: conscious, deliberate examination of experience and knowledge to guide action. Encoded as ReflectiveThought to avoid a name clash with the M3 Reflection activity class.@en@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#ReflectionLevel> .
@@ -491,10 +508,10 @@
             owl:unionOf ( <module-process.ttl#HelpSeeking> <module-process.ttl#ProcessConfusion> <module-process.ttl#ClarificationQuestioning> <module-process.ttl#FailureReporting> ) ] .
 
 <module-process.ttl#RegulatoryAction> a owl:Class ;
-    rdfs:comment "Metacognitive regulation: summarizing, task management, demonstration, serendipitous discovery.@en"^^xsd:string ;
+    rdfs:comment "Metacognitive regulation: summarizing, task management, demonstration, serendipitous discovery, reflective expression.@en"^^xsd:string ;
     rdfs:subClassOf <module-process.ttl#DiscourseAction> ;
     owl:equivalentClass [ a owl:Class ;
-            owl:unionOf ( <module-process.ttl#Summarizing> <module-process.ttl#TaskManagement> <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) ] .
+            owl:unionOf ( <module-process.ttl#Summarizing> <module-process.ttl#TaskManagement> <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> <module-process.ttl#ReflectiveExpression> ) ] .
 
 <module-process.ttl#SocialAffectiveAction> a owl:Class ;
     rdfs:comment "Social and affective expression: bonding, agreement/disagreement, encouragement, emotion.@en"^^xsd:string ;
@@ -514,14 +531,6 @@
     owl:equivalentClass [ a owl:Class ;
             owl:unionOf ( <module-process.ttl#Success> <module-process.ttl#PartialSuccess> <module-process.ttl#Failure> ) ] .
 
-<module-process.ttl#LearningEvent> a owl:Class ;
-    rdfs:comment "Abstract parent for all observable learning behaviors (verbal and nonverbal).@en"^^xsd:string ;
-    rdfs:subClassOf owl:Thing .
-
-<module-process.ttl#Reflection> a owl:Class ;
-    rdfs:comment "A metacognitive reflection activity on process or learning.@en"^^xsd:string ;
-    rdfs:subClassOf owl:Thing .
-
 <module-process.ttl#ReflectionLevel> a owl:Class ;
     rdfs:comment "Depth of reflection per Kember et al. (2008) framework.@en"^^xsd:string ;
     rdfs:subClassOf owl:Thing ;
@@ -537,6 +546,14 @@
     rdfs:subClassOf <module-process.ttl#LearningEvent> ;
     owl:equivalentClass [ a owl:Class ;
             owl:unionOf ( <module-process.ttl#PhysicalPrototyping> <module-process.ttl#ToolSharing> <module-process.ttl#GazingAtPeerWork> <module-process.ttl#IdleBehavior> <module-process.ttl#CelebrationGesture> <module-process.ttl#MaterialHoarding> <module-process.ttl#Gesturing> <module-process.ttl#Nodding> <module-process.ttl#FacialExpression> <module-process.ttl#WrittenExpression> ) ] .
+
+<module-process.ttl#Reflection> a owl:Class ;
+    rdfs:comment "A reflection product — e.g. a written journal entry or recorded reflective artifact — capturing metacognitive reflection on process or learning. Modeled as a product rather than an event: it carries the reflection text and its Kember depth level, while the observable events that express it are LearningEvent individuals linked via expressesReflection.@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+
+<module-process.ttl#LearningEvent> a owl:Class ;
+    rdfs:comment "Abstract parent for all observable learning behaviors (verbal and nonverbal).@en"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
 
 <module-process.ttl#DiscourseAction> a owl:Class ;
     rdfs:comment "Micro-level communicative intent capturing granular student discourse.@en"^^xsd:string ;
@@ -570,7 +587,7 @@
     rdf:rest ( <module-core.ttl#ClosingCeremony> ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( <module-process.ttl#Summarizing> <module-process.ttl#TaskManagement> <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+    owl:members ( <module-process.ttl#Summarizing> <module-process.ttl#TaskManagement> <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> <module-process.ttl#ReflectiveExpression> ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-process.ttl#Iteration> <module-process.ttl#Reflection> <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .

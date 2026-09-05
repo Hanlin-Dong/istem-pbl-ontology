@@ -269,7 +269,7 @@
 <module-anchor.ttl#isTriggeredByDiscourse> a owl:ObjectProperty ;
     rdfs:label "isTriggeredByDiscourse@en"^^xsd:string ;
     rdfs:domain <module-team.ttl#VirtualAgent> ;
-    rdfs:range <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#LearningEvent> ;
     owl:inverseOf <module-anchor.ttl#triggersAgent> .
 
 <module-anchor.ttl#tracesCompetency> a owl:ObjectProperty ;
@@ -280,8 +280,8 @@
 
 <module-anchor.ttl#triggersAgent> a owl:ObjectProperty ;
     rdfs:label "triggersAgent@en"^^xsd:string ;
-    rdfs:comment "Maps a DiscourseAction to the VirtualAgent that should respond. Trigger conditions encoded in SWRL rules. Cross-module: M3 → M4.@en"^^xsd:string ;
-    rdfs:domain <module-process.ttl#DiscourseAction> ;
+    rdfs:comment "Maps a LearningEvent (DiscourseAction, NonverbalAction, or InstructorIntervention) to the VirtualAgent that should respond. Trigger conditions encoded in SWRL rules. Cross-module: M3 → M4.@en"^^xsd:string ;
+    rdfs:domain <module-process.ttl#LearningEvent> ;
     rdfs:range <module-team.ttl#VirtualAgent> ;
     owl:inverseOf <module-anchor.ttl#isTriggeredByDiscourse> .
 
@@ -386,7 +386,7 @@
     rdf:rest ( <module-core.ttl#ClosingCeremony> ) .
 
 [] rdf:first <module-process.ttl#TaskManagement> ;
-    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> <module-process.ttl#ReflectiveExpression> ) .
 
 [] rdf:first <module-process.ttl#Reflection> ;
     rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
@@ -415,11 +415,11 @@
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-anchor.ttl#CrossDomainConceptRecognition> <module-anchor.ttl#AnalogicalTransfer> <module-anchor.ttl#IntegratedExplanation> ) .
 
-[] a owl:AllDisjointClasses ;
-    owl:members ( <module-anchor.ttl#EngineeringThinking> <module-anchor.ttl#CollaborativeTeamwork> <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
-
 [] rdf:first <module-core.ttl#SolutionIdeation> ;
     rdf:rest ( <module-core.ttl#ScientificInvestigation> <module-core.ttl#Implementation> <module-core.ttl#Evaluation> <module-core.ttl#CommunicationAndClosure> ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( <module-anchor.ttl#EngineeringThinking> <module-anchor.ttl#CollaborativeTeamwork> <module-anchor.ttl#InterdisciplinaryIntegration> <module-anchor.ttl#CreativityAndInnovation> <module-anchor.ttl#MetacognitiveSelfRegulation> ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-anchor.ttl#CompetencyDimension> <module-anchor.ttl#PerformanceTrace> <module-anchor.ttl#CompetencyProfile> ) .

@@ -143,9 +143,9 @@
 
 <module-team.ttl#hasDiscourseAction> a owl:ObjectProperty ;
     rdfs:label "has discourse action@en"^^xsd:string ;
-    rdfs:comment "An Actor produces a DiscourseAction. Completes the M3:M4 bridge.@en"^^xsd:string ;
+    rdfs:comment "An Actor produces a learning event (discourse or nonverbal). Completes the M3:M4 bridge. Range matches isAttributedTo's domain (LearningEvent) so nonverbal and instructor events are not entailed as DiscourseActions.@en"^^xsd:string ;
     rdfs:domain <module-team.ttl#Actor> ;
-    rdfs:range <module-process.ttl#DiscourseAction> ;
+    rdfs:range <module-process.ttl#LearningEvent> ;
     owl:inverseOf <module-process.ttl#isAttributedTo> .
 
 <module-team.ttl#hasTeam> a owl:ObjectProperty ;
@@ -394,7 +394,7 @@
     rdf:rest ( <module-core.ttl#ClosingCeremony> ) .
 
 [] rdf:first <module-process.ttl#TaskManagement> ;
-    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> <module-process.ttl#ReflectiveExpression> ) .
 
 [] rdf:first <module-process.ttl#Reflection> ;
     rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .

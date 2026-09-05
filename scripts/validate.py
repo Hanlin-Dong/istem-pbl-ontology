@@ -40,7 +40,7 @@ def check_covering_axioms(C):
                              "SocialBonding", "Agreement", "Disagreement",
                              "ClarificationQuestioning", "Summarizing", "TaskManagement",
                              "PeerTutoring", "CognitiveConflict", "TaskCoordination", "PeerAssessment",
-                             "DesignJustification", "ConstraintReasoningAction"]),
+                             "DesignJustification", "ConstraintReasoningAction", "ReflectiveExpression"]),
         (("NonverbalAction"), ["PhysicalPrototyping", "ToolSharing",
                              "GazingAtPeerWork", "IdleBehavior",
                              "CelebrationGesture", "MaterialHoarding",
@@ -154,6 +154,8 @@ def check_inverse_pairs(C):
         ("expressesPerspective", "isExpressedInAction"),
         ("directedToTeam", "isTargetedByAction"),
         ("referencesTeamWork", "isReferencedByTeam"),
+        # v4.1
+        ("expressesReflection", "isExpressedInLearningEvent"),
     ]
 
     for fwd_name, rev_name in inverse_pairs:

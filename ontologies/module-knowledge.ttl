@@ -282,7 +282,7 @@
     rdf:rest ( <module-core.ttl#ClosingCeremony> ) .
 
 [] rdf:first <module-process.ttl#TaskManagement> ;
-    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> <module-process.ttl#ReflectiveExpression> ) .
 
 [] rdf:first <module-process.ttl#Reflection> ;
     rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .

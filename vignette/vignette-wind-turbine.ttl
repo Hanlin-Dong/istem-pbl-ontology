@@ -375,7 +375,6 @@
     process:iterationTriggeredBy <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#DA_S2D_Principle> .
 
 <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#NVA_01_Bob_BuildBlades> a owl:NamedIndividual,
-        process:DiscourseAction,
         process:PhysicalPrototyping ;
     process:hasModality "physical"^^xsd:string ;
     process:isAttributedTo <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#Learner_Bob> ;
@@ -383,7 +382,6 @@
     process:timestamp "2026-03-09T10:20:00"^^xsd:dateTime .
 
 <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#NVA_02_Carol_ShareGlueGun> a owl:NamedIndividual,
-        process:DiscourseAction,
         process:ToolSharing ;
     process:hasModality "physical"^^xsd:string ;
     process:isAttributedTo <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#Learner_Carol> ;
@@ -391,7 +389,6 @@
     process:timestamp "2026-03-09T10:35:00"^^xsd:dateTime .
 
 <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#NVA_03_Carol_GestureAngle> a owl:NamedIndividual,
-        process:DiscourseAction,
         process:Gesturing ;
     process:hasModality "gestural"^^xsd:string ;
     process:isAttributedTo <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#Learner_Carol> ;
@@ -399,7 +396,6 @@
     process:timestamp "2026-03-09T10:25:00"^^xsd:dateTime .
 
 <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-process.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#NVA_04_Alice_NodAgree> a owl:NamedIndividual,
-        process:DiscourseAction,
         process:Nodding ;
     process:hasModality "gestural"^^xsd:string ;
     process:isAttributedTo <https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/ontologies/module-team.ttl#https://raw.githubusercontent.com/Hanlin-Dong/istem-pbl-ontology/main/vignette/vignette-wind-turbine.ttl#Learner_Alice> ;

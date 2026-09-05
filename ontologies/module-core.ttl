@@ -337,13 +337,13 @@
     rdf:rest ( <module-process.ttl#Disagreement> <module-process.ttl#PeerEncouragement> <module-process.ttl#EmotiveExpression> ) .
 
 [] rdf:first <module-process.ttl#TaskManagement> ;
-    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> ) .
-
-[] rdf:first <module-process.ttl#Reflection> ;
-    rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
+    rdf:rest ( <module-process.ttl#Demonstration> <module-process.ttl#SerendipitousDiscovery> <module-process.ttl#ReflectiveExpression> ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( <module-core.ttl#DesignActivity> <module-core.ttl#MakingActivity> <module-core.ttl#InquiryActivity> ) .
+
+[] rdf:first <module-process.ttl#Reflection> ;
+    rdf:rest ( <module-process.ttl#ReflectionLevel> <module-process.ttl#IterationOutcome> <module-process.ttl#DiscourseAction> ) .
 
 [] rdf:first <module-core.ttl#Phase> ;
     rdf:rest ( <module-core.ttl#Activity> ) .
